@@ -1,0 +1,31 @@
+.favorite-wrap {
+    vertical-align: top;
+    padding: 12;
+    margin-right: 16;
+}
+
+.icon-image {
+    vertical-align: center;
+    border-color: black;
+    border-width: 1;
+}
+
+.info-bigger {
+    color: #555555;
+    font-size: 17;
+    margin: 0;
+}
+
+.info-orange {
+    font-size: 12;
+    color: #A17201;
+    margin: 0;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.info-wrap {
+    vertical-align: center;
+}
