@@ -6,7 +6,7 @@
     <GridLayout>
         <GridLayout row="0">
             <ScrollView>
-                <ListView items="{{ movies }}">
+                <ListView items="{{ movies }}" itemTap="selectMovie">
                     <ListView.itemTemplate>
                         <GridLayout rows="auto" columns="auto, *">
                             <GridLayout col="0" columns="auto, auto, auto" rows="auto" class="favorite-wrap" tap="toggleFavorite">
