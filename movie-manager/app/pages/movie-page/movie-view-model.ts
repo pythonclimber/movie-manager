@@ -1,11 +1,25 @@
 import { Observable } from "tns-core-modules/ui/page/page";
 import { Movie } from "../../shared/interfaces";
+import * as favoriteService from '../../services/favorites-service';
 
 export class MovieViewModel extends Observable implements Movie {
     private _movie: Movie;
+    private _favorite: boolean;
+
     constructor(movie: Movie) {
         super();
         this._movie = movie;
+    }
+
+    get _id(): string {
+        return this._movie._id;
+    }
+
+    set _id(value: string) {
+        if (value !== this._movie._id) {
+            this._movie._id = value;
+            this.notifyPropertyChange('_id', value);
+        }
     }
 
     get title(): string {
@@ -53,17 +67,22 @@ export class MovieViewModel extends Observable implements Movie {
     }
 
     get favorite(): boolean {
-        return this._movie.favorite;
+        return this._favorite;
     }
 
     set favorite(value: boolean) {
-        if (value !== this._movie.favorite) {
-            this._movie.favorite = value;
-            this.notifyPropertyChange('favorite', value);
-        }
+         if (this._favorite !== value) {
+             this._favorite = value;
+             this.notifyPropertyChange('favorite', value);
+         }
     }
 
     public toggleFavorite(): void {
         this.favorite = !this.favorite;
+        if (this.favorite) {
+            favoriteService.addToFavorites(this);
+        } else {
+            favoriteService.removeFromFavorites(this);
+        }
     }
 }
