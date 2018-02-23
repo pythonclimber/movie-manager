@@ -27,7 +27,7 @@ export function removeFromFavorites(movie: MovieViewModel) {
     }
 }
 
-export function persistFavorites() {
+function persistFavorites() {
     var jsonString = JSON.stringify(favorites);
     console.log(jsonString, favorites);
     appSettingsModule.setString(FAVORITES_KEY, jsonString);

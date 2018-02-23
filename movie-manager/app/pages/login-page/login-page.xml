@@ -1,0 +1,16 @@
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" navigatingTo="navigatingTo" class="page">
+    <Page.actionBar>
+        <ActionBar title="Gnarly Movie Manager" icon="" class="action-bar">
+        </ActionBar>
+    </Page.actionBar>
+    <GridLayout rows="*">
+        <StackLayout class="login-wrap">
+            <Label text="Username:" />
+            <TextField text="{{ username }}" autocorrect="false" />
+            <Label text="Password:" />
+            <TextField text="{{ password }}" secure="true" autocorrect="false" />
+            <Label visibility="{{ loginError ? 'visible' : 'collapsed' }}" text="Invalid username or password" class="login-error" />
+            <Button tap="{{ processLogin }}" text="Login" />
+        </StackLayout>
+    </GridLayout>
+</Page>

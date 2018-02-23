@@ -45,6 +45,30 @@ export class MoviesService {
         }
     }
 
+    addMovie(movie: MovieViewModel) {
+        let data: Movie = {
+            title: movie.title,
+            description: movie.description,
+            _id: movie._id,
+            userId: movie.userId,
+            director: movie.director
+        };
+
+        console.log('Adding movie');
+        http.request({
+            url: 'https://ohgnarly.herokuapp.com/movie',
+            method: 'POST',
+            headers: { "Content-Type": "application/json" },
+            content: JSON.stringify(data)
+        }).then(response => {
+            console.log(response.content.toJSON());
+        }, e => {
+            console.log('An error occurred: ' + e)
+        }).catch(response => {
+            console.log('An error occurred: ' + response);
+        });
+    }
+
     private loadFakeMovies<T>(): Promise<T> {
         return new Promise<T>((resolve, reject) => {
             resolve(movies);

@@ -9,3 +9,8 @@ export interface Movie {
 export interface FavoriteMovie {
     movieId: string
 }
+
+export interface SavedCredentials {
+    username: string;
+    password: string;
+}

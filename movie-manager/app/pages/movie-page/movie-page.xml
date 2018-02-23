@@ -1,2 +1,12 @@
 <Page xmlns="http://schemas.nativescript.org/tns.xsd" class="page">
+    <Page.actionBar>
+        <ActionBar title="Gnarly Movie Manager" icon="" class="action-bar">
+        </ActionBar>
+    </Page.actionBar>
+    <GridLayout class="action-bar" colSpan="2">
+        <StackLayout tap="backTap" orientation="horizontal" class="action-wrap" horizontalAlignment="left" verticalAlignment="center">
+            <Image stretch="none" class="icon-image" src="res://ic_arrow_back"/>
+            <Label text="Back" class="back-text" />
+        </StackLayout>
+    </GridLayout>
 </Page>

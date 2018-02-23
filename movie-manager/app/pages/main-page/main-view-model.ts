@@ -27,6 +27,6 @@ export class MainPageViewModel extends Observable {
                     }
                     this.movies.push(movieModel);
                 }
-            })
+            });
     }
 }
