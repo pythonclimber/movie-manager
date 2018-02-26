@@ -1,14 +1,33 @@
 import { Observable } from "tns-core-modules/ui/page/page";
 import { Movie } from "../../shared/interfaces";
 import * as favoriteService from '../../services/favorites-service';
+import { MoviesService } from '../../services/movies-service';
+import { ImageSource } from "tns-core-modules/image-source/image-source";
+import * as imageService from '../../services/image-service';
 
 export class MovieViewModel extends Observable implements Movie {
     private _movie: Movie;
     private _favorite: boolean;
+    private _imageSource: ImageSource;
 
     constructor(movie: Movie) {
         super();
         this._movie = movie;
+    }
+
+    public getDetails() {
+        let movieService = new MoviesService();
+        movieService.getMovieDetails<any>(this._movie.onlineId).then(response => {
+            if (response.success) {
+                let movie = response.movie;
+                this._movie = movie;
+                if (movie.poster) {
+                    imageService.getImageFromHttp(movie.poster).then(imageSource => {
+                        this.imageSource = imageSource;
+                    });
+                }
+            }
+        });
     }
 
     get _id(): string {
@@ -75,6 +94,28 @@ export class MovieViewModel extends Observable implements Movie {
              this._favorite = value;
              this.notifyPropertyChange('favorite', value);
          }
+    }
+
+    get imageSource(): ImageSource {
+        return this._imageSource;
+    }
+
+    set imageSource(value: ImageSource) {
+        if (value !== this._imageSource) {
+            this._imageSource = value;
+            this.notifyPropertyChange('imageSource', value);
+        }
+    }
+
+    get onlineId(): string {
+        return this._movie.onlineId;
+    }
+
+    set onlineId(value: string) {
+        if (value !== this._movie.onlineId) {
+            this._movie.onlineId = value;
+            this.notifyPropertyChange('onlineId', value)
+        }
     }
 
     public toggleFavorite(): void {

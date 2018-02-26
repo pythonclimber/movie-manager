@@ -8,6 +8,7 @@ import { ItemEventData } from 'ui/list-view';
 
 export function navigatingTo(args: EventData) {
     let page = <Page>args.object;
+    page.actionBarHidden = true;
     page.bindingContext = new MainPageViewModel();
 }
 

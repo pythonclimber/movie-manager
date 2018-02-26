@@ -1,12 +1,21 @@
-<Page xmlns="http://schemas.nativescript.org/tns.xsd" class="page">
-    <Page.actionBar>
-        <ActionBar title="Gnarly Movie Manager" icon="" class="action-bar">
-        </ActionBar>
-    </Page.actionBar>
-    <GridLayout class="action-bar" colSpan="2">
-        <StackLayout tap="backTap" orientation="horizontal" class="action-wrap" horizontalAlignment="left" verticalAlignment="center">
-            <Image stretch="none" class="icon-image" src="res://ic_arrow_back"/>
-            <Label text="Back" class="back-text" />
-        </StackLayout>
-    </GridLayout>
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" class="page" navigatingTo="navigatingTo">
+    <StackLayout>
+        <GridLayout class="action-bar" columns="*, auto">
+            <StackLayout tap="backTap" orientation="horizontal" class="action-wrap" horizontalAlignment="left" verticalAlignment="center">
+                <!-- <Image stretch="none" class="icon-image" src="res://ic_arrow_back"/> -->
+                <Label text="Back" class="back-text" />
+            </StackLayout>
+        </GridLayout>
+        <GridLayout columns="auto, *" rows="auto, *">
+            <GridLayout class="image-layout">
+                <Image src="{{ imageSource }}" stretch="aspectFill" width="100" height="150" horizontalAlignment="left" verticalAlignment="top" />
+            </GridLayout>
+            <StackLayout class="title-layout" col="1">
+                <Label text="{{ title }}" class="main-title" />
+                <Label text="{{ director }}" />
+            </StackLayout>
+            <GridLayout rows="auto" columns="auto" row="1">
+            </GridLayout>
+        </GridLayout>
+    </StackLayout>
 </Page>

@@ -4,4 +4,4 @@ import * as navigationModule from './shared/navigation';
 
 let mainModule = navigationModule.startingPage();
 application.setCssFileName('app.css');
-application.start({ moduleName: mainModule });
+application.start({ moduleName: mainModule, backstackVisible: false });

@@ -4,6 +4,14 @@ export interface Movie {
     description: string;
     userId: string;
     director: string;
+    onlineId: string;
+    year?: number;
+    runtime?: string;
+    genres?: string;
+    writer?: string;
+    actors?: string;
+    plot?: string;
+    poster?: string;
 }
 
 export interface FavoriteMovie {

@@ -18,3 +18,18 @@
     margin-left: 2;
     vertical-align: center;
 }
+
+.main-title {
+    font-size: 18;
+    color: black;
+}
+
+.director-info {
+    font-size: 14;
+    color: grey;
+}
+
+.title-layout {
+    background-color: orangered;
+    vertical-align: center;
+}
