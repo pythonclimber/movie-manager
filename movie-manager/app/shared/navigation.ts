@@ -14,7 +14,8 @@ export function navigateToMovie(movie: MovieViewModel) {
 
 export function navigateToMainPage(userId: string) {
     frameModule.topmost().navigate({
-        moduleName: 'pages/main-page/main-page'
+        moduleName: 'pages/main-page/main-page',
+        backstackVisible: false
     })
 }
 

@@ -12,6 +12,7 @@ export class MainPageViewModel extends Observable {
         super();
         this.movieService = new MoviesService();
         this.movies = new Array<MovieViewModel>();
+        console.log('initializing');
         this.init();
     }
 
@@ -27,6 +28,7 @@ export class MainPageViewModel extends Observable {
                     }
                     this.movies.push(movieModel);
                 }
+                console.log('movies', this.movies.length);
             });
     }
 }
