@@ -6,5 +6,6 @@ import * as loginService from '../../services/login-service';
 
 export function navigatingTo(args: EventData) {
     let page = <Page>args.object;
+    page.actionBarHidden = true;
     page.bindingContext = new LoginViewModel();
 }

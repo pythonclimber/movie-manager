@@ -15,9 +15,9 @@ export class MovieViewModel extends Observable implements Movie {
         this._movie = movie;
     }
 
-    public getDetails() {
+    public getDetails(): Promise<any> {
         let movieService = new MoviesService();
-        movieService.getMovieDetails<any>(this._movie.onlineId).then(response => {
+        return movieService.getMovieDetails<any>(this._movie.onlineId).then(response => {
             if (response.success) {
                 let movie = response.movie;
                 this._movie = movie;
@@ -26,8 +26,13 @@ export class MovieViewModel extends Observable implements Movie {
                         this.imageSource = imageSource;
                     });
                 }
+                this.notifyPropertyChange('movie', movie);
             }
         });
+    }
+
+    get movie(): Movie {
+        return this._movie;
     }
 
     get _id(): string {

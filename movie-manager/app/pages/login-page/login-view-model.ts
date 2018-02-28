@@ -56,7 +56,7 @@ export class LoginViewModel extends Observable {
         loginService.processLogin(this.username, this.password).then(loginResponse => {
             if (loginResponse.success) {
                 console.log('login success');
-                loginService.addCredentials({username: this.username, password: this.password});
+                loginService.addCredentials({username: this.username, password: this.password, userId: loginResponse.userId});
                 navigationModule.navigateToMainPage(loginResponse.userId);
             } else {
                 this.loginError = true;

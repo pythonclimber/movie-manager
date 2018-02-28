@@ -7,14 +7,14 @@
         </GridLayout>
         <GridLayout columns="auto, *" rows="auto, *">
             <GridLayout class="image-layout">
-                <Image src="{{ imageSource }}" stretch="aspectFill" width="100" height="150" horizontalAlignment="left" verticalAlignment="top" />
+                <Image src="{{ imageSource }}" stretch="aspectFill" width="120" height="180" horizontalAlignment="left" verticalAlignment="top" />
             </GridLayout>
             <StackLayout class="title-layout" col="1">
-                <Label text="{{ title }}" class="main-title" textWrap="true" />
-                <Label text="{{ director }}" />
+                <Label text="{{ movie.title }}" class="main-title" textWrap="true" />
+                <Label text="{{ movie.director }}" />
             </StackLayout>
-            <GridLayout rows="auto" columns="auto" row="1" class="plot-layout">
-                <Label  text="{{ plot }}" />
+            <GridLayout row="1" colSpan="2" class="plot-layout">
+                <Label  text="{{ movie.plot }}" textWrap="true" />
             </GridLayout>
         </GridLayout>
     </StackLayout>

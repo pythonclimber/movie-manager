@@ -21,4 +21,5 @@ export interface FavoriteMovie {
 export interface SavedCredentials {
     username: string;
     password: string;
+    userId: string;
 }

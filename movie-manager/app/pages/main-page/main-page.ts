@@ -19,5 +19,7 @@ export function toggleFavorite(args: GestureEventData) {
 
 export function selectMovie(args: ItemEventData) {
     let movie = <MovieViewModel>args.view.bindingContext;
-    navigationModule.navigateToMovie(movie);
+    movie.getDetails().then(() => {
+        navigationModule.navigateToMovie(movie);
+    });
 }
