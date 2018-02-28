@@ -32,3 +32,8 @@
 .title-layout {
     vertical-align: center;
 }
+
+.plot-layout {
+    background-color: darkorange;
+    vertical-align: top;
+}

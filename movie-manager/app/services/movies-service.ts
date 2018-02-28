@@ -98,7 +98,7 @@ export class MoviesService {
 
     private loadMovieDetailsFromHttp<T>(onlineId: string): Promise<T> {
         let requestParams = {
-            url: `http://ohgnarly.herokuapp.com/movie-details/${onlineId}`,
+            url: `https://ohgnarly.herokuapp.com/movie-details/${onlineId}`,
             method: 'GET'
         };
         return http.getJSON<T>(requestParams);

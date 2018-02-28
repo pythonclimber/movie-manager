@@ -17,7 +17,9 @@ export class MovieViewModel extends Observable implements Movie {
 
     public getDetails(): Promise<any> {
         let movieService = new MoviesService();
+        console.log('starting fetch')
         return movieService.getMovieDetails<any>(this._movie.onlineId).then(response => {
+            console.log('got response', response);
             if (response.success) {
                 let movie = response.movie;
                 this._movie = movie;
@@ -28,6 +30,8 @@ export class MovieViewModel extends Observable implements Movie {
                 }
                 this.notifyPropertyChange('movie', movie);
             }
+        }).catch(error => {
+            console.log(error);
         });
     }
 
