@@ -5,6 +5,7 @@ import { Page, NavigatedData } from 'ui/page';
 import { MovieViewModel } from './movie-view-model';
 
 export function backTap(args: GestureEventData) {
+    console.log('back tapping');
     navigationModule.backOnePage();
 }
 

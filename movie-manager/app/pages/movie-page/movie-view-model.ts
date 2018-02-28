@@ -107,6 +107,17 @@ export class MovieViewModel extends Observable implements Movie {
         }
     }
 
+    get plot(): string {
+        return this._movie.plot;
+    }
+
+    set plot(value: string) {
+        if (value !== this._movie.plot) {
+            this._movie.plot = value;
+            this.notifyPropertyChange('plot', value);
+        }
+    }
+
     get onlineId(): string {
         return this._movie.onlineId;
     }

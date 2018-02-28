@@ -30,6 +30,9 @@
 }
 
 .title-layout {
-    background-color: orangered;
     vertical-align: center;
+}
+
+.plot-layout {
+    background-color: grey;
 }
