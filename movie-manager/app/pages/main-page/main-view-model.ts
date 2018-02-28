@@ -5,13 +5,17 @@ import { Movie } from '../../shared/interfaces';
 import * as favoriteService from '../../services/favorites-service';
 
 export class MainPageViewModel extends Observable {
-    public movies: MovieViewModel[];
+    private _movies: MovieViewModel[];
     public movieService: MoviesService;
+
+    get movies(): MovieViewModel[] {
+        return this._movies;
+    }
 
     constructor() {
         super();
         this.movieService = new MoviesService();
-        this.movies = new Array<MovieViewModel>();
+        this._movies = new Array<MovieViewModel>();
         console.log('initializing');
         this.init();
     }
@@ -20,15 +24,17 @@ export class MainPageViewModel extends Observable {
         this.movieService
             .getMovies<Array<Movie>>()
             .then(movies => {
+                let movieViewModels = new Array<MovieViewModel>();
                 for (let movie of movies) {
                     let movieModel = new MovieViewModel(movie);
                     let indexInFavorites = favoriteService.findMovieIndexInFavorites(movie._id);
                     if (indexInFavorites >= 0) {
                         movieModel.favorite = true;
                     }
-                    this.movies.push(movieModel);
+                    movieViewModels.push(movieModel);
                 }
-                console.log('movies', this.movies.length);
+                this._movies = movieViewModels;
+                this.notify({object: this, eventName: Observable.propertyChangeEvent, propertyName: 'movies', value: this.movies});
             });
     }
 }
