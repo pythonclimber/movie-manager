@@ -23,3 +23,7 @@ export function selectMovie(args: ItemEventData) {
         navigationModule.navigateToMovie(movie);
     });
 }
+
+export function searchTap(args: GestureEventData) {
+    navigationModule.
+}

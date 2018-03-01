@@ -21,3 +21,9 @@ export function navigateToMainPage(userId: string) {
 export function backOnePage() {
     frameModule.topmost().goBack();
 }
+
+export function navigateToSearchPage() {
+    frameModule.topmost().navigate({
+        moduleName: 'pages/search-page/search-page'
+    });
+}
