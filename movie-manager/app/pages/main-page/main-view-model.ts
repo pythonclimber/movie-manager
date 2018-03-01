@@ -12,6 +12,10 @@ export class MainPageViewModel extends Observable {
         return this._movies;
     }
 
+    get searchText(): string {
+        return 'search';
+    }
+
     constructor() {
         super();
         this.movieService = new MoviesService();

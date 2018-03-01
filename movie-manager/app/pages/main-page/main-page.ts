@@ -25,5 +25,5 @@ export function selectMovie(args: ItemEventData) {
 }
 
 export function searchTap(args: GestureEventData) {
-    navigationModule.
+    navigationModule.navigateToSearchPage();
 }

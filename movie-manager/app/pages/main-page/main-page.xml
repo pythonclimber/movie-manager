@@ -1,7 +1,9 @@
 <Page xmlns="http://schemas.nativescript.org/tns.xsd" navigatingTo="navigatingTo" class="page">
     <StackLayout>
         <GridLayout class="action-bar" columns="*, auto">
-            <StackLayout tap="searchTap" orientation="horizontal" class="action-wrap" horizontalAlignment="right" verticalAlignment="center">
+            <StackLayout>
+            </StackLayout>
+            <StackLayout col="1" tap="searchTap" orientation="horizontal" class="action-wrap" horizontalAlignment="left" verticalAlignment="center">
                 <Label text="Search" class="back-text" />
             </StackLayout>
         </GridLayout>
