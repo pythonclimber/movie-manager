@@ -13,7 +13,7 @@
             </StackLayout>
             <GridLayout row="1" columns="*">
                 <ScrollView>
-                    <ListView items="{{ searchResults }}" itemTap="selectMovie">
+                    <ListView items="{{ searchResults }}" itemTap="selectMovie" visibility="{{ searchResults.length == 0 ? 'collapse' : 'visible' }}">
                         <ListView.itemTemplate>
                             <GridLayout columns="auto, *" rows="auto">
                                 <GridLayout col="0" columns="auto">

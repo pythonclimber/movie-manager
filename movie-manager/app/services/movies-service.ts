@@ -78,6 +78,7 @@ export class MoviesService {
     }
 
     onlineMovieSearch<T>(title: string): Promise<T> {
+        console.log('searching from service ', title);
         return this.loadSearchResultsFromHttp<T>(title);
     }
 
@@ -90,7 +91,7 @@ export class MoviesService {
     private loadMoviesFromHttp<T>(): Promise<T> {
         //return new Promise<T>(() => {});
         let requestParams = {
-            url: 'http://ohgnarly.herokuapp.com/movies/58cb3e444c8d5f6b7cdd71f6',
+            url: 'https://ohgnarly.herokuapp.com/movies/58cb3e444c8d5f6b7cdd71f6',
             method: 'GET'
         }
         return http.getJSON<T>(requestParams);
@@ -106,7 +107,7 @@ export class MoviesService {
 
     private loadSearchResultsFromHttp<T>(title: string): Promise<T> {
         let requestParams = {
-            url: encodeURI(`http://ohgnarly.herokuapp.com/movie-search/${title}`),
+            url: encodeURI(`https://ohgnarly.herokuapp.com/movie-search/${title}`),
             method: 'GET'
         };
         return http.getJSON<T>(requestParams);
