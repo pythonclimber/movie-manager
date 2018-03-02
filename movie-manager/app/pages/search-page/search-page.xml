@@ -5,5 +5,8 @@
                 <Label text="Back" class="back-text" />
             </StackLayout>
         </GridLayout>
+        <GridLayout columns="*" rows="auto" class="search-text-layout">
+            <TextField text="{{ searchText }}" hint="Search movie title..." />
+        </GridLayout>
     </StackLayout>
 </Page>
