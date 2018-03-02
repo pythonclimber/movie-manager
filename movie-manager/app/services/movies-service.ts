@@ -77,6 +77,10 @@ export class MoviesService {
         return this.loadMovieDetailsFromHttp<T>(onlineId);
     }
 
+    onlineMovieSearch<T>(title: string): Promise<T> {
+        return this.loadSearchResultsFromHttp<T>(title);
+    }
+
     private loadFakeMovies<T>(): Promise<T> {
         return new Promise<T>((resolve, reject) => {
             resolve(movies);
@@ -95,6 +99,14 @@ export class MoviesService {
     private loadMovieDetailsFromHttp<T>(onlineId: string): Promise<T> {
         let requestParams = {
             url: `http://ohgnarly.herokuapp.com/movie-details/${onlineId}`,
+            method: 'GET'
+        };
+        return http.getJSON<T>(requestParams);
+    }
+
+    private loadSearchResultsFromHttp<T>(title: string): Promise<T> {
+        let requestParams = {
+            url: encodeURI(`http://ohgnarly.herokuapp.com/movie-search/${title}`),
             method: 'GET'
         };
         return http.getJSON<T>(requestParams);

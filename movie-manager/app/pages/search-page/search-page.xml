@@ -5,8 +5,29 @@
                 <Label text="Back" class="back-text" />
             </StackLayout>
         </GridLayout>
-        <GridLayout columns="*" rows="auto" class="search-text-layout">
-            <TextField text="{{ searchText }}" hint="Search movie title..." />
+        <GridLayout columns="*" rows="auto, *" class="search-text-layout">
+            <StackLayout>
+                <TextField text="{{ searchText }}" hint="Search movie title..." />
+                <Label text="A value is required to perform a search" color="red" visibility="{{ searchError ? 'visible' : 'collapse' }}" />
+                <Button text="Search" tap="{{ searchForMovie }}" />
+            </StackLayout>
+            <GridLayout row="1" columns="*">
+                <ScrollView>
+                    <ListView items="{{ searchResults }}" itemTap="selectMovie">
+                        <ListView.itemTemplate>
+                            <GridLayout columns="auto, *" rows="auto">
+                                <GridLayout col="0" columns="auto">
+                                    <Image class="icon-image" src="{{ imageSource }}" width="30" height="45" />
+                                </GridLayout>
+                                <StackLayout col="1">
+                                    <Label text="{{ title }}" class="info-bigger" />
+                                    <Label text="{{ year }}" class="info-orange" />
+                                </StackLayout>
+                            </GridLayout>
+                        </ListView.itemTemplate>
+                    </ListView>
+                </ScrollView>
+            </GridLayout>
         </GridLayout>
     </StackLayout>
 </Page>

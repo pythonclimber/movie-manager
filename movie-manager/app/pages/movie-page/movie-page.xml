@@ -14,7 +14,9 @@
                 <Label text="{{ movie.director }}" />
             </StackLayout>
             <GridLayout row="1" colSpan="2" class="plot-layout">
-                <Label  text="{{ movie.plot }}" textWrap="true" />
+                <ScrollView>
+                    <Label  text="{{ movie.plot }}" textWrap="true" />
+                </ScrollView>
             </GridLayout>
         </GridLayout>
     </StackLayout>

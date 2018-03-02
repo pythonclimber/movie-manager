@@ -23,3 +23,11 @@ export interface SavedCredentials {
     password: string;
     userId: string;
 }
+
+export interface SearchResult {
+    title: string;
+    year: string;
+    imdbid: string;
+    type: string;
+    poster: string;
+}

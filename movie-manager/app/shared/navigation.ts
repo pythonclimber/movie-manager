@@ -2,7 +2,7 @@ import * as frameModule from 'ui/frame';
 import { MovieViewModel } from '../pages/movie-page/movie-view-model';
 
 export function startingPage() {
-    return 'pages/login-page/login-page'
+    return 'pages/search-page/search-page'
 }
 
 export function navigateToMovie(movie: MovieViewModel) {

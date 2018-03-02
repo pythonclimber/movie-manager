@@ -2,7 +2,7 @@ import { Observable } from "tns-core-modules/ui/page/page";
 import { Movie } from "../../shared/interfaces";
 import * as favoriteService from '../../services/favorites-service';
 import { MoviesService } from '../../services/movies-service';
-import { ImageSource } from "tns-core-modules/image-source/image-source";
+import { ImageSource } from "image-source";
 import * as imageService from '../../services/image-service';
 
 export class MovieViewModel extends Observable implements Movie {

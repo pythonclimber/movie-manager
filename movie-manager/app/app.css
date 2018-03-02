@@ -3,3 +3,15 @@
 .btn {
     font-size: 18;
 }
+
+.info-bigger {
+    color: #555555;
+    font-size: 17;
+    margin: 0;
+}
+
+.info-orange {
+    font-size: 12;
+    color: #A17201;
+    margin: 0;
+}
