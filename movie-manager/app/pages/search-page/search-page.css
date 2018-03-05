@@ -1,20 +1,4 @@
-.action-bar {
-    height: 44;
-    vertical-align: top;
-}
-
-.action-wrap {
-    padding-left: 12;
-    padding-right: 12;
-}
-
-.icon-image {
-    vertical-align: center;
-}
-
-.back-text {
-    color: black;
-    font-size: 17;
-    margin-left: 2;
-    vertical-align: center;
+.search-text {
+    color: white;
+    placeholder-color: white;
 }

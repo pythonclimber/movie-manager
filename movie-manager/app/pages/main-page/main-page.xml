@@ -1,9 +1,7 @@
 <Page xmlns="http://schemas.nativescript.org/tns.xsd" navigatingTo="navigatingTo" class="page">
     <StackLayout>
         <GridLayout class="action-bar" columns="*, auto">
-            <StackLayout>
-            </StackLayout>
-            <StackLayout col="1" tap="searchTap" orientation="horizontal" class="action-wrap" horizontalAlignment="left" verticalAlignment="center">
+            <StackLayout col="0" tap="searchTap" orientation="horizontal" class="action-wrap" horizontalAlignment="left" verticalAlignment="center">
                 <Label text="Search" class="back-text" />
             </StackLayout>
         </GridLayout>
@@ -14,7 +12,7 @@
                         <ListView.itemTemplate>
                             <GridLayout rows="auto" columns="auto, *">
                                 <GridLayout col="0" columns="auto" rows="auto" class="favorite-wrap" tap="toggleFavorite">
-                                    <Image class="icon-image" src="{{ favorite ? 'res://ic_add_to_fav_1' : 'res://ic_add_to_fav' }}" />
+                                    <Image class="icon-image" src="{{ favorite ? 'res://star_green' : 'res://star_white' }}" />
                                 </GridLayout>
                                 <StackLayout col="1" class="info-wrap">
                                     <Label text="{{ title }}" class="bold info-bigger" />
@@ -25,6 +23,7 @@
                     </ListView>
                 </ScrollView>
             </GridLayout>
+            <ActivityIndicator busy="{{ isLoading }}" row="1" horizontalAlignment="center" verticalAlignment="center" />
         </GridLayout>
     </StackLayout>
 </Page>

@@ -2,16 +2,49 @@
 
 .btn {
     font-size: 18;
+    background-color: #009940;
+    color: white;
+    width: 200;
+    height: 50;
 }
 
+
 .info-bigger {
-    color: #555555;
+    /* color: #555555 */
+    color: #fff4e0;
     font-size: 17;
     margin: 0;
 }
 
 .info-orange {
     font-size: 12;
-    color: #A17201;
+    color: #009940;
     margin: 0;
+}
+
+.page {
+    background-color: #2b2c2d;
+    color: white;
+}
+
+.action-bar {
+    height: 44;
+    vertical-align: top;
+    /* background-color: #2b2c2d; */
+}
+
+.action-wrap {
+    padding-left: 12;
+    padding-right: 12;
+}
+
+.icon-image {
+    vertical-align: center;
+}
+
+.back-text {
+    color: #2b2c2d;
+    font-size: 17;
+    margin-left: 2;
+    vertical-align: center;
 }

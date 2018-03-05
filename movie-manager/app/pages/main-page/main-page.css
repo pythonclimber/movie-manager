@@ -4,12 +4,6 @@
     margin-right: 16;
 }
 
-.icon-image {
-    vertical-align: center;
-    /* border-color: black;
-    border-width: 1; */
-}
-
 .bold {
     font-weight: bold;
 }
@@ -18,23 +12,6 @@
     vertical-align: center;
 }
 
-.action-bar {
-    height: 44;
-    vertical-align: top;
-}
-
-.action-wrap {
-    padding-left: 12;
-    padding-right: 12;
-}
-
-.icon-image {
-    vertical-align: center;
-}
-
-.back-text {
-    color: black;
-    font-size: 17;
-    margin-left: 2;
-    vertical-align: center;
+.activity-indicator {
+    background-color: red;
 }

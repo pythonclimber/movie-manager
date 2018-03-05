@@ -22,6 +22,7 @@ export function processLogin(username: string, password: string) {
         headers: { "Content-Type": "application/json" },
         content: JSON.stringify(data)
     }).then(response => {
+        console.log(response);
         return response.content.toJSON();
     }, error => {
         console.log('An error has occurred: ' + error);

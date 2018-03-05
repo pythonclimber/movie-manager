@@ -4,9 +4,10 @@ import { MovieViewModel } from '../movie-page/movie-view-model';
 import { Movie } from '../../shared/interfaces';
 import * as favoriteService from '../../services/favorites-service';
 
-export class MainPageViewModel extends Observable {
+export class MainViewModel extends Observable {
     private _movies: MovieViewModel[];
     public movieService: MoviesService;
+    private _isLoading: boolean;
 
     get movies(): MovieViewModel[] {
         return this._movies;
@@ -16,12 +17,23 @@ export class MainPageViewModel extends Observable {
         return 'search';
     }
 
+    get isLoading(): boolean {
+        return this._isLoading;
+    }
+
+    set isLoading(value: boolean) {
+        if (value !== this._isLoading) {
+            this._isLoading = value;
+            this.notifyPropertyChange('isLoading', value);
+        }
+    }
+
     constructor() {
         super();
         this.movieService = new MoviesService();
         this._movies = new Array<MovieViewModel>();
-        console.log('initializing');
         this.init();
+        this._isLoading = false;
     }
 
     init(): void {

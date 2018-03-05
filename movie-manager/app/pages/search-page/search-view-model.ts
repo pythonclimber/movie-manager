@@ -8,6 +8,7 @@ export class SearchViewModel extends Observable {
     private _movieService: MoviesService;
     private _searchResults: Array<SearchResultViewModel>;
     private _searchError: boolean;
+    private _isLoading: boolean;
 
     get searchText(): string {
         return this._searchText;
@@ -17,6 +18,17 @@ export class SearchViewModel extends Observable {
         if (value !== this._searchText) {
             this._searchText = value;
             this.notifyPropertyChange('searchText', value);
+        }
+    }
+
+    get isLoading(): boolean {
+        return this._isLoading;
+    }
+
+    set isLoading(value: boolean) {
+        if (value !== this._isLoading) {
+            this._isLoading = value;
+            this.notifyPropertyChange('isLoading', value);
         }
     }
 

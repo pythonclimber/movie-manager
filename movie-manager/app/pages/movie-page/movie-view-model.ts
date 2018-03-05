@@ -1,18 +1,23 @@
 import { Observable } from "tns-core-modules/ui/page/page";
-import { Movie } from "../../shared/interfaces";
+import { Movie, SearchResult } from "../../shared/interfaces";
 import * as favoriteService from '../../services/favorites-service';
 import { MoviesService } from '../../services/movies-service';
 import { ImageSource } from "image-source";
 import * as imageService from '../../services/image-service';
+import { SearchResultViewModel } from "../search-page/search-result-view-model";
 
 export class MovieViewModel extends Observable implements Movie {
     private _movie: Movie;
     private _favorite: boolean;
     private _imageSource: ImageSource;
+    private _searchResult: SearchResultViewModel;
 
-    constructor(movie: Movie) {
+    
+
+    constructor(movie: Movie, searchResult?: SearchResultViewModel) {
         super();
         this._movie = movie;
+        this._searchResult = searchResult;
     }
 
     public getDetails(): Promise<any> {
@@ -33,6 +38,10 @@ export class MovieViewModel extends Observable implements Movie {
         }).catch(error => {
             console.log(error);
         });
+    }
+
+    get searchResult(): SearchResultViewModel {
+        return this._searchResult;
     }
 
     get movie(): Movie {

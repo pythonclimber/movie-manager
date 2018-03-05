@@ -1,27 +1,6 @@
-.action-bar {
-    height: 44;
-    vertical-align: top;
-}
-
-.action-wrap {
-    padding-left: 12;
-    padding-right: 12;
-}
-
-.icon-image {
-    vertical-align: center;
-}
-
-.back-text {
-    color: black;
-    font-size: 17;
-    margin-left: 2;
-    vertical-align: center;
-}
-
 .main-title {
     font-size: 18;
-    color: black;
+    color: white;
 }
 
 .director-info {
@@ -34,6 +13,6 @@
 }
 
 .plot-layout {
-    background-color: darkorange;
+    background-color: #009940;
     vertical-align: top;
 }

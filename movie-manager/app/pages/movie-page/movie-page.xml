@@ -1,4 +1,4 @@
-<Page xmlns="http://schemas.nativescript.org/tns.xsd" class="page" navigatingTo="navigatingTo">
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" class="page" navigatingTo="navigatingTo">    
     <StackLayout>
         <GridLayout class="action-bar" columns="*, auto">
             <StackLayout tap="backTap" orientation="horizontal" class="action-wrap" horizontalAlignment="left" verticalAlignment="center">

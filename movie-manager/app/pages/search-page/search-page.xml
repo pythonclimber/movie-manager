@@ -7,9 +7,9 @@
         </GridLayout>
         <GridLayout columns="*" rows="auto, *" class="search-text-layout">
             <StackLayout>
-                <TextField text="{{ searchText }}" hint="Search movie title..." />
+                <TextField text="{{ searchText }}" hint="Search movie title..." class="search-text" />
                 <Label text="A value is required to perform a search" color="red" visibility="{{ searchError ? 'visible' : 'collapse' }}" />
-                <Button text="Search" tap="{{ searchForMovie }}" />
+                <Button text="Search" tap="{{ searchForMovie }}" class="btn" />
             </StackLayout>
             <GridLayout row="1" columns="*">
                 <ScrollView>
@@ -30,4 +30,5 @@
             </GridLayout>
         </GridLayout>
     </StackLayout>
+    <ActivityIndicator busy="{{ isLoading }}" />
 </Page>

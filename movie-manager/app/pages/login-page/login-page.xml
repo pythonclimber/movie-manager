@@ -10,7 +10,7 @@
             <Label text="Password:" />
             <TextField text="{{ password }}" secure="true" autocorrect="false" />
             <Label visibility="{{ loginError ? 'visible' : 'collapsed' }}" text="Invalid username or password" class="login-error" />
-            <Button tap="{{ processLogin }}" text="Login" />
+            <Button tap="{{ processLogin }}" text="Login" class="btn" />
         </StackLayout>
     </GridLayout>
 </Page>

@@ -10,7 +10,9 @@ import { MovieViewModel } from "../movie-page/movie-view-model";
 export function navigatingTo(args: EventData) {
     let page = <Page>args.object;
     page.actionBarHidden = true;
-    page.bindingContext = new SearchViewModel();
+    if (!page.bindingContext) {
+        page.bindingContext = new SearchViewModel();
+    }
 }
 
 export function backTap(args: GestureEventData) {
@@ -19,6 +21,8 @@ export function backTap(args: GestureEventData) {
 
 export function selectMovie(args: ItemEventData) {
     let searchResult = <SearchResultViewModel>args.view.bindingContext;
+    let searchViewModel = <SearchViewModel>args.view.parent.bindingContext;
+    searchViewModel.isLoading = true;
     let movie = new MovieViewModel({
         _id: '',
         title: searchResult.title,
@@ -29,5 +33,6 @@ export function selectMovie(args: ItemEventData) {
     });
     movie.getDetails().then(() => {
         navigationModule.navigateToMovie(movie);
+        searchViewModel.isLoading = false;
     });
 }
