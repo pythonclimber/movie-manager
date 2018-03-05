@@ -61,10 +61,10 @@ export class SearchViewModel extends Observable {
         }
         
         this.searchError = false;
+        this.isLoading = true;
 
-        console.log('searching for ' + this._searchText);
         this._movieService.onlineMovieSearch<any>(this._searchText).then(response => {
-            console.log(response.success);
+
             let searchResults = new Array<SearchResultViewModel>();
             for (let movie of response.movies) {
                 let searchResult = <SearchResult>movie;
@@ -72,6 +72,7 @@ export class SearchViewModel extends Observable {
             }
             this._searchResults = searchResults;
             this.notify({object: this, eventName: Observable.propertyChangeEvent, propertyName: 'searchResults', value: this.searchResults});
+            this.isLoading = false;
         }).catch(console.log);
     }
 }

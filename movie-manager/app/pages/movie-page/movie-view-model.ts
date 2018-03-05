@@ -1,4 +1,4 @@
-import { Observable } from "tns-core-modules/ui/page/page";
+import { Observable, EventData } from "data/observable";
 import { Movie, SearchResult } from "../../shared/interfaces";
 import * as favoriteService from '../../services/favorites-service';
 import { MoviesService } from '../../services/movies-service';
@@ -11,8 +11,7 @@ export class MovieViewModel extends Observable implements Movie {
     private _favorite: boolean;
     private _imageSource: ImageSource;
     private _searchResult: SearchResultViewModel;
-
-    
+    private _isLoading: boolean;
 
     constructor(movie: Movie, searchResult?: SearchResultViewModel) {
         super();
@@ -22,12 +21,12 @@ export class MovieViewModel extends Observable implements Movie {
 
     public getDetails(): Promise<any> {
         let movieService = new MoviesService();
-        console.log('starting fetch')
+        let userId = this.userId;
         return movieService.getMovieDetails<any>(this._movie.onlineId).then(response => {
-            console.log('got response', response);
             if (response.success) {
                 let movie = response.movie;
                 this._movie = movie;
+                this.userId = userId;
                 if (movie.poster) {
                     imageService.getImageFromHttp(movie.poster).then(imageSource => {
                         this.imageSource = imageSource;
@@ -147,6 +146,17 @@ export class MovieViewModel extends Observable implements Movie {
         }
     }
 
+    get isLoading(): boolean {
+        return this._isLoading;
+    }
+
+    set isLoading(value: boolean) {
+        if (value !== this._isLoading) {
+            this._isLoading = value;
+            this.notifyPropertyChange('isLoading', value);
+        }
+    }
+
     public toggleFavorite(): void {
         this.favorite = !this.favorite;
         if (this.favorite) {
@@ -154,5 +164,9 @@ export class MovieViewModel extends Observable implements Movie {
         } else {
             favoriteService.removeFromFavorites(this);
         }
+    }
+
+    public addMovieToMyCollection(args: EventData) {
+        console.log('Adding movie to my collection');
     }
 }

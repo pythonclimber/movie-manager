@@ -27,8 +27,8 @@
                         </ListView.itemTemplate>
                     </ListView>
                 </ScrollView>
+                <ActivityIndicator busy="{{ isLoading }}" row="1" horizontalAlignment="center" verticalAlignment="center" />
             </GridLayout>
         </GridLayout>
     </StackLayout>
-    <ActivityIndicator busy="{{ isLoading }}" />
 </Page>

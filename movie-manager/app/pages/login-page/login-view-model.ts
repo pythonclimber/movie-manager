@@ -7,6 +7,7 @@ export class LoginViewModel extends Observable {
     private _username: string;
     private _password: string;
     private _loginError: boolean;
+    private _isLoading: boolean;
 
     get loginError(): boolean {
         return this._loginError;
@@ -41,6 +42,17 @@ export class LoginViewModel extends Observable {
         }
     }
 
+    get isLoading(): boolean {
+        return this._isLoading;
+    }
+
+    set isLoading(value: boolean) {
+        if (value !== this._isLoading) {
+            this._isLoading = value;
+            this.notifyPropertyChange('isLoading', value);
+        }
+    }
+
     public constructor() {
         super();
         this.loginError = false;
@@ -49,10 +61,12 @@ export class LoginViewModel extends Observable {
             this.username = savedCredentials.username;
             this.password = savedCredentials.password;
         }
+        this.isLoading = false;
     }
 
     processLogin(args: EventData) {
         this.loginError = false;
+        this.isLoading = true;
         loginService.processLogin(this.username, this.password).then(loginResponse => {
             if (loginResponse.success) {
                 loginService.addCredentials({username: this.username, password: this.password, userId: loginResponse.userId});
@@ -61,8 +75,8 @@ export class LoginViewModel extends Observable {
                 this.loginError = true;
                 this.password = '';
                 this.username = '';
-                console.log('login failed');
             }
+            this.isLoading = false;
         });
     }
 }

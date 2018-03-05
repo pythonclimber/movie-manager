@@ -21,8 +21,6 @@ export function backTap(args: GestureEventData) {
 
 export function selectMovie(args: ItemEventData) {
     let searchResult = <SearchResultViewModel>args.view.bindingContext;
-    let searchViewModel = <SearchViewModel>args.view.parent.bindingContext;
-    searchViewModel.isLoading = true;
     let movie = new MovieViewModel({
         _id: '',
         title: searchResult.title,
@@ -31,8 +29,5 @@ export function selectMovie(args: ItemEventData) {
         director: '',
         onlineId: searchResult.imdbid
     });
-    movie.getDetails().then(() => {
-        navigationModule.navigateToMovie(movie);
-        searchViewModel.isLoading = false;
-    });
+    navigationModule.navigateToMovie(movie);
 }

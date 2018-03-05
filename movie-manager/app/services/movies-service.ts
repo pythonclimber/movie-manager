@@ -78,7 +78,6 @@ export class MoviesService {
     }
 
     onlineMovieSearch<T>(title: string): Promise<T> {
-        console.log('searching from service ', title);
         return this.loadSearchResultsFromHttp<T>(title);
     }
 

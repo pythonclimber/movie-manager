@@ -20,12 +20,7 @@ export function toggleFavorite(args: GestureEventData) {
 
 export function selectMovie(args: ItemEventData) {
     let movie = <MovieViewModel>args.view.bindingContext;
-    let mainViewModel = <MainViewModel>args.view.parent.bindingContext;
-    mainViewModel.isLoading = true;
-    movie.getDetails().then(() => {
-        mainViewModel.isLoading = false;
-        navigationModule.navigateToMovie(movie);
-    });
+    navigationModule.navigateToMovie(movie);
 }
 
 export function searchTap(args: GestureEventData) {

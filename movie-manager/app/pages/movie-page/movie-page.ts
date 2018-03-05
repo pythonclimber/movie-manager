@@ -11,6 +11,11 @@ export function backTap(args: GestureEventData) {
 export function navigatingTo(args: NavigatedData) {
     let page = <Page>args.object;
     let movieViewModel = <MovieViewModel>args.context;
-    page.actionBarHidden = true;
+    movieViewModel.isLoading = true;
     page.bindingContext = movieViewModel;
+    page.actionBarHidden = true;
+    movieViewModel.getDetails().then(() => {
+        movieViewModel.isLoading = false;        
+    });
+    console.log(movieViewModel.userId);
 }

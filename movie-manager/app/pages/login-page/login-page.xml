@@ -12,5 +12,6 @@
             <Label visibility="{{ loginError ? 'visible' : 'collapsed' }}" text="Invalid username or password" class="login-error" />
             <Button tap="{{ processLogin }}" text="Login" class="btn" />
         </StackLayout>
+        <ActivityIndicator busy="{{ isLoading }}" row="1" horizontalAlignment="center" verticalAlignment="center" />
     </GridLayout>
 </Page>
