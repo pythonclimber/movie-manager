@@ -1,6 +1,7 @@
 import { MovieViewModel } from "../pages/movie-page/movie-view-model";
 import { Movie } from "../shared/interfaces";
 import * as http from 'http';
+import * as loginService from './login-service';
 
 let movies: any = [
     {
@@ -39,38 +40,44 @@ let movies: any = [
 ];
 
 export class MoviesService {
-    private _useHttpService: boolean = false;
+    private _useHttpService: boolean = true;
+    private _baseUrl: string = 'ohgnarly.herokuapp.com';
 
     getMovies<T>(): Promise<T> {
         if (this._useHttpService) {
-            return this.loadMoviesFromHttp<T>();    
+            let user = loginService.getSavedCredentials();
+            return this.loadMoviesFromHttp<T>(user.userId);
         } else {
             return this.loadFakeMovies<T>();
         }
     }
 
-    addMovie(movie: MovieViewModel) {
+    addMovie(movie: MovieViewModel): Promise<Movie> {
+        let user = loginService.getSavedCredentials();
         let data: Movie = {
             title: movie.title,
-            description: movie.description,
-            _id: movie._id,
-            userId: movie.userId,
+            description: '',
+            _id: '',
+            userId: user.userId,
             director: movie.director,
-            onlineId: movie.onlineId
+            imdbid: movie.movie.imdbid
         };
 
-        http.request({
-            url: 'https://ohgnarly.herokuapp.com/movie',
+        console.log(JSON.stringify(data));
+
+        return http.request({
+            url: `https://${this._baseUrl}/movie`,
             method: 'POST',
             headers: { "Content-Type": "application/json" },
             content: JSON.stringify(data)
         }).then(response => {
             console.log(response.content.toJSON());
-        }, e => {
-            console.log('An error occurred: ' + e)
-        }).catch(response => {
-            console.log('An error occurred: ' + response);
+            return response.content.toJSON() as Movie;
         });
+    }
+
+    deleteMovie(movie: MovieViewModel): Promise<any> {
+        return this.deleteMovieFromHttp(movie.imdbid, movie.userId);
     }
 
     getMovieDetails<T>(onlineId: string): Promise<T> {
@@ -87,10 +94,10 @@ export class MoviesService {
         });
     }
 
-    private loadMoviesFromHttp<T>(): Promise<T> {
+    private loadMoviesFromHttp<T>(userId: string): Promise<T> {
         //return new Promise<T>(() => {});
         let requestParams = {
-            url: 'https://ohgnarly.herokuapp.com/movies/58cb3e444c8d5f6b7cdd71f6',
+            url: `https://${this._baseUrl}/movies/${userId}`,
             method: 'GET'
         }
         return http.getJSON<T>(requestParams);
@@ -98,7 +105,7 @@ export class MoviesService {
 
     private loadMovieDetailsFromHttp<T>(onlineId: string): Promise<T> {
         let requestParams = {
-            url: `https://ohgnarly.herokuapp.com/movie-details/${onlineId}`,
+            url: `https://${this._baseUrl}/movie-details/${onlineId}`,
             method: 'GET'
         };
         return http.getJSON<T>(requestParams);
@@ -106,9 +113,17 @@ export class MoviesService {
 
     private loadSearchResultsFromHttp<T>(title: string): Promise<T> {
         let requestParams = {
-            url: encodeURI(`https://ohgnarly.herokuapp.com/movie-search/${title}`),
+            url: `https://` + encodeURI(`${this._baseUrl}/movie-search/${title}`),
             method: 'GET'
         };
         return http.getJSON<T>(requestParams);
+    }
+
+    private deleteMovieFromHttp(imdbid: string, userId: string): Promise<any> {
+        let requestParams = {
+            url: ``,
+            method: 'DELETE'
+        };
+        return http.request(requestParams);
     }
 }

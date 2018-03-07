@@ -3,6 +3,7 @@
         <GridLayout class="action-bar" columns="*, auto">
             <StackLayout tap="backTap" orientation="horizontal" class="action-wrap" horizontalAlignment="left" verticalAlignment="center">
                 <Label text="Back" class="back-text" />
+                <!-- <Label text="{{ searchResults.length }}" /> -->
             </StackLayout>
         </GridLayout>
         <GridLayout columns="*" rows="auto, *" class="search-text-layout">
@@ -11,9 +12,10 @@
                 <Label text="A value is required to perform a search" color="red" visibility="{{ searchError ? 'visible' : 'collapse' }}" />
                 <Button text="Search" tap="{{ searchForMovie }}" class="btn" />
             </StackLayout>
-            <GridLayout row="1" columns="*">
-                <ScrollView>
-                    <ListView items="{{ searchResults }}" itemTap="selectMovie" visibility="{{ searchResults.length == 0 ? 'collapse' : 'visible' }}">
+            <GridLayout row="1" columns="*" rows="auto, *">
+                <Label text="No Results..." visibility="{{ searchResults.length == 0 && !isLoading ? 'visible' : 'collapse' }}" horizontalAlignment="center" />
+                <ScrollView row="1">
+                    <ListView row="1" items="{{ searchResults }}" itemTap="selectMovie" visibility="{{ searchResults.length > 0 && !isLoading ? 'visible' : 'collapse' }}">
                         <ListView.itemTemplate>
                             <GridLayout columns="auto, *" rows="auto">
                                 <GridLayout col="0" columns="auto">

@@ -1,5 +1,5 @@
 import { EventData } from "data/observable";
-import { Page } from "ui/page";
+import { Page, NavigatedData } from "ui/page";
 import { SearchViewModel } from "./search-view-model";
 import { ItemEventData } from 'ui/list-view';
 import { GestureEventData } from 'ui/gestures';
@@ -7,11 +7,12 @@ import * as navigationModule from '../../shared/navigation';
 import { SearchResultViewModel } from './search-result-view-model';
 import { MovieViewModel } from "../movie-page/movie-view-model";
 
-export function navigatingTo(args: EventData) {
+export function navigatingTo(args: NavigatedData) {
     let page = <Page>args.object;
+    let searchViewModel = <SearchViewModel>args.context;
     page.actionBarHidden = true;
     if (!page.bindingContext) {
-        page.bindingContext = new SearchViewModel();
+        page.bindingContext = searchViewModel || new SearchViewModel();
     }
 }
 
@@ -25,9 +26,9 @@ export function selectMovie(args: ItemEventData) {
         _id: '',
         title: searchResult.title,
         description: '',
-        userId: '',
+        userId: searchResult.userId,
         director: '',
-        onlineId: searchResult.imdbid
+        imdbid: searchResult.imdbid
     });
     navigationModule.navigateToMovie(movie);
 }

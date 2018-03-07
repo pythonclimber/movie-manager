@@ -74,13 +74,21 @@ export class SearchResultViewModel extends Observable implements SearchResult {
         }
     }
 
+    get userId(): string {
+        return this._searchResult.userId;
+    }
+
     constructor(searchResult: SearchResult) {
         super();
 
         this._searchResult = searchResult;
         this.imageSource = new ImageSource();
-        imageService.getImageFromHttp(searchResult.poster).then(source => {
-            this.imageSource = source;
-        });
+        if (searchResult.poster != 'N/A') {
+            imageService.getImageFromHttp(searchResult.poster).then(source => {
+                this.imageSource = source;
+            });
+        } else {
+            this.imageSource = new ImageSource();
+        }
     }
 }

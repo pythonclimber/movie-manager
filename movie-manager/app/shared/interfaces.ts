@@ -4,7 +4,7 @@ export interface Movie {
     description: string;
     userId: string;
     director: string;
-    onlineId: string;
+    imdbid: string;
     year?: number;
     runtime?: string;
     genres?: string;
@@ -30,4 +30,5 @@ export interface SearchResult {
     imdbid: string;
     type: string;
     poster: string;
+    userId?: string;
 }

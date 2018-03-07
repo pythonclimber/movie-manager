@@ -17,5 +17,4 @@ export function navigatingTo(args: NavigatedData) {
     movieViewModel.getDetails().then(() => {
         movieViewModel.isLoading = false;        
     });
-    console.log(movieViewModel.userId);
 }

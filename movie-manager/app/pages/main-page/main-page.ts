@@ -24,5 +24,6 @@ export function selectMovie(args: ItemEventData) {
 }
 
 export function searchTap(args: GestureEventData) {
-    navigationModule.navigateToSearchPage();
+    let mainViewModel = <MainViewModel>args.view.bindingContext;
+    navigationModule.navigateToSearchPage(mainViewModel.movies);
 }

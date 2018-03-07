@@ -5,43 +5,13 @@ import { MoviesService } from '../../services/movies-service';
 import { ImageSource } from "image-source";
 import * as imageService from '../../services/image-service';
 import { SearchResultViewModel } from "../search-page/search-result-view-model";
+import * as navigationModule from '../../shared/navigation'
 
 export class MovieViewModel extends Observable implements Movie {
     private _movie: Movie;
     private _favorite: boolean;
     private _imageSource: ImageSource;
-    private _searchResult: SearchResultViewModel;
     private _isLoading: boolean;
-
-    constructor(movie: Movie, searchResult?: SearchResultViewModel) {
-        super();
-        this._movie = movie;
-        this._searchResult = searchResult;
-    }
-
-    public getDetails(): Promise<any> {
-        let movieService = new MoviesService();
-        let userId = this.userId;
-        return movieService.getMovieDetails<any>(this._movie.onlineId).then(response => {
-            if (response.success) {
-                let movie = response.movie;
-                this._movie = movie;
-                this.userId = userId;
-                if (movie.poster) {
-                    imageService.getImageFromHttp(movie.poster).then(imageSource => {
-                        this.imageSource = imageSource;
-                    });
-                }
-                this.notifyPropertyChange('movie', movie);
-            }
-        }).catch(error => {
-            console.log(error);
-        });
-    }
-
-    get searchResult(): SearchResultViewModel {
-        return this._searchResult;
-    }
 
     get movie(): Movie {
         return this._movie;
@@ -135,14 +105,14 @@ export class MovieViewModel extends Observable implements Movie {
         }
     }
 
-    get onlineId(): string {
-        return this._movie.onlineId;
+    get imdbid(): string {
+        return this._movie.imdbid;
     }
 
-    set onlineId(value: string) {
-        if (value !== this._movie.onlineId) {
-            this._movie.onlineId = value;
-            this.notifyPropertyChange('onlineId', value)
+    set imdbid(value: string) {
+        if (value !== this._movie.imdbid) {
+            this._movie.imdbid = value;
+            this.notifyPropertyChange('imdbid', value)
         }
     }
 
@@ -157,6 +127,35 @@ export class MovieViewModel extends Observable implements Movie {
         }
     }
 
+    constructor(movie: Movie) {
+        super();
+        this._movie = movie;
+
+        if (!this.movie.plot) {
+            this.movie.plot = '';
+        }
+    }
+
+    public getDetails(): Promise<any> {
+        let movieService = new MoviesService();
+        let userId = this.userId;
+        return movieService.getMovieDetails<any>(this._movie.imdbid).then(response => {
+            if (response.success) {
+                let movie = response.movie;
+                this._movie = movie;
+                this.userId = userId;
+                if (movie.poster) {
+                    imageService.getImageFromHttp(movie.poster).then(imageSource => {
+                        this.imageSource = imageSource;
+                    });
+                }
+                this.notifyPropertyChange('movie', movie);
+            }
+        }).catch(error => {
+            console.log(error);
+        });
+    }
+
     public toggleFavorite(): void {
         this.favorite = !this.favorite;
         if (this.favorite) {
@@ -167,6 +166,17 @@ export class MovieViewModel extends Observable implements Movie {
     }
 
     public addMovieToMyCollection(args: EventData) {
-        console.log('Adding movie to my collection');
+        let moviesService = new MoviesService();
+        moviesService.addMovie(this).then(response => {
+            this.userId = response.userId;
+            navigationModule.navigateToMainPage();
+        });
+    }
+
+    public removeFromMyCollection(args: EventData) {
+        let movieService = new MoviesService();
+        movieService.deleteMovie(this).then(response => {
+            this.userId = response.userId;
+        });
     }
 }

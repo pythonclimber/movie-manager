@@ -6,21 +6,23 @@
             </StackLayout>
         </GridLayout>
         <GridLayout>
-        <GridLayout columns="auto, *" rows="auto, *"  visibility="{{ isLoading ? 'hidden' : 'visible' }}">
-            <GridLayout class="image-layout">
-                <Image src="{{ imageSource }}" stretch="aspectFill" width="120" height="180" horizontalAlignment="left" verticalAlignment="top" />
+            <GridLayout columns="auto, *" rows="auto, *"  visibility="{{ isLoading ? 'hidden' : 'visible' }}">
+                <GridLayout class="image-layout">
+                    <Image src="{{ imageSource }}" stretch="aspectFill" width="120" height="180" horizontalAlignment="left" verticalAlignment="top" />
+                </GridLayout>
+                <StackLayout class="title-layout" col="1">
+                    <Label text="{{ movie.title + ' (' + movie.year + ')' }}" class="main-title" textWrap="true" />
+                    <Label text="{{ movie.director }}" />
+                    <!-- <Label text="{{ onlineId }}" /> -->
+                    <Button text="Add" width="125" height="50" class="btn" horizontalAlignment="left" visibility="{{  !userId ? 'visible' : 'collapse' }}" tap="{{ addMovieToMyCollection }}" />
+                    <Button text="Remove" width="125" height="50" class="btn" horizontalAlignment="left" visibility="{{  !userId ? 'collapse' : 'visible' }}" tap="{{ removeFromMyCollection }}" />
+                </StackLayout>
+                <GridLayout row="1" colSpan="2" class="plot-layout">
+                    <ScrollView>
+                        <Label  text="{{ movie.plot }}" textWrap="true" />
+                    </ScrollView>
+                </GridLayout>
             </GridLayout>
-            <StackLayout class="title-layout" col="1">
-                <Label text="{{ movie.title + ' (' + movie.year + ')' }}" class="main-title" textWrap="true" />
-                <Label text="{{ movie.director }}" />
-                <Button text="Add" width="125" height="50" class="btn" horizontalAlignment="left" visibility="{{  !!userId ? 'collapse' : 'visible' }}" tap="{{ addMovieToMyCollection }}" />
-            </StackLayout>
-            <GridLayout row="1" colSpan="2" class="plot-layout">
-                <ScrollView>
-                    <Label  text="{{ movie.plot }}" textWrap="true" />
-                </ScrollView>
-            </GridLayout>
-        </GridLayout>
             <ActivityIndicator busy="{{ isLoading }}" row="1" horizontalAlignment="center" verticalAlignment="center" />
         </GridLayout>
     </StackLayout>
