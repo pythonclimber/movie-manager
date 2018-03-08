@@ -1,5 +1,5 @@
 import { Observable, EventData } from "data/observable";
-import { Movie, SearchResult } from "../../shared/interfaces";
+import { Movie, SearchResult, NewMovie } from "../../shared/interfaces";
 import * as favoriteService from '../../services/favorites-service';
 import { MoviesService } from '../../services/movies-service';
 import { ImageSource } from "image-source";
@@ -131,6 +131,14 @@ export class MovieViewModel extends Observable implements Movie {
         super();
         this._movie = movie;
 
+        if (this._movie.title.startsWith('The ')) {
+            this._movie.title = this._movie.title.substr(4) + ', The'
+        } else if (this._movie.title.startsWith('A ')) {
+            this._movie.title = this._movie.title.substr(2) + ', A'
+        } else if (this._movie.title.startsWith('An ')) {
+            this._movie.title = this._movie.title.substr(3) + ', An'
+        }
+
         if (!this.movie.plot) {
             this.movie.plot = '';
         }
@@ -140,17 +148,29 @@ export class MovieViewModel extends Observable implements Movie {
         let movieService = new MoviesService();
         let userId = this.userId;
         return movieService.getMovieDetails<any>(this._movie.imdbid).then(response => {
-            if (response.success) {
-                let movie = response.movie;
-                this._movie = movie;
+                let movie = <NewMovie>response;
+                this._movie = {
+                    _id: '',
+                    description: '',
+                    title: movie.Title,
+                    plot: movie.Plot,
+                    poster: movie.Poster,
+                    userId: '',
+                    director: movie.Director,
+                    imdbid: movie.imdbID,
+                    year: movie.Year,
+                    runtime: movie.Runtime,
+                    genres: movie.Genre,
+                    writer: movie.Writer,
+                    actors: movie.Actors
+                }
                 this.userId = userId;
-                if (movie.poster) {
-                    imageService.getImageFromHttp(movie.poster).then(imageSource => {
+                if (this._movie.poster) {
+                    imageService.getImageFromHttp(this._movie.poster).then(imageSource => {
                         this.imageSource = imageSource;
                     });
                 }
-                this.notifyPropertyChange('movie', movie);
-            }
+                this.notifyPropertyChange('movie', this._movie);
         }).catch(error => {
             console.log(error);
         });
@@ -176,7 +196,8 @@ export class MovieViewModel extends Observable implements Movie {
     public removeFromMyCollection(args: EventData) {
         let movieService = new MoviesService();
         movieService.deleteMovie(this).then(response => {
-            this.userId = response.userId;
+            this.userId = '';
+            navigationModule.navigateToMainPage();
         });
     }
 }

@@ -13,9 +13,10 @@
                 <StackLayout class="title-layout" col="1">
                     <Label text="{{ movie.title + ' (' + movie.year + ')' }}" class="main-title" textWrap="true" />
                     <Label text="{{ movie.director }}" />
-                    <!-- <Label text="{{ onlineId }}" /> -->
-                    <Button text="Add" width="125" height="50" class="btn" horizontalAlignment="left" visibility="{{  !userId ? 'visible' : 'collapse' }}" tap="{{ addMovieToMyCollection }}" />
-                    <Button text="Remove" width="125" height="50" class="btn" horizontalAlignment="left" visibility="{{  !userId ? 'collapse' : 'visible' }}" tap="{{ removeFromMyCollection }}" />
+                    <Label text="{{ imdbid }}" />
+                    <!-- <Button text="Add" width="125" height="50" class="btn" horizontalAlignment="left" visibility="{{  !userId ? 'visible' : 'collapse' }}" tap="{{ addMovieToMyCollection }}" />
+                    <Button text="Remove" width="125" height="50" class="btn" horizontalAlignment="left" visibility="{{  !userId ? 'collapse' : 'visible' }}" tap="{{ removeFromMyCollection }}" /> -->
+                    <Button text="{{ !userId ? 'Add' : 'Remove' }}" width="125" height="40" class="btn" fontSize="10" horizontalAlignment="left" tap="{{ !userId ? addMovieToMyCollection : removeFromMyCollection }}" />
                 </StackLayout>
                 <GridLayout row="1" colSpan="2" class="plot-layout">
                     <ScrollView>
