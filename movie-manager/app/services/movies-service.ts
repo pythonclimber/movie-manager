@@ -86,7 +86,7 @@ export class MoviesService {
 
     private loadMovieDetailsFromHttp<T>(onlineId: string): Promise<T> {
         let requestParams = {
-            url: `${this._imdbBaseUrl}&i=${onlineId}`,
+            url: `${this._imdbBaseUrl}&i=${onlineId}&plot=full`,
             method: 'GET'
         };
         return http.getJSON<T>(requestParams);
