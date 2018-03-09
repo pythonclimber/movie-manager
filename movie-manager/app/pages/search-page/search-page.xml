@@ -15,7 +15,7 @@
             <GridLayout row="1" columns="*" rows="auto, *">
                 <Label text="No Results..." visibility="{{ searchResults.length == 0 && !isLoading ? 'visible' : 'collapse' }}" horizontalAlignment="center" />
                 <ScrollView row="1">
-                    <ListView row="1" items="{{ searchResults }}" itemTap="selectMovie" visibility="{{ searchResults.length > 0 && !isLoading ? 'visible' : 'collapse' }}">
+                    <ListView row="1" class="movie-list" items="{{ searchResults }}" itemTap="selectMovie" visibility="{{ searchResults.length > 0 && !isLoading ? 'visible' : 'collapse' }}">
                         <ListView.itemTemplate>
                             <GridLayout columns="auto, *" rows="auto">
                                 <GridLayout col="0" columns="auto">
