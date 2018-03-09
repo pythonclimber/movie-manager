@@ -8,87 +8,88 @@ export class SearchResultViewModel extends Observable implements SearchResult {
     private _searchResult: SearchResult;
     private _imageSource: ImageSource;
 
-    get title(): string {
-        return this._searchResult.title;
+    get Title(): string {
+        return this._searchResult.Title;
     }
 
-    set title(value: string) {
-        if (value !== this._searchResult.title) {
-            this._searchResult.title = value;
-            this.notifyPropertyChange('title', value);
+    set Title(value: string) {
+        if (value !== this._searchResult.Title) {
+            this._searchResult.Title = value;
+            this.notifyPropertyChange('Title', value);
         }
     }
 
-    get year(): string {
-        return this._searchResult.year;
+    get Year(): string {
+        return this._searchResult.Year;
     }
 
-    set year(value: string) {
-        if (value !== this._searchResult.year) {
-            this._searchResult.year = value;
-            this.notifyPropertyChange('year', value);
+    set Year(value: string) {
+        if (value !== this._searchResult.Year) {
+            this._searchResult.Year = value;
+            this.notifyPropertyChange('Year', value);
         }
     }
     
-    get imdbid(): string {
-        return this._searchResult.imdbid;
+    get imdbID(): string {
+        return this._searchResult.imdbID;
     }
 
-    set imdbid(value: string) {
-        if (value !== this._searchResult.imdbid) {
-            this._searchResult.imdbid = value;
-            this.notifyPropertyChange('imdbid', value);
+    set imdbID(value: string) {
+        if (value !== this._searchResult.imdbID) {
+            this._searchResult.imdbID = value;
+            this.notifyPropertyChange('imdbID', value);
         }
     }
 
-    get type(): string {
-        return this._searchResult.type;
+    get Type(): string {
+        return this._searchResult.Type;
     }
 
-    set type(value: string) {
-        if (value !== this._searchResult.type) {
-            this._searchResult.type = value;
-            this.notifyPropertyChange('type', value);
+    set Type(value: string) {
+        if (value !== this._searchResult.Type) {
+            this._searchResult.Type = value;
+            this.notifyPropertyChange('Type', value);
         }
     }
 
-    get poster(): string {
-        return this._searchResult.poster;
+    get Poster(): string {
+        return this._searchResult.Poster;
     }
 
-    set poster(value: string) {
-        if (value !== this._searchResult.poster) {
-            this._searchResult.poster = value;
-            this.notifyPropertyChange('poster', value);
+    set Poster(value: string) {
+        if (value !== this._searchResult.Poster) {
+            this._searchResult.Poster = value;
+            this.notifyPropertyChange('Poster', value);
         }
     }
 
-    get imageSource(): ImageSource {
+    get ImageSource(): ImageSource {
         return this._imageSource;
     }
     
-    set imageSource(value: ImageSource) {
+    set ImageSource(value: ImageSource) {
         if (value !== this._imageSource) {
             this._imageSource = value;
-            this.notifyPropertyChange('imageSource', value);
+            this.notifyPropertyChange('ImageSource', value);
         }
     }
 
-    get userId(): string {
+    get UserId(): string {
         return this._searchResult.userId;
     }
+
 
     constructor(searchResult: SearchResult) {
         super();
 
         this._searchResult = searchResult;
-        this.imageSource = new ImageSource();
-        if (searchResult.poster != 'N/A') {
-            imageService.getImageFromHttp(searchResult.poster).then(source => {
-                this.imageSource = source;
+        this.ImageSource = new ImageSource();
+        if (searchResult.Poster != 'N/A') {
+            imageService.getImageFromHttp(searchResult.Poster).then(source => {
+                this.ImageSource = source;
             });
         } else {
-            this.imageSource = new ImageSource();
+            this.ImageSource = new ImageSource();
         }
     }
 }
