@@ -69,6 +69,7 @@ export class SearchViewModel extends Observable {
         
         this.searchError = false;
         this.isLoading = true;
+        
 
         this._movieService.onlineMovieSearch<any>(this._searchText).then(response => {
             if (response.response == 'False') {
@@ -99,6 +100,9 @@ export class SearchViewModel extends Observable {
                 this.notify({object: this, eventName: Observable.propertyChangeEvent, propertyName: 'searchResults', value: this.searchResults});
             }
             this.isLoading = false;
-        }).catch(console.log);
+        }).catch(error => {
+            console.log(error);
+            this.isLoading = false;
+        });
     }
 }
