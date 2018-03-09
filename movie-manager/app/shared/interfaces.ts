@@ -38,16 +38,16 @@ export interface SavedCredentials {
     userId: string;
 }
 
-// export interface SearchResult {
-//     title: string;
-//     year: string;
-//     imdbid: string;
-//     type: string;
-//     poster: string;
-//     userId?: string;
-// }
-
 export interface SearchResult {
+    title: string;
+    year: string;
+    imdbid: string;
+    type: string;
+    poster: string;
+    userId?: string;
+}
+
+export interface NewSearchResult {
     Title: string;
     Year: string;
     imdbID: string;

@@ -1,6 +1,6 @@
 import { Observable } from "ui/frame";
 import { MoviesService } from '../../services/movies-service';
-import { SearchResult } from "../../shared/interfaces";
+import { SearchResult, NewSearchResult } from "../../shared/interfaces";
 import { SearchResultViewModel } from "./search-result-view-model";
 import { MovieViewModel } from '../movie-page/movie-view-model';
 
@@ -82,12 +82,19 @@ export class SearchViewModel extends Observable {
             } else {
                 let searchResults = new Array<SearchResultViewModel>();
                 for (let movie of response.Search) {
-                    let searchResult = <SearchResult>movie;
+                    let searchResult = <NewSearchResult>movie;
                     let myMovie = this.myMovies.find(m => m.imdbid == searchResult.imdbID);
                     if (myMovie) {
                         searchResult.userId = myMovie.userId;
                     }
-                    searchResults.push(new SearchResultViewModel(searchResult));
+                    searchResults.push(new SearchResultViewModel({
+                        title: searchResult.Title,
+                        year: searchResult.Year,
+                        imdbid: searchResult.imdbID,
+                        type: searchResult.Type,
+                        poster: searchResult.Poster,
+                        userId: searchResult.userId
+                    }));
                 }
                 this._searchResults = searchResults;
                 this.notify({object: this, eventName: Observable.propertyChangeEvent, propertyName: 'searchResults', value: this.searchResults});

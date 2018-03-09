@@ -24,11 +24,11 @@ export function selectMovie(args: ItemEventData) {
     let searchResult = <SearchResultViewModel>args.view.bindingContext;
     let movie = new MovieViewModel({
         _id: '',
-        title: searchResult.Title,
+        title: searchResult.title,
         description: '',
-        userId: searchResult.UserId,
+        userId: searchResult.userId,
         director: '',
-        imdbid: searchResult.imdbID
+        imdbid: searchResult.imdbid
     });
     navigationModule.navigateToMovie(movie);
 }

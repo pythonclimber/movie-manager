@@ -19,11 +19,11 @@
                         <ListView.itemTemplate>
                             <GridLayout columns="auto, *" rows="auto">
                                 <GridLayout col="0" columns="auto">
-                                    <Image class="icon-image" src="{{ ImageSource }}" width="30" height="45" />
+                                    <Image class="icon-image" src="{{ imageSource }}" width="30" height="45" />
                                 </GridLayout>
                                 <StackLayout col="1">
-                                    <Label text="{{ Title }}" class="info-bigger" />
-                                    <Label text="{{ Year }}" class="info-orange" />
+                                    <Label text="{{ title }}" class="info-bigger" />
+                                    <Label text="{{ year }}" class="info-orange" />
                                 </StackLayout>
                             </GridLayout>
                         </ListView.itemTemplate>
