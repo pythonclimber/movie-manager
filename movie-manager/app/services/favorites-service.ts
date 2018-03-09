@@ -5,6 +5,7 @@ import { MovieViewModel } from '../pages/movie-page/movie-view-model';
 const FAVORITES_KEY: string = 'FAVORITES';
 var favorites: Array<FavoriteMovie>;
 
+
 try {
     favorites = <Array<FavoriteMovie>>JSON.parse(appSettingsModule.getString(FAVORITES_KEY));
 } catch (error) {
@@ -29,7 +30,6 @@ export function removeFromFavorites(movie: MovieViewModel) {
 
 function persistFavorites() {
     var jsonString = JSON.stringify(favorites);
-    console.log(jsonString, favorites);
     appSettingsModule.setString(FAVORITES_KEY, jsonString);
 }
 

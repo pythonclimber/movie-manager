@@ -94,7 +94,6 @@ export class MoviesService {
 
     private loadSearchResultsFromHttp<T>(title: string): Promise<T> {
         let requestParams = {
-            // url: `https://` + encodeURI(`${this._baseUrl}/movie-search/${title}`),
             url: `${this._imdbBaseUrl}&s=${encodeURI(title)}&type=movie`,
             method: 'GET'
         };

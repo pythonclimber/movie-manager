@@ -50,6 +50,5 @@ export function getSavedCredentials(): SavedCredentials {
 
 export function persistCredentials() {
     let jsonString = JSON.stringify(credentials);
-    console.log(jsonString, credentials);
     appSettingsModule.setString(CREDENTIALS_KEY, jsonString);
 }
