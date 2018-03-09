@@ -5,13 +5,27 @@ export interface Movie {
     userId: string;
     director: string;
     imdbid: string;
-    year?: number;
+    year?: string;
     runtime?: string;
     genres?: string;
     writer?: string;
     actors?: string;
     plot?: string;
     poster?: string;
+}
+
+export interface NewMovie {
+    Title: string;
+    Year: string;
+    Rated: string;
+    Genre: string;
+    Director: string;
+    Writer: string;
+    Actors: string;
+    Plot: string;
+    Poster: string;
+    imdbID: string;
+    Runtime: string;
 }
 
 export interface FavoriteMovie {
@@ -30,5 +44,14 @@ export interface SearchResult {
     imdbid: string;
     type: string;
     poster: string;
+    userId?: string;
+}
+
+export interface NewSearchResult {
+    Title: string;
+    Year: string;
+    imdbID: string;
+    Type: string;
+    Poster: string;
     userId?: string;
 }

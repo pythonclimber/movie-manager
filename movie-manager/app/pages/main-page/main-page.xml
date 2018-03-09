@@ -4,6 +4,10 @@
             <StackLayout col="0" tap="searchTap" orientation="horizontal" class="action-wrap" horizontalAlignment="left" verticalAlignment="center">
                 <Label text="Search" class="back-text" />
             </StackLayout>
+            <GridLayout columns="auto, auto" col="1">
+                <Label text="Favorites Only:" verticalAlignment="center" />
+                <Switch col="1" checked="{{ favoritesOnly }}" color="#009940" />
+            </GridLayout>
         </GridLayout>
         <GridLayout>
             <GridLayout row="0">

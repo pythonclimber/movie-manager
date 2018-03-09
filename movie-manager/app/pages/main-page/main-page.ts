@@ -1,4 +1,4 @@
-import { EventData } from 'data/observable';
+import { EventData, PropertyChangeData } from 'data/observable';
 import { Page } from 'ui/page';
 import { MainViewModel } from './main-view-model';
 import { GestureEventData } from 'ui/gestures';
@@ -6,6 +6,7 @@ import { MovieViewModel } from '../movie-page/movie-view-model';
 import * as navigationModule from '../../shared/navigation';
 import { ItemEventData } from 'ui/list-view';
 import { SearchViewModel } from '../search-page/search-view-model';
+import { Switch } from 'ui/switch';
 
 export function navigatingTo(args: EventData) {
     let page = <Page>args.object;
@@ -26,4 +27,12 @@ export function selectMovie(args: ItemEventData) {
 export function searchTap(args: GestureEventData) {
     let mainViewModel = <MainViewModel>args.view.bindingContext;
     navigationModule.navigateToSearchPage(mainViewModel.movies);
+}
+
+export function switchLoaded(args: EventData) {
+    let switchComp = <Switch>args.object;
+    let mainViewModel = <MainViewModel>switchComp.bindingContext;
+    switchComp.on('checkedChange', (args: PropertyChangeData) => {
+        mainViewModel.toggleView();
+    });
 }
