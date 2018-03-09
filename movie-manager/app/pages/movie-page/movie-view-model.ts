@@ -165,7 +165,7 @@ export class MovieViewModel extends Observable implements Movie {
                     actors: movie.Actors
                 }
                 this.userId = userId;
-                if (this._movie.poster) {
+                if (this._movie.poster && this._movie.poster.startsWith('https')) {
                     imageService.getImageFromHttp(this._movie.poster).then(imageSource => {
                         this.imageSource = imageSource;
                     });
