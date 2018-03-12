@@ -72,7 +72,7 @@ export class SearchViewModel extends Observable {
         
 
         this._movieService.onlineMovieSearch<any>(this._searchText).then(response => {
-            if (response.response == 'False') {
+            if (response.Response == 'False') {
                 if (response.error && response.error.message) {
                     if (response.error.message.startsWith('Movie not found') || response.error.message.startsWith('Too many results')) {
                         this._searchResults = [];

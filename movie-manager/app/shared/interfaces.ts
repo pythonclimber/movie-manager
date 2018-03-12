@@ -5,6 +5,7 @@ export interface Movie {
     userId: string;
     director: string;
     imdbid: string;
+    favorite: boolean;
     year?: string;
     runtime?: string;
     genres?: string;

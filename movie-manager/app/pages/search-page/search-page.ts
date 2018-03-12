@@ -28,7 +28,8 @@ export function selectMovie(args: ItemEventData) {
         description: '',
         userId: searchResult.userId,
         director: '',
-        imdbid: searchResult.imdbid
+        imdbid: searchResult.imdbid,
+        favorite: false
     });
     navigationModule.navigateToMovie(movie);
 }

@@ -9,7 +9,7 @@ import * as navigationModule from '../../shared/navigation'
 
 export class MovieViewModel extends Observable implements Movie {
     private _movie: Movie;
-    private _favorite: boolean;
+    // private _favorite: boolean;
     private _imageSource: ImageSource;
     private _isLoading: boolean;
 
@@ -73,12 +73,12 @@ export class MovieViewModel extends Observable implements Movie {
     }
 
     get favorite(): boolean {
-        return this._favorite;
+        return this._movie.favorite;
     }
 
     set favorite(value: boolean) {
-         if (this._favorite !== value) {
-             this._favorite = value;
+         if (this._movie.favorite !== value) {
+             this._movie.favorite = value;
              this.notifyPropertyChange('favorite', value);
          }
     }
@@ -146,7 +146,7 @@ export class MovieViewModel extends Observable implements Movie {
 
     public getDetails(): Promise<any> {
         let movieService = new MoviesService();
-        let userId = this.userId;
+        //let userId = this.userId;
         return movieService.getMovieDetails<any>(this._movie.imdbid).then(response => {
                 let movie = <NewMovie>response;
                 this._movie = {
@@ -155,16 +155,17 @@ export class MovieViewModel extends Observable implements Movie {
                     title: movie.Title,
                     plot: movie.Plot,
                     poster: movie.Poster,
-                    userId: '',
+                    userId: this.userId,
                     director: movie.Director,
                     imdbid: movie.imdbID,
                     year: movie.Year,
                     runtime: movie.Runtime,
                     genres: movie.Genre,
                     writer: movie.Writer,
-                    actors: movie.Actors
+                    actors: movie.Actors,
+                    favorite: this.favorite
                 }
-                this.userId = userId;
+                //this.userId = userId;
                 if (this._movie.poster && this._movie.poster.startsWith('https')) {
                     imageService.getImageFromHttp(this._movie.poster).then(imageSource => {
                         this.imageSource = imageSource;
@@ -178,11 +179,13 @@ export class MovieViewModel extends Observable implements Movie {
 
     public toggleFavorite(): void {
         this.favorite = !this.favorite;
-        if (this.favorite) {
-            favoriteService.addToFavorites(this);
-        } else {
-            favoriteService.removeFromFavorites(this);
-        }
+        // if (this.favorite) {
+        //     favoriteService.addToFavorites(this);
+        // } else {
+        //     favoriteService.removeFromFavorites(this);
+        // }
+        let moviesService = new MoviesService();
+        moviesService.toggleFavorite(this.userId, this.imdbid, this.favorite);
     }
 
     public addMovieToMyCollection(args: EventData) {

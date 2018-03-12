@@ -69,6 +69,10 @@ export class MoviesService {
         return this.loadSearchResultsFromHttp<T>(title);
     }
 
+    toggleFavorite(userId: string, imdbid: string, favorite: boolean) {
+        return this.updateMovieViaHttp(userId, imdbid, favorite);
+    }
+
     private loadFakeMovies<T>(): Promise<T> {
         return new Promise<T>((resolve, reject) => {
             resolve(movies);
@@ -119,7 +123,8 @@ export class MoviesService {
             _id: '',
             userId: user.userId,
             director: movie.director,
-            imdbid: movie.movie.imdbid
+            imdbid: movie.movie.imdbid,
+            favorite: false
         };
 
         return http.request({
@@ -130,5 +135,22 @@ export class MoviesService {
         }).then(response => {
             return response.content.toJSON() as Movie;
         });
+    }
+
+    private updateMovieViaHttp(userId: string, imdbid: string, favorite: boolean): Promise<any> {
+        let data = {
+            userId: userId,
+            imdbid: imdbid,
+            favorite: favorite
+        };
+
+        let requestParams = {
+            url: `${this._apiBaseUrl}/movie`,
+            method: 'PUT',
+            headers: { "Content-Type": "application/json" },
+            content: JSON.stringify(data)
+        };
+
+        return http.request(requestParams);
     }
 }
