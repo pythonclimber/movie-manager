@@ -1,7 +1,7 @@
 import { Observable, EventData } from "data/observable";
 import { Movie, SearchResult, NewMovie } from "../../shared/interfaces";
 import * as favoriteService from '../../services/favorites-service';
-import { MoviesService } from '../../services/movies-service';
+import { MovieService } from '../../services/movies-service';
 import { ImageSource } from "image-source";
 import * as imageService from '../../services/image-service';
 import { SearchResultViewModel } from "../search-page/search-result-view-model";
@@ -145,7 +145,7 @@ export class MovieViewModel extends Observable implements Movie {
     }
 
     public getDetails(): Promise<any> {
-        let movieService = new MoviesService();
+        let movieService = new MovieService();
         //let userId = this.userId;
         return movieService.getMovieDetails<any>(this._movie.imdbid).then(response => {
                 let movie = <NewMovie>response;
@@ -184,12 +184,12 @@ export class MovieViewModel extends Observable implements Movie {
         // } else {
         //     favoriteService.removeFromFavorites(this);
         // }
-        let moviesService = new MoviesService();
+        let moviesService = new MovieService();
         moviesService.toggleFavorite(this.userId, this.imdbid, this.favorite);
     }
 
     public addMovieToMyCollection(args: EventData) {
-        let moviesService = new MoviesService();
+        let moviesService = new MovieService();
         moviesService.addMovie(this).then(response => {
             this.userId = response.userId;
             navigationModule.navigateToMainPage();
@@ -197,7 +197,7 @@ export class MovieViewModel extends Observable implements Movie {
     }
 
     public removeFromMyCollection(args: EventData) {
-        let movieService = new MoviesService();
+        let movieService = new MovieService();
         movieService.deleteMovie(this).then(response => {
             this.userId = '';
             navigationModule.navigateToMainPage();

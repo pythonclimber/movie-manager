@@ -39,7 +39,7 @@ let movies: any = [
     }
 ];
 
-export class MoviesService {
+export class MovieService {
     private _useHttpService: boolean = true;
     private _apiBaseUrl: string = 'https://ohgnarly.herokuapp.com';
     private _imdbBaseUrl: string = 'https://www.omdbapi.com/?apiKey=1e37ecbf';

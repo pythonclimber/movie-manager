@@ -1,12 +1,12 @@
 import { Observable } from 'data/observable';
-import { MoviesService } from '../../services/movies-service';
+import { MovieService } from '../../services/movies-service';
 import { MovieViewModel } from '../movie-page/movie-view-model';
 import { Movie } from '../../shared/interfaces';
 import * as favoriteService from '../../services/favorites-service';
 
 export class MainViewModel extends Observable {
     private _movies: MovieViewModel[];
-    private _movieService: MoviesService;
+    private _movieService: MovieService;
     private _isLoading: boolean;
     private _favoritesOnly: boolean;
     private _filteredMovies: MovieViewModel[];
@@ -44,7 +44,7 @@ export class MainViewModel extends Observable {
 
     constructor() {
         super();
-        this._movieService = new MoviesService();
+        this._movieService = new MovieService();
         this._movies = new Array<MovieViewModel>();
         this.init();
         this._isLoading = false;

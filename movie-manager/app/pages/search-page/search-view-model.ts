@@ -1,12 +1,12 @@
 import { Observable } from "ui/frame";
-import { MoviesService } from '../../services/movies-service';
+import { MovieService } from '../../services/movies-service';
 import { SearchResult, NewSearchResult } from "../../shared/interfaces";
 import { SearchResultViewModel } from "./search-result-view-model";
 import { MovieViewModel } from '../movie-page/movie-view-model';
 
 export class SearchViewModel extends Observable {
     private _searchText: string;
-    private _movieService: MoviesService;
+    private _movieService: MovieService;
     private _searchResults: Array<SearchResultViewModel>;
     private _searchError: boolean;
     private _isLoading: boolean;
@@ -57,7 +57,7 @@ export class SearchViewModel extends Observable {
     constructor() {
         super();
 
-        this._movieService = new MoviesService();
+        this._movieService = new MovieService();
         this._searchResults = [];
     }
 

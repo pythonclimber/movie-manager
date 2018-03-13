@@ -56,3 +56,10 @@ export interface NewSearchResult {
     Poster: string;
     userId?: string;
 }
+
+export interface Series {
+    title: string;
+    year: string;
+    imdbid: string;
+    userId: string;
+}
