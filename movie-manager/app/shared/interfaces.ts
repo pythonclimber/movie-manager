@@ -63,3 +63,7 @@ export interface Series {
     imdbid: string;
     userId: string;
 }
+
+export interface ViewOption {
+    title: string;
+}

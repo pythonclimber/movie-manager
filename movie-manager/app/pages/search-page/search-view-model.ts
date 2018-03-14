@@ -104,5 +104,12 @@ export class SearchViewModel extends Observable {
             console.log(error);
             this.isLoading = false;
         });
+        return true;
+    }
+
+    public clearSearch() {
+        this._searchResults = [];
+        this.notify({object: this, eventName: Observable.propertyChangeEvent, propertyName: 'searchResults', value: this.searchResults});
+        return true;
     }
 }

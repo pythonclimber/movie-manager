@@ -3,6 +3,7 @@ import { MovieService } from '../../services/movies-service';
 import { MovieViewModel } from '../movie-page/movie-view-model';
 import { Movie } from '../../shared/interfaces';
 import * as favoriteService from '../../services/favorites-service';
+import { SegmentedBarItem } from 'ui/segmented-bar';
 
 export class MainViewModel extends Observable {
     private _movies: MovieViewModel[];
@@ -10,6 +11,8 @@ export class MainViewModel extends Observable {
     private _isLoading: boolean;
     private _favoritesOnly: boolean;
     private _filteredMovies: MovieViewModel[];
+    private viewOptions: SegmentedBarItem[];
+    private selectedIndex: number;
 
     get favoritesOnly(): boolean {
         return this._favoritesOnly;
@@ -20,6 +23,18 @@ export class MainViewModel extends Observable {
             this._favoritesOnly = value;
             this.notifyPropertyChange('favoritesOnly', value);
             this.toggleView();
+        }
+    }
+
+    get SelectedIndex(): number {
+        return this.selectedIndex;
+    }
+
+    set SelectedIndex(value: number) {
+        if (value !== this.selectedIndex) {
+            this.selectedIndex = value;
+            this.notifyPropertyChange('SelectedIndex', value);
+            this.favoritesOnly = !this.favoritesOnly;
         }
     }
 
@@ -42,12 +57,18 @@ export class MainViewModel extends Observable {
         }
     }
 
+    get ViewOptions(): SegmentedBarItem[] {
+        return this.viewOptions;
+    }
+
     constructor() {
         super();
         this._movieService = new MovieService();
         this._movies = new Array<MovieViewModel>();
         this.init();
         this._isLoading = false;
+        this.selectedIndex = 0;
+        this.viewOptions = this.getViewOptions();
     }
 
     init(): void {
@@ -83,5 +104,14 @@ export class MainViewModel extends Observable {
             this._filteredMovies = this._movies;
         }
         this.notify({object: this, eventName: Observable.propertyChangeEvent, propertyName: 'movies', value: this.movies});
+    }
+
+    private getViewOptions(): SegmentedBarItem[] {
+        let item1 = new SegmentedBarItem();
+        item1.title = 'All Movies';
+        let item2 = new SegmentedBarItem();
+        item2.title = 'Favorites';
+
+        return [item1, item2];
     }
 }

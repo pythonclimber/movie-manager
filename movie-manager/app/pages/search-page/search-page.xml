@@ -8,9 +8,10 @@
         </GridLayout>
         <GridLayout columns="*" rows="auto, *" class="search-text-layout">
             <StackLayout>
-                <TextField text="{{ searchText }}" hint="Search movie title..." class="search-text" />
+                <!-- <TextField text="{{ searchText }}" hint="Search movie title..." class="search-text" />
                 <Label text="A value is required to perform a search" color="red" visibility="{{ searchError ? 'visible' : 'collapse' }}" />
-                <Button text="Search" tap="{{ searchForMovie }}" class="btn" />
+                <Button text="Search" tap="{{ searchForMovie }}" class="btn" /> -->
+                <SearchBar hint="Search movie title..." text="{{ searchText }}" class="search-text" clear="{{ clearSearch }}" submit="{{ searchForMovie }}" />
             </StackLayout>
             <GridLayout row="1" columns="*" rows="auto, *">
                 <Label text="No Results..." visibility="{{ searchResults.length == 0 && !isLoading ? 'visible' : 'collapse' }}" horizontalAlignment="center" />

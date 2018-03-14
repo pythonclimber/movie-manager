@@ -192,7 +192,7 @@ export class MovieViewModel extends Observable implements Movie {
         let moviesService = new MovieService();
         moviesService.addMovie(this).then(response => {
             this.userId = response.userId;
-            navigationModule.navigateToMainPage();
+            //navigationModule.navigateToMainPage();
         });
     }
 
