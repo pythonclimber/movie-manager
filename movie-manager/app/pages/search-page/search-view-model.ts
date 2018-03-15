@@ -112,7 +112,6 @@ export class SearchViewModel extends Observable {
     public ClearSearch() {
         this.searchResults = [];
         this.notify({object: this, eventName: Observable.propertyChangeEvent, propertyName: 'SearchResults', value: this.searchResults});
-        this.DismissInput();
     }
 
     private DismissInput() {
