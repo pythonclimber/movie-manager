@@ -12,9 +12,21 @@ export class SearchViewModel extends Observable {
     private searchResults: Array<SearchResultViewModel>;
     private searchError: boolean;
     private isLoading: boolean;
+    private totalResults: number;
     
     public myMovies: MovieViewModel[];
     public page: Page;
+
+    get TotalResults(): number {
+        return this.totalResults;
+    }
+
+    set TotalResults(value: number) {
+        if (value !== this.totalResults) {
+            this.totalResults = value;
+            this.notifyPropertyChange('TotalResults', value);
+        }
+    }
 
     get SearchText(): string {
         return this.searchText;
@@ -64,7 +76,7 @@ export class SearchViewModel extends Observable {
         this.searchResults = [];
     }
 
-    public SearchForMovie() {
+    public SearchForMovie(resultsPage: number = 1) {
         if (!this.searchText) {
             this.SearchError = true;
             return;
@@ -73,7 +85,7 @@ export class SearchViewModel extends Observable {
         this.SearchError = false;
         this.IsLoading = true;
 
-        this.movieService.onlineMovieSearch<any>(this.searchText).then(response => {
+        this.movieService.onlineMovieSearch<any>(this.searchText, resultsPage).then(response => {
             if (response.Response == 'False') {
                 if (response.error && response.error.message) {
                     if (response.error.message.startsWith('Movie not found') || response.error.message.startsWith('Too many results')) {
@@ -82,7 +94,7 @@ export class SearchViewModel extends Observable {
                     }
                 }
             } else {
-                let searchResults = new Array<SearchResultViewModel>();
+                let searchResults = this.searchResults || new Array<SearchResultViewModel>();
                 for (let movie of response.Search) {
                     let searchResult = <NewSearchResult>movie;
                     let myMovie = this.myMovies.find(m => m.ImdbId == searchResult.imdbID);
@@ -98,6 +110,7 @@ export class SearchViewModel extends Observable {
                         userId: searchResult.userId
                     }));
                 }
+                this.TotalResults = response.totalResults;
                 this.searchResults = searchResults;
                 this.notify({object: this, eventName: Observable.propertyChangeEvent, propertyName: 'SearchResults', value: this.searchResults});
                 this.DismissInput();
@@ -112,6 +125,11 @@ export class SearchViewModel extends Observable {
     public ClearSearch() {
         this.searchResults = [];
         this.notify({object: this, eventName: Observable.propertyChangeEvent, propertyName: 'SearchResults', value: this.searchResults});
+    }
+
+    public GetNextPage() {
+        let currentPage = this.searchResults.length / 10;
+        this.SearchForMovie(++currentPage);
     }
 
     private DismissInput() {

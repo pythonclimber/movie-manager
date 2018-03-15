@@ -65,7 +65,7 @@ export class MovieService {
         return this.loadMovieDetailsFromHttp<T>(onlineId);
     }
 
-    onlineMovieSearch<T>(title: string): Promise<T> {
+    onlineMovieSearch<T>(title: string, page: number = 1): Promise<T> {
         return this.loadSearchResultsFromHttp<T>(title);
     }
 
@@ -96,9 +96,9 @@ export class MovieService {
         return http.getJSON<T>(requestParams);
     }
 
-    private loadSearchResultsFromHttp<T>(title: string): Promise<T> {
+    private loadSearchResultsFromHttp<T>(title: string, page: number = 1): Promise<T> {
         let requestParams = {
-            url: `${this._imdbBaseUrl}&s=${encodeURI(title)}&type=movie`,
+            url: `${this._imdbBaseUrl}&s=${encodeURI(title)}&type=movie&page=${page}`,
             method: 'GET'
         };
         return http.getJSON<T>(requestParams);

@@ -4,6 +4,7 @@
             <StackLayout tap="backTap" orientation="horizontal" class="action-wrap" horizontalAlignment="left" verticalAlignment="center">
                 <Label text="Back" class="back-text" />
             </StackLayout>
+            <Label col="1" text="{{ TotalResults }}" verticalAlignment="center" />
         </GridLayout>
         <GridLayout columns="*" rows="auto, *" class="search-text-layout">
             <StackLayout>
@@ -15,7 +16,7 @@
             <GridLayout row="1" columns="*" rows="auto, *">
                 <Label text="No Results..." visibility="{{ SearchResults.length == 0 && !isLoading ? 'visible' : 'collapse' }}" horizontalAlignment="center" />
                 <ScrollView row="1">
-                    <ListView row="1" class="movie-list" items="{{ SearchResults }}" itemTap="selectMovie" visibility="{{ SearchResults.length > 0 && !isLoading ? 'visible' : 'collapse' }}">
+                    <ListView row="1" class="movie-list" items="{{ SearchResults }}" loadMoreItems="{{ GetNextPage }}" itemTap="selectMovie" visibility="{{ SearchResults.length > 0 && !isLoading ? 'visible' : 'collapse' }}">
                         <ListView.itemTemplate>
                             <GridLayout columns="auto, *" rows="auto">
                                 <GridLayout col="0" columns="auto">
