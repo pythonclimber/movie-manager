@@ -11,7 +11,9 @@ import { Switch } from 'ui/switch';
 export function navigatingTo(args: EventData) {
     let page = <Page>args.object;
     page.actionBarHidden = true;
-    page.bindingContext = new MainViewModel();
+    if (!page.bindingContext) {
+        page.bindingContext = new MainViewModel();
+    }
 }
 
 export function toggleFavorite(args: GestureEventData) {
