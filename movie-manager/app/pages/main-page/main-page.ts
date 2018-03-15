@@ -18,7 +18,7 @@ export function navigatingTo(args: EventData) {
 
 export function toggleFavorite(args: GestureEventData) {
     let movie = <MovieViewModel>args.view.bindingContext;
-    movie.toggleFavorite();
+    movie.ToggleFavorite();
 }
 
 export function selectMovie(args: ItemEventData) {
@@ -28,13 +28,13 @@ export function selectMovie(args: ItemEventData) {
 
 export function searchTap(args: GestureEventData) {
     let mainViewModel = <MainViewModel>args.view.bindingContext;
-    navigationModule.navigateToSearchPage(mainViewModel.movies);
+    navigationModule.navigateToSearchPage(mainViewModel.Movies);
 }
 
 export function switchLoaded(args: EventData) {
     let switchComp = <Switch>args.object;
     let mainViewModel = <MainViewModel>switchComp.bindingContext;
     switchComp.on('checkedChange', (args: PropertyChangeData) => {
-        mainViewModel.toggleView();
+        mainViewModel.ToggleView();
     });
 }

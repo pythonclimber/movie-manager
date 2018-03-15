@@ -10,10 +10,12 @@ import { MovieViewModel } from "../movie-page/movie-view-model";
 export function navigatingTo(args: NavigatedData) {
     let page = <Page>args.object;
     let searchViewModel = <SearchViewModel>args.context;
+    searchViewModel.page = page;
     page.actionBarHidden = true;
     if (!page.bindingContext) {
         page.bindingContext = searchViewModel || new SearchViewModel();
     }
+
 }
 
 export function backTap(args: GestureEventData) {
@@ -24,11 +26,11 @@ export function selectMovie(args: ItemEventData) {
     let searchResult = <SearchResultViewModel>args.view.bindingContext;
     let movie = new MovieViewModel({
         _id: '',
-        title: searchResult.title,
+        title: searchResult.Title,
         description: '',
-        userId: searchResult.userId,
+        userId: searchResult.UserId,
         director: '',
-        imdbid: searchResult.imdbid,
+        imdbid: searchResult.ImdbId,
         favorite: false
     });
     navigationModule.navigateToMovie(movie);

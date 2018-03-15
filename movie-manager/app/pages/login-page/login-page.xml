@@ -6,12 +6,12 @@
     <GridLayout rows="*">
         <StackLayout class="login-wrap">
             <Label text="Username:" />
-            <TextField text="{{ username }}" autocorrect="false" />
+            <TextField text="{{ Username }}" autocorrect="false" />
             <Label text="Password:" />
-            <TextField text="{{ password }}" secure="true" autocorrect="false" />
-            <Label visibility="{{ loginError ? 'visible' : 'collapsed' }}" text="Invalid username or password" class="login-error" />
-            <Button tap="{{ processLogin }}" text="Login" class="btn" />
+            <TextField text="{{ Password }}" secure="true" autocorrect="false" />
+            <Label visibility="{{ LoginError ? 'visible' : 'collapsed' }}" text="Invalid username or password" class="login-error" />
+            <Button tap="{{ ProcessLogin }}" text="Login" class="btn" />
         </StackLayout>
-        <ActivityIndicator busy="{{ isLoading }}" row="1" horizontalAlignment="center" verticalAlignment="center" />
+        <ActivityIndicator busy="{{ IsLoading }}" row="1" horizontalAlignment="center" verticalAlignment="center" />
     </GridLayout>
 </Page>

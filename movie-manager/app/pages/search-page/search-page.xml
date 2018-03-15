@@ -3,7 +3,6 @@
         <GridLayout class="action-bar" columns="*, auto">
             <StackLayout tap="backTap" orientation="horizontal" class="action-wrap" horizontalAlignment="left" verticalAlignment="center">
                 <Label text="Back" class="back-text" />
-                <!-- <Label text="{{ searchResults.length }}" /> -->
             </StackLayout>
         </GridLayout>
         <GridLayout columns="*" rows="auto, *" class="search-text-layout">
@@ -11,26 +10,26 @@
                 <!-- <TextField text="{{ searchText }}" hint="Search movie title..." class="search-text" />
                 <Label text="A value is required to perform a search" color="red" visibility="{{ searchError ? 'visible' : 'collapse' }}" />
                 <Button text="Search" tap="{{ searchForMovie }}" class="btn" /> -->
-                <SearchBar hint="Search movie title..." text="{{ searchText }}" class="search-text" clear="{{ clearSearch }}" submit="{{ searchForMovie }}" />
+                <SearchBar id="movie-search" hint="Search movie title..." text="{{ SearchText }}" class="search-text" clear="{{ ClearSearch }}" submit="{{ SearchForMovie }}" />
             </StackLayout>
             <GridLayout row="1" columns="*" rows="auto, *">
-                <Label text="No Results..." visibility="{{ searchResults.length == 0 && !isLoading ? 'visible' : 'collapse' }}" horizontalAlignment="center" />
+                <Label text="No Results..." visibility="{{ SearchResults.length == 0 && !isLoading ? 'visible' : 'collapse' }}" horizontalAlignment="center" />
                 <ScrollView row="1">
-                    <ListView row="1" class="movie-list" items="{{ searchResults }}" itemTap="selectMovie" visibility="{{ searchResults.length > 0 && !isLoading ? 'visible' : 'collapse' }}">
+                    <ListView row="1" class="movie-list" items="{{ SearchResults }}" itemTap="selectMovie" visibility="{{ SearchResults.length > 0 && !isLoading ? 'visible' : 'collapse' }}">
                         <ListView.itemTemplate>
                             <GridLayout columns="auto, *" rows="auto">
                                 <GridLayout col="0" columns="auto">
-                                    <Image class="icon-image" src="{{ imageSource }}" width="30" height="45" />
+                                    <Image class="icon-image" src="{{ ImageSource }}" width="30" height="45" />
                                 </GridLayout>
                                 <StackLayout col="1">
-                                    <Label text="{{ title }}" class="info-bigger" />
-                                    <Label text="{{ year }}" class="info-orange" />
+                                    <Label text="{{ Title }}" class="info-bigger" />
+                                    <Label text="{{ Year }}" class="info-orange" />
                                 </StackLayout>
                             </GridLayout>
                         </ListView.itemTemplate>
                     </ListView>
                 </ScrollView>
-                <ActivityIndicator busy="{{ isLoading }}" row="1" horizontalAlignment="center" verticalAlignment="center" />
+                <ActivityIndicator busy="{{ IsLoading }}" row="1" horizontalAlignment="center" verticalAlignment="center" />
             </GridLayout>
         </GridLayout>
     </StackLayout>

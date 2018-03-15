@@ -1,13 +1,15 @@
 <Page xmlns="http://schemas.nativescript.org/tns.xsd" navigatingTo="navigatingTo" class="page">
     <StackLayout>
-        <GridLayout class="action-bar" columns="*, auto">
+        <GridLayout class="action-bar" columns="*, *, *">
             <StackLayout col="0" tap="searchTap" orientation="horizontal" class="action-wrap" horizontalAlignment="left" verticalAlignment="center">
                 <Label text="Search" class="back-text" />
             </StackLayout>
-            <!-- <GridLayout columns="auto, auto" col="1">
-                <Label text="Favorites Only:" verticalAlignment="center" />
-                <Switch col="1" checked="{{ favoritesOnly }}" color="#009940" />
-            </GridLayout> -->
+            <!-- <StackLayout col="1" orientation="horizontal" class="action-wrap" horizontalAlignment="left" verticalAlignment="center">
+                <Label text="Movies" class="back-text" />
+            </StackLayout>
+            <StackLayout col="2" orientation="horizontal" class="action-wrap" horizontalAlignment="left" verticalAlignment="center">
+                <Label text="Shows" class="back-text" />
+            </StackLayout> -->
         </GridLayout>
         <GridLayout rows="auto">
             <SegmentedBar selectedBackgroundColor="#009940" items="{{ ViewOptions }}" selectedIndex="{{ SelectedIndex }}" />
@@ -15,22 +17,22 @@
         <GridLayout>
             <GridLayout row="0">
                 <ScrollView>
-                    <ListView items="{{ movies }}" itemTap="selectMovie" class="movie-list">
+                    <ListView items="{{ Movies }}" itemTap="selectMovie" class="movie-list">
                         <ListView.itemTemplate>
                             <GridLayout rows="auto" columns="auto, *">
                                 <GridLayout col="0" columns="auto" rows="auto" class="favorite-wrap" tap="toggleFavorite">
-                                    <Image class="icon-image" src="{{ favorite ? 'res://star_green' : 'res://star_white' }}" />
+                                    <Image class="icon-image" src="{{ Favorite ? 'res://star_green' : 'res://star_white' }}" />
                                 </GridLayout>
                                 <StackLayout col="1" class="info-wrap">
-                                    <Label text="{{ title }}" class="bold info-bigger" />
-                                    <Label text="{{ director }}" class="info-orange" />
+                                    <Label text="{{ Title }}" class="bold info-bigger" />
+                                    <Label text="{{ Director }}" class="info-orange" />
                                 </StackLayout>
                             </GridLayout>
                         </ListView.itemTemplate>
                     </ListView>
                 </ScrollView>
             </GridLayout>
-            <ActivityIndicator busy="{{ isLoading }}" row="1" horizontalAlignment="center" verticalAlignment="center" />
+            <ActivityIndicator busy="{{ IsLoading }}" row="1" horizontalAlignment="center" verticalAlignment="center" />
         </GridLayout>
     </StackLayout>
 </Page>

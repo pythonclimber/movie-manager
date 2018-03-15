@@ -6,25 +6,23 @@
             </StackLayout>
         </GridLayout>
         <GridLayout>
-            <GridLayout columns="auto, *" rows="auto, *"  visibility="{{ isLoading ? 'hidden' : 'visible' }}">
+            <GridLayout columns="auto, *" rows="auto, *"  visibility="{{ IsLoading ? 'hidden' : 'visible' }}">
                 <GridLayout class="image-layout">
-                    <Image src="{{ imageSource }}" stretch="aspectFill" width="120" height="180" horizontalAlignment="left" verticalAlignment="top" />
+                    <Image src="{{ ImageSource }}" stretch="aspectFill" width="120" height="180" horizontalAlignment="left" verticalAlignment="top" />
                 </GridLayout>
                 <StackLayout class="title-layout" col="1">
-                    <Label text="{{ movie.title + ' (' + movie.year + ')' }}" class="main-title" textWrap="true" />
-                    <Label text="{{ movie.director }}" />
+                    <Label text="{{ Title + ' (' + Year + ')' }}" class="main-title" textWrap="true" />
+                    <Label text="{{ Director }}" />
                     <!-- <Label text="{{ imdbid }}" /> -->
-                    <!-- <Button text="Add" width="125" height="50" class="btn" horizontalAlignment="left" visibility="{{  !userId ? 'visible' : 'collapse' }}" tap="{{ addMovieToMyCollection }}" />
-                    <Button text="Remove" width="125" height="50" class="btn" horizontalAlignment="left" visibility="{{  !userId ? 'collapse' : 'visible' }}" tap="{{ removeFromMyCollection }}" /> -->
-                    <Button text="{{ !userId ? 'Add' : 'Remove' }}" width="125" height="40" class="btn" android:fontSize="10" ios:fontSize="18" horizontalAlignment="left" tap="{{ !userId ? addMovieToMyCollection : removeFromMyCollection }}" />
+                    <Button text="{{ !UserId ? 'Add' : 'Remove' }}" width="125" height="40" class="btn" android:fontSize="10" ios:fontSize="18" horizontalAlignment="left" tap="{{ !UserId ? AddMovieToMyCollection : RemoveFromMyCollection }}" />
                 </StackLayout>
                 <GridLayout row="1" colSpan="2" rows="auto" class="plot-layout">
                     <ScrollView class="plot-scroll">
-                        <Label  text="{{ movie.plot }}" class="plot-text" textWrap="true" />
+                        <Label  text="{{ Plot }}" class="plot-text" textWrap="true" />
                     </ScrollView>
                 </GridLayout>
             </GridLayout>
-            <ActivityIndicator busy="{{ isLoading }}" row="1" horizontalAlignment="center" verticalAlignment="center" />
+            <ActivityIndicator busy="{{ IsLoading }}" row="1" horizontalAlignment="center" verticalAlignment="center" />
         </GridLayout>
     </StackLayout>
 </Page>

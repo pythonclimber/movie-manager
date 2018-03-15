@@ -4,52 +4,52 @@ import * as loginService from '../../services/login-service';
 import * as navigationModule from '../../shared/navigation';
 
 export class LoginViewModel extends Observable {
-    private _username: string;
-    private _password: string;
-    private _loginError: boolean;
-    private _isLoading: boolean;
+    private username: string;
+    private password: string;
+    private loginError: boolean;
+    private isLoading: boolean;
 
-    get loginError(): boolean {
-        return this._loginError;
+    get LoginError(): boolean {
+        return this.loginError;
     }
 
-    set loginError(value: boolean) {
-        if (value !== this._loginError) {
-            this._loginError = value;
-            this.notifyPropertyChange('loginError', value);
+    set LoginError(value: boolean) {
+        if (value !== this.loginError) {
+            this.loginError = value;
+            this.notifyPropertyChange('LoginError', value);
         }
     }
 
-    get username(): string {
-        return this._username;
+    get Username(): string {
+        return this.username;
     }
 
-    set username(value: string) {
-        if (value !== this._username) {
-            this._username = value;
-            this.notifyPropertyChange('username', value);
+    set Username(value: string) {
+        if (value !== this.username) {
+            this.username = value;
+            this.notifyPropertyChange('Username', value);
         }
     }
 
-    get password(): string {
-        return this._password;
+    get Password(): string {
+        return this.password;
     }
 
-    set password(value: string) {
-        if (value !== this._password) {
-            this._password = value;
-            this.notifyPropertyChange('password', value);
+    set Password(value: string) {
+        if (value !== this.password) {
+            this.password = value;
+            this.notifyPropertyChange('Password', value);
         }
     }
 
-    get isLoading(): boolean {
-        return this._isLoading;
+    get IsLoading(): boolean {
+        return this.isLoading;
     }
 
-    set isLoading(value: boolean) {
-        if (value !== this._isLoading) {
-            this._isLoading = value;
-            this.notifyPropertyChange('isLoading', value);
+    set IsLoading(value: boolean) {
+        if (value !== this.isLoading) {
+            this.isLoading = value;
+            this.notifyPropertyChange('IsLoading', value);
         }
     }
 
@@ -64,19 +64,19 @@ export class LoginViewModel extends Observable {
         this.isLoading = false;
     }
 
-    processLogin(args: EventData) {
-        this.loginError = false;
-        this.isLoading = true;
+    ProcessLogin(args: EventData) {
+        this.LoginError = false;
+        this.IsLoading = true;
         loginService.processLogin(this.username, this.password).then(loginResponse => {
             if (loginResponse.success) {
                 loginService.addCredentials({username: this.username, password: this.password, userId: loginResponse.userId});
                 navigationModule.navigateToMainPage();
             } else {
                 this.loginError = true;
-                this.password = '';
-                this.username = '';
+                this.Password = '';
+                this.Username = '';
             }
-            this.isLoading = false;
+            this.IsLoading = false;
         });
     }
 }

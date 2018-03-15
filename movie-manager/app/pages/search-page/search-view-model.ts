@@ -3,89 +3,91 @@ import { MovieService } from '../../services/movies-service';
 import { SearchResult, NewSearchResult } from "../../shared/interfaces";
 import { SearchResultViewModel } from "./search-result-view-model";
 import { MovieViewModel } from '../movie-page/movie-view-model';
+import { Page } from 'ui/page';
+import { SearchBar } from 'ui/search-bar';
 
 export class SearchViewModel extends Observable {
-    private _searchText: string;
-    private _movieService: MovieService;
-    private _searchResults: Array<SearchResultViewModel>;
-    private _searchError: boolean;
-    private _isLoading: boolean;
+    private searchText: string;
+    private movieService: MovieService;
+    private searchResults: Array<SearchResultViewModel>;
+    private searchError: boolean;
+    private isLoading: boolean;
     
     public myMovies: MovieViewModel[];
+    public page: Page;
 
-    get searchText(): string {
-        return this._searchText;
+    get SearchText(): string {
+        return this.searchText;
     }
 
-    set searchText(value: string) {
-        if (value !== this._searchText) {
-            this._searchText = value;
-            this.notifyPropertyChange('searchText', value);
+    set SearchText(value: string) {
+        if (value !== this.searchText) {
+            this.searchText = value;
+            this.notifyPropertyChange('SearchText', value);
         }
     }
 
-    get isLoading(): boolean {
-        return this._isLoading;
+    get IsLoading(): boolean {
+        return this.isLoading;
     }
 
-    set isLoading(value: boolean) {
-        if (value !== this._isLoading) {
-            this._isLoading = value;
-            this.notifyPropertyChange('isLoading', value);
+    set IsLoading(value: boolean) {
+        if (value !== this.isLoading) {
+            this.isLoading = value;
+            this.notifyPropertyChange('IsLoading', value);
         }
     }
 
-    get searchResults(): Array<SearchResultViewModel> {
-        return this._searchResults;
+    get SearchResults(): Array<SearchResultViewModel> {
+        return this.searchResults;
     }
 
-    get searchError(): boolean {
-        return this._searchError;
+    get SearchError(): boolean {
+        return this.searchError;
     }
 
-    set searchError(value: boolean) {
-        if (value !== this._searchError) {
-            this._searchError = value;
-            this.notifyPropertyChange('searchError', value);
+    set SearchError(value: boolean) {
+        if (value !== this.searchError) {
+            this.searchError = value;
+            this.notifyPropertyChange('SearchError', value);
         }
     }
 
-    get searchResultsVisible(): boolean {
+    get SearchResultsVisible(): boolean {
         return this.searchResults.length > 0 && !this.isLoading;
     }
 
     constructor() {
         super();
 
-        this._movieService = new MovieService();
-        this._searchResults = [];
+        this.movieService = new MovieService();
+        this.searchResults = [];
     }
 
-    public searchForMovie() {
-        if (!this._searchText) {
-            this.searchError = true;
+    public SearchForMovie() {
+        if (!this.searchText) {
+            this.SearchError = true;
             return;
         }
         
-        this.searchError = false;
-        this.isLoading = true;
-        
+        this.SearchError = false;
+        this.IsLoading = true;
 
-        this._movieService.onlineMovieSearch<any>(this._searchText).then(response => {
+        this.movieService.onlineMovieSearch<any>(this.searchText).then(response => {
             if (response.Response == 'False') {
                 if (response.error && response.error.message) {
                     if (response.error.message.startsWith('Movie not found') || response.error.message.startsWith('Too many results')) {
-                        this._searchResults = [];
-                        this.notify({object: this, eventName: Observable.propertyChangeEvent, propertyName: 'searchResults', value: this.searchResults});
+                        this.searchResults = [];
+                        this.notify({object: this, eventName: Observable.propertyChangeEvent, propertyName: 'SearchResults', value: this.searchResults});
                     }
                 }
             } else {
                 let searchResults = new Array<SearchResultViewModel>();
                 for (let movie of response.Search) {
                     let searchResult = <NewSearchResult>movie;
-                    let myMovie = this.myMovies.find(m => m.imdbid == searchResult.imdbID);
+                    let myMovie = this.myMovies.find(m => m.ImdbId == searchResult.imdbID);
                     if (myMovie) {
-                        searchResult.userId = myMovie.userId;
+                        searchResult.userId = myMovie.UserId;
                     }
                     searchResults.push(new SearchResultViewModel({
                         title: searchResult.Title,
@@ -96,20 +98,25 @@ export class SearchViewModel extends Observable {
                         userId: searchResult.userId
                     }));
                 }
-                this._searchResults = searchResults;
-                this.notify({object: this, eventName: Observable.propertyChangeEvent, propertyName: 'searchResults', value: this.searchResults});
+                this.searchResults = searchResults;
+                this.notify({object: this, eventName: Observable.propertyChangeEvent, propertyName: 'SearchResults', value: this.searchResults});
+                this.DismissInput();
             }
-            this.isLoading = false;
+            this.IsLoading = false;
         }).catch(error => {
             console.log(error);
-            this.isLoading = false;
+            this.IsLoading = false;
         });
-        return true;
     }
 
-    public clearSearch() {
-        this._searchResults = [];
-        this.notify({object: this, eventName: Observable.propertyChangeEvent, propertyName: 'searchResults', value: this.searchResults});
-        return true;
+    public ClearSearch() {
+        this.searchResults = [];
+        this.notify({object: this, eventName: Observable.propertyChangeEvent, propertyName: 'SearchResults', value: this.searchResults});
+        this.DismissInput();
+    }
+
+    private DismissInput() {
+        let searchBar = <SearchBar>this.page.getViewById('movie-search');
+        searchBar.dismissSoftInput();
     }
 }

@@ -58,7 +58,7 @@ export class MovieService {
     }
 
     deleteMovie(movie: MovieViewModel): Promise<any> {
-        return this.deleteMovieFromHttp(movie.imdbid, movie.userId);
+        return this.deleteMovieFromHttp(movie.ImdbId, movie.UserId);
     }
 
     getMovieDetails<T>(onlineId: string): Promise<T> {
@@ -118,12 +118,12 @@ export class MovieService {
     private addMovieViaHttp(movie: MovieViewModel): Promise<Movie> {
         let user = loginService.getSavedCredentials();
         let data: Movie = {
-            title: movie.title,
+            title: movie.Title,
             description: '',
             _id: '',
             userId: user.userId,
-            director: movie.director,
-            imdbid: movie.movie.imdbid,
+            director: movie.Director,
+            imdbid: movie.ImdbId,
             favorite: false
         };
 

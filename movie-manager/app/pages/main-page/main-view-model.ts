@@ -6,23 +6,23 @@ import * as favoriteService from '../../services/favorites-service';
 import { SegmentedBarItem } from 'ui/segmented-bar';
 
 export class MainViewModel extends Observable {
-    private _movies: MovieViewModel[];
-    private _movieService: MovieService;
-    private _isLoading: boolean;
-    private _favoritesOnly: boolean;
-    private _filteredMovies: MovieViewModel[];
+    private movies: MovieViewModel[];
+    private movieService: MovieService;
+    private isLoading: boolean;
+    private favoritesOnly: boolean;
+    private filteredMovies: MovieViewModel[];
     private viewOptions: SegmentedBarItem[];
     private selectedIndex: number;
 
-    get favoritesOnly(): boolean {
-        return this._favoritesOnly;
+    get FavoritesOnly(): boolean {
+        return this.favoritesOnly;
     }
 
-    set favoritesOnly(value: boolean) {
-        if (value !== this._favoritesOnly) {
-            this._favoritesOnly = value;
-            this.notifyPropertyChange('favoritesOnly', value);
-            this.toggleView();
+    set FavoritesOnly(value: boolean) {
+        if (value !== this.favoritesOnly) {
+            this.favoritesOnly = value;
+            this.notifyPropertyChange('FavoritesOnly', value);
+            this.ToggleView();
         }
     }
 
@@ -34,26 +34,22 @@ export class MainViewModel extends Observable {
         if (value !== this.selectedIndex) {
             this.selectedIndex = value;
             this.notifyPropertyChange('SelectedIndex', value);
-            this.favoritesOnly = !this.favoritesOnly;
+            this.FavoritesOnly = !this.FavoritesOnly;
         }
     }
 
-    get movies(): MovieViewModel[] {
-        return this._filteredMovies;
+    get Movies(): MovieViewModel[] {
+        return this.filteredMovies;
     }
 
-    get searchText(): string {
-        return 'search';
+    get IsLoading(): boolean {
+        return this.isLoading;
     }
 
-    get isLoading(): boolean {
-        return this._isLoading;
-    }
-
-    set isLoading(value: boolean) {
-        if (value !== this._isLoading) {
-            this._isLoading = value;
-            this.notifyPropertyChange('isLoading', value);
+    set IsLoading(value: boolean) {
+        if (value !== this.isLoading) {
+            this.isLoading = value;
+            this.notifyPropertyChange('IsLoading', value);
         }
     }
 
@@ -63,16 +59,16 @@ export class MainViewModel extends Observable {
 
     constructor() {
         super();
-        this._movieService = new MovieService();
-        this._movies = new Array<MovieViewModel>();
-        this.init();
-        this._isLoading = false;
+        this.movieService = new MovieService();
+        this.movies = new Array<MovieViewModel>();
+        this.Init();
+        this.isLoading = false;
         this.selectedIndex = 0;
-        this.viewOptions = this.getViewOptions();
+        this.viewOptions = this.GetViewOptions();
     }
 
-    init(): void {
-        this._movieService
+    public Init(): void {
+        this.movieService
             .getMovies<Array<Movie>>()
             .then(movies => {
                 let movieViewModels = new Array<MovieViewModel>();
@@ -80,33 +76,33 @@ export class MainViewModel extends Observable {
                     let movieModel = new MovieViewModel(movie);
                     let indexInFavorites = favoriteService.findMovieIndexInFavorites(movie._id);
                     if (indexInFavorites >= 0) {
-                        movieModel.favorite = true;
+                        movieModel.Favorite = true;
                     }
                     movieViewModels.push(movieModel);
                 }
-                this._movies = movieViewModels;
-                this._filteredMovies = this._movies.sort((m1, m2) => {
-                    if (m1.title < m2.title)
+                this.movies = movieViewModels;
+                this.filteredMovies = this.movies.sort((m1, m2) => {
+                    if (m1.Title < m2.Title)
                         return -1;
-                    else if (m1.title > m2.title) 
+                    else if (m1.Title > m2.Title) 
                         return 1;
                     else
                         return 0;
                 });
-                this.notify({object: this, eventName: Observable.propertyChangeEvent, propertyName: 'movies', value: this.movies});
+                this.notify({object: this, eventName: Observable.propertyChangeEvent, propertyName: 'Movies', value: this.movies});
             });
     }
 
-    toggleView(): void {
+    public ToggleView(): void {
         if (this.favoritesOnly) {
-            this._filteredMovies = this._movies.filter(m => m.favorite);
+            this.filteredMovies = this.movies.filter(m => m.Favorite);
         } else {
-            this._filteredMovies = this._movies;
+            this.filteredMovies = this.movies;
         }
-        this.notify({object: this, eventName: Observable.propertyChangeEvent, propertyName: 'movies', value: this.movies});
+        this.notify({object: this, eventName: Observable.propertyChangeEvent, propertyName: 'Movies', value: this.filteredMovies});
     }
 
-    private getViewOptions(): SegmentedBarItem[] {
+    private GetViewOptions(): SegmentedBarItem[] {
         let item1 = new SegmentedBarItem();
         item1.title = 'All Movies';
         let item2 = new SegmentedBarItem();

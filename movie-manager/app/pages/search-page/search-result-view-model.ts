@@ -4,91 +4,91 @@ import { ImageSource } from "image-source";
 import * as imageService from '../../services/image-service';
 
 
-export class SearchResultViewModel extends Observable implements SearchResult {
-    private _searchResult: SearchResult;
-    private _imageSource: ImageSource;
+export class SearchResultViewModel extends Observable {
+    private searchResult: SearchResult;
+    private imageSource: ImageSource;
 
-    get title(): string {
-        return this._searchResult.title;
+    get Title(): string {
+        return this.searchResult.title;
     }
 
-    set title(value: string) {
-        if (value !== this._searchResult.title) {
-            this._searchResult.title = value;
-            this.notifyPropertyChange('title', value);
+    set Title(value: string) {
+        if (value !== this.searchResult.title) {
+            this.searchResult.title = value;
+            this.notifyPropertyChange('Title', value);
         }
     }
 
-    get year(): string {
-        return this._searchResult.year;
+    get Year(): string {
+        return this.searchResult.year;
     }
 
-    set year(value: string) {
-        if (value !== this._searchResult.year) {
-            this._searchResult.year = value;
-            this.notifyPropertyChange('year', value);
+    set Year(value: string) {
+        if (value !== this.searchResult.year) {
+            this.searchResult.year = value;
+            this.notifyPropertyChange('Year', value);
         }
     }
     
-    get imdbid(): string {
-        return this._searchResult.imdbid;
+    get ImdbId(): string {
+        return this.searchResult.imdbid;
     }
 
-    set imdbid(value: string) {
-        if (value !== this._searchResult.imdbid) {
-            this._searchResult.imdbid = value;
-            this.notifyPropertyChange('imdbid', value);
+    set ImdbId(value: string) {
+        if (value !== this.searchResult.imdbid) {
+            this.searchResult.imdbid = value;
+            this.notifyPropertyChange('ImdbId', value);
         }
     }
 
-    get type(): string {
-        return this._searchResult.type;
+    get Type(): string {
+        return this.searchResult.type;
     }
 
-    set type(value: string) {
-        if (value !== this._searchResult.type) {
-            this._searchResult.type = value;
-            this.notifyPropertyChange('type', value);
+    set Type(value: string) {
+        if (value !== this.searchResult.type) {
+            this.searchResult.type = value;
+            this.notifyPropertyChange('Type', value);
         }
     }
 
-    get poster(): string {
-        return this._searchResult.poster;
+    get Poster(): string {
+        return this.searchResult.poster;
     }
 
-    set poster(value: string) {
-        if (value !== this._searchResult.poster) {
-            this._searchResult.poster = value;
-            this.notifyPropertyChange('poster', value);
+    set Poster(value: string) {
+        if (value !== this.searchResult.poster) {
+            this.searchResult.poster = value;
+            this.notifyPropertyChange('Poster', value);
         }
     }
 
-    get imageSource(): ImageSource {
-        return this._imageSource;
+    get ImageSource(): ImageSource {
+        return this.imageSource;
     }
     
-    set imageSource(value: ImageSource) {
-        if (value !== this._imageSource) {
-            this._imageSource = value;
-            this.notifyPropertyChange('imageSource', value);
+    set ImageSource(value: ImageSource) {
+        if (value !== this.imageSource) {
+            this.imageSource = value;
+            this.notifyPropertyChange('ImageSource', value);
         }
     }
 
-    get userId(): string {
-        return this._searchResult.userId;
+    get UserId(): string {
+        return this.searchResult.userId;
     }
 
     constructor(searchResult: SearchResult) {
         super();
 
-        this._searchResult = searchResult;
-        this.imageSource = new ImageSource();
-        if (searchResult.poster != 'N/A') {
+        this.searchResult = searchResult;
+        this.ImageSource = new ImageSource();
+        if (searchResult.poster && searchResult.poster.startsWith('http')) {
             imageService.getImageFromHttp(searchResult.poster).then(source => {
-                this.imageSource = source;
+                this.ImageSource = source;
             });
         } else {
-            this.imageSource = new ImageSource();
+            this.ImageSource = new ImageSource();
         }
     }
 }

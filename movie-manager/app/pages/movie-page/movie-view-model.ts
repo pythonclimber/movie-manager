@@ -7,199 +7,194 @@ import * as imageService from '../../services/image-service';
 import { SearchResultViewModel } from "../search-page/search-result-view-model";
 import * as navigationModule from '../../shared/navigation'
 
-export class MovieViewModel extends Observable implements Movie {
-    private _movie: Movie;
-    // private _favorite: boolean;
-    private _imageSource: ImageSource;
-    private _isLoading: boolean;
+export class MovieViewModel extends Observable {
+    private movie: Movie;
+    private imageSource: ImageSource;
+    private isLoading: boolean;
 
-    get movie(): Movie {
-        return this._movie;
+    get Movie(): Movie {
+        return this.movie;
     }
 
     get _id(): string {
-        return this._movie._id;
+        return this.movie._id;
     }
 
     set _id(value: string) {
-        if (value !== this._movie._id) {
-            this._movie._id = value;
+        if (value !== this.movie._id) {
+            this.movie._id = value;
             this.notifyPropertyChange('_id', value);
         }
     }
 
-    get title(): string {
-        return this._movie.title;
+    get Title(): string {
+        return this.movie.title;
     }
 
-    set title(value: string) {
-        if (value !== this._movie.title) {
-            this._movie.title = value;
-            this.notifyPropertyChange('title', value);
+    set Title(value: string) {
+        if (value !== this.movie.title) {
+            this.movie.title = value;
+            this.notifyPropertyChange('Title', value);
         }
     }
 
-    get description(): string {
-        return this._movie.description;
+    get Description(): string {
+        return this.movie.description;
     }
 
-    set description(value: string) {
-        if (value !== this._movie.description) {
-            this._movie.description = value;
-            this.notifyPropertyChange('description', value);
+    set Description(value: string) {
+        if (value !== this.movie.description) {
+            this.movie.description = value;
+            this.notifyPropertyChange('Description', value);
         }
     }
 
-    get userId(): string {
-        return this._movie.userId;
+    get UserId(): string {
+        return this.movie.userId;
     }
 
-    set userId(value: string) {
-        if (value !== this._movie.userId) {
-            this._movie.userId = value;
-            this.notifyPropertyChange('userId', value);
+    set UserId(value: string) {
+        if (value !== this.movie.userId) {
+            this.movie.userId = value;
+            this.notifyPropertyChange('UserId', value);
         }
     }
 
-    get director(): string {
-        return this._movie.director;
+    get Director(): string {
+        return this.movie.director;
     }
 
-    set director(value: string) {
-        if (value !== this._movie.director) {
-            this._movie.director = value;
-            this.notifyPropertyChange('director', value);
+    set Director(value: string) {
+        if (value !== this.movie.director) {
+            this.movie.director = value;
+            this.notifyPropertyChange('Director', value);
         }
     }
 
-    get favorite(): boolean {
-        return this._movie.favorite;
+    get Favorite(): boolean {
+        return this.movie.favorite;
     }
 
-    set favorite(value: boolean) {
-         if (this._movie.favorite !== value) {
-             this._movie.favorite = value;
-             this.notifyPropertyChange('favorite', value);
+    set Favorite(value: boolean) {
+         if (this.movie.favorite !== value) {
+             this.movie.favorite = value;
+             this.notifyPropertyChange('Favorite', value);
          }
     }
 
-    get imageSource(): ImageSource {
-        return this._imageSource;
+    get ImageSource(): ImageSource {
+        return this.imageSource;
     }
 
-    set imageSource(value: ImageSource) {
-        if (value !== this._imageSource) {
-            this._imageSource = value;
-            this.notifyPropertyChange('imageSource', value);
+    set ImageSource(value: ImageSource) {
+        if (value !== this.imageSource) {
+            this.imageSource = value;
+            this.notifyPropertyChange('ImageSource', value);
         }
     }
 
-    get plot(): string {
-        return this._movie.plot;
+    get Plot(): string {
+        return this.movie.plot;
     }
 
-    set plot(value: string) {
-        if (value !== this._movie.plot) {
-            this._movie.plot = value;
-            this.notifyPropertyChange('plot', value);
+    set Plot(value: string) {
+        if (value !== this.movie.plot) {
+            this.movie.plot = value;
+            this.notifyPropertyChange('Plot', value);
         }
     }
 
-    get imdbid(): string {
-        return this._movie.imdbid;
+    get ImdbId(): string {
+        return this.movie.imdbid;
     }
 
-    set imdbid(value: string) {
-        if (value !== this._movie.imdbid) {
-            this._movie.imdbid = value;
-            this.notifyPropertyChange('imdbid', value)
+    set ImdbId(value: string) {
+        if (value !== this.movie.imdbid) {
+            this.movie.imdbid = value;
+            this.notifyPropertyChange('ImdbId', value)
         }
     }
 
-    get isLoading(): boolean {
-        return this._isLoading;
+    get IsLoading(): boolean {
+        return this.isLoading;
     }
 
-    set isLoading(value: boolean) {
-        if (value !== this._isLoading) {
-            this._isLoading = value;
-            this.notifyPropertyChange('isLoading', value);
+    set IsLoading(value: boolean) {
+        if (value !== this.isLoading) {
+            this.isLoading = value;
+            this.notifyPropertyChange('IsLoading', value);
+        }
+    }
+
+    get Year(): string {
+        return this.movie.year;
+    }
+
+    set Year(value: string) {
+        if (value !== this.movie.year) {
+            this.movie.year = value;
+            this.notifyPropertyChange('Year', value);
         }
     }
 
     constructor(movie: Movie) {
         super();
-        this._movie = movie;
+        this.movie = movie;
 
-        if (this._movie.title.startsWith('The ')) {
-            this._movie.title = this._movie.title.substr(4) + ', The'
-        } else if (this._movie.title.startsWith('A ')) {
-            this._movie.title = this._movie.title.substr(2) + ', A'
-        } else if (this._movie.title.startsWith('An ')) {
-            this._movie.title = this._movie.title.substr(3) + ', An'
+        if (this.movie.title.startsWith('The ')) {
+            this.movie.title = this.movie.title.substr(4) + ', The'
+        } else if (this.movie.title.startsWith('A ')) {
+            this.movie.title = this.movie.title.substr(2) + ', A'
+        } else if (this.movie.title.startsWith('An ')) {
+            this.movie.title = this.movie.title.substr(3) + ', An'
         }
 
-        if (!this.movie.plot) {
-            this.movie.plot = '';
+        if (!this.Plot) {
+            this.Plot = '';
         }
     }
 
-    public getDetails(): Promise<any> {
+    public GetDetails(): Promise<any> {
         let movieService = new MovieService();
-        //let userId = this.userId;
-        return movieService.getMovieDetails<any>(this._movie.imdbid).then(response => {
+
+        return movieService.getMovieDetails<any>(this.movie.imdbid).then(response => {
                 let movie = <NewMovie>response;
-                this._movie = {
-                    _id: '',
-                    description: '',
-                    title: movie.Title,
-                    plot: movie.Plot,
-                    poster: movie.Poster,
-                    userId: this.userId,
-                    director: movie.Director,
-                    imdbid: movie.imdbID,
-                    year: movie.Year,
-                    runtime: movie.Runtime,
-                    genres: movie.Genre,
-                    writer: movie.Writer,
-                    actors: movie.Actors,
-                    favorite: this.favorite
-                }
-                //this.userId = userId;
-                if (this._movie.poster && this._movie.poster.startsWith('https')) {
-                    imageService.getImageFromHttp(this._movie.poster).then(imageSource => {
-                        this.imageSource = imageSource;
+                this._id = '';
+                this.Description = '';
+                this.Title = movie.Title;
+                this.Plot = movie.Plot;
+                this.UserId = this.UserId;
+                this.Year = movie.Year;
+                this.Director = movie.Director;
+                this.ImdbId = movie.imdbID;
+
+                if (movie.Poster && movie.Poster.startsWith('https')) {
+                    imageService.getImageFromHttp(movie.Poster).then(imageSource => {
+                        this.ImageSource = imageSource;
                     });
                 }
-                this.notifyPropertyChange('movie', this._movie);
         }).catch(error => {
             console.log(error);
         });
     }
 
-    public toggleFavorite(): void {
-        this.favorite = !this.favorite;
-        // if (this.favorite) {
-        //     favoriteService.addToFavorites(this);
-        // } else {
-        //     favoriteService.removeFromFavorites(this);
-        // }
-        let moviesService = new MovieService();
-        moviesService.toggleFavorite(this.userId, this.imdbid, this.favorite);
+    public ToggleFavorite(): void {
+        this.Favorite = !this.Favorite;
+        let movieService = new MovieService();
+        movieService.toggleFavorite(this.UserId, this.ImdbId, this.Favorite);
     }
 
-    public addMovieToMyCollection(args: EventData) {
+    public AddMovieToMyCollection(args: EventData) {
         let moviesService = new MovieService();
         moviesService.addMovie(this).then(response => {
-            this.userId = response.userId;
-            //navigationModule.navigateToMainPage();
+            this.UserId = response.userId;
         });
     }
 
-    public removeFromMyCollection(args: EventData) {
+    public RemoveFromMyCollection(args: EventData) {
         let movieService = new MovieService();
         movieService.deleteMovie(this).then(response => {
-            this.userId = '';
+            this.UserId = '';
             navigationModule.navigateToMainPage();
         });
     }
