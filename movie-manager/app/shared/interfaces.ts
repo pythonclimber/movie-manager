@@ -57,13 +57,22 @@ export interface NewSearchResult {
     userId?: string;
 }
 
-export interface Series {
+export interface Show {
     title: string;
     year: string;
     imdbid: string;
     userId: string;
+    favorite: boolean;
 }
 
-export interface ViewOption {
-    title: string;
+export interface SearchResponse {
+    Search: Array<NewSearchResult>;
+    totalResults: number;
+    Response: string;
+}
+
+export interface Media {
+    Title: string;
+    Director: string;
+    Year: string;
 }

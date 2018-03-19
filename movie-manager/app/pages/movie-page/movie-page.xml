@@ -16,9 +16,9 @@
                     <!-- <Label text="{{ imdbid }}" /> -->
                     <Button text="{{ !UserId ? 'Add' : 'Remove' }}" width="125" height="40" class="btn" android:fontSize="10" ios:fontSize="18" horizontalAlignment="left" tap="{{ !UserId ? AddMovieToMyCollection : RemoveFromMyCollection }}" />
                 </StackLayout>
-                <GridLayout row="1" colSpan="2" rows="auto" class="plot-layout">
-                    <ScrollView class="plot-scroll">
-                        <Label  text="{{ Plot }}" class="plot-text" textWrap="true" />
+                <GridLayout row="1" colSpan="2" class="plot-layout">
+                    <ScrollView>
+                        <Label  text="{{ Plot }}" textWrap="true" />
                     </ScrollView>
                 </GridLayout>
             </GridLayout>

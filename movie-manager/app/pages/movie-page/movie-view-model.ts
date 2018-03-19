@@ -1,7 +1,6 @@
 import { Observable, EventData } from "data/observable";
 import { Movie, SearchResult, NewMovie } from "../../shared/interfaces";
-import * as favoriteService from '../../services/favorites-service';
-import { MovieService } from '../../services/movies-service';
+import { MovieService } from '../../services/movie-service';
 import { ImageSource } from "image-source";
 import * as imageService from '../../services/image-service';
 import { SearchResultViewModel } from "../search-page/search-result-view-model";
@@ -14,6 +13,10 @@ export class MovieViewModel extends Observable {
 
     get Movie(): Movie {
         return this.movie;
+    }
+
+    get Type(): string {
+        return 'Movie';
     }
 
     get _id(): string {

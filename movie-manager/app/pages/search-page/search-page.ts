@@ -6,6 +6,8 @@ import { GestureEventData } from 'ui/gestures';
 import * as navigationModule from '../../shared/navigation';
 import { SearchResultViewModel } from './search-result-view-model';
 import { MovieViewModel } from "../movie-page/movie-view-model";
+import { ViewMode } from "../../shared/enums";
+import { ShowViewModel } from "../movie-page/show-view-model";
 
 export function navigatingTo(args: NavigatedData) {
     let page = <Page>args.object;
@@ -22,16 +24,28 @@ export function backTap(args: GestureEventData) {
     navigationModule.backOnePage();
 }
 
-export function selectMovie(args: ItemEventData) {
+export function selectItem(args: ItemEventData) {
     let searchResult = <SearchResultViewModel>args.view.bindingContext;
-    let movie = new MovieViewModel({
-        _id: '',
-        title: searchResult.Title,
-        description: '',
-        userId: searchResult.UserId,
-        director: '',
-        imdbid: searchResult.ImdbId,
-        favorite: false
-    });
-    navigationModule.navigateToMovie(movie);
+    let searchViewModel = <SearchViewModel>args.view.parent.bindingContext;
+    if (searchViewModel.searchMode == ViewMode.Movies) {
+        let movie = new MovieViewModel({
+            _id: '',
+            title: searchResult.Title,
+            description: '',
+            userId: searchResult.UserId,
+            director: '',
+            imdbid: searchResult.ImdbId,
+            favorite: false
+        });
+        navigationModule.navigateToMovie(movie);
+    } else {
+        let show = new ShowViewModel({
+            title: searchResult.Title,
+            year: searchResult.Year,
+            imdbid: searchResult.ImdbId,
+            userId: searchResult.UserId,
+            favorite: false
+        });
+        navigationModule.navigateToShow(show);
+    }
 }

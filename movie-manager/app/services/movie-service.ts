@@ -66,7 +66,7 @@ export class MovieService {
     }
 
     onlineMovieSearch<T>(title: string, page: number = 1): Promise<T> {
-        return this.loadSearchResultsFromHttp<T>(title);
+        return this.loadSearchResultsFromHttp<T>(title, page);
     }
 
     toggleFavorite(userId: string, imdbid: string, favorite: boolean) {

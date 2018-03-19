@@ -1,14 +1,18 @@
 import { Observable } from "ui/frame";
-import { MovieService } from '../../services/movies-service';
-import { SearchResult, NewSearchResult } from "../../shared/interfaces";
+import { MovieService } from '../../services/movie-service';
+import { SearchResult, NewSearchResult, SearchResponse } from "../../shared/interfaces";
 import { SearchResultViewModel } from "./search-result-view-model";
 import { MovieViewModel } from '../movie-page/movie-view-model';
 import { Page } from 'ui/page';
 import { SearchBar } from 'ui/search-bar';
+import { ViewMode } from "../../shared/enums";
+import { ShowViewModel } from "../movie-page/show-view-model";
+import { ShowService } from "../../services/show-service";
 
 export class SearchViewModel extends Observable {
     private searchText: string;
     private movieService: MovieService;
+    private showService: ShowService;
     private searchResults: Array<SearchResultViewModel>;
     private searchError: boolean;
     private isLoading: boolean;
@@ -16,6 +20,8 @@ export class SearchViewModel extends Observable {
     
     public myMovies: MovieViewModel[];
     public page: Page;
+    public searchMode: ViewMode;
+    public myShows: ShowViewModel[];
 
     get TotalResults(): number {
         return this.totalResults;
@@ -73,10 +79,11 @@ export class SearchViewModel extends Observable {
         super();
 
         this.movieService = new MovieService();
+        this.showService = new ShowService();
         this.searchResults = [];
     }
 
-    public SearchForMovie(resultsPage: number = 1) {
+    public DoSearch() {
         if (!this.searchText) {
             this.SearchError = true;
             return;
@@ -84,42 +91,13 @@ export class SearchViewModel extends Observable {
         
         this.SearchError = false;
         this.IsLoading = true;
+        this.searchResults = new Array<SearchResultViewModel>();
 
-        this.movieService.onlineMovieSearch<any>(this.searchText, resultsPage).then(response => {
-            if (response.Response == 'False') {
-                if (response.error && response.error.message) {
-                    if (response.error.message.startsWith('Movie not found') || response.error.message.startsWith('Too many results')) {
-                        this.searchResults = [];
-                        this.notify({object: this, eventName: Observable.propertyChangeEvent, propertyName: 'SearchResults', value: this.searchResults});
-                    }
-                }
-            } else {
-                let searchResults = this.searchResults || new Array<SearchResultViewModel>();
-                for (let movie of response.Search) {
-                    let searchResult = <NewSearchResult>movie;
-                    let myMovie = this.myMovies.find(m => m.ImdbId == searchResult.imdbID);
-                    if (myMovie) {
-                        searchResult.userId = myMovie.UserId;
-                    }
-                    searchResults.push(new SearchResultViewModel({
-                        title: searchResult.Title,
-                        year: searchResult.Year,
-                        imdbid: searchResult.imdbID,
-                        type: searchResult.Type,
-                        poster: searchResult.Poster,
-                        userId: searchResult.userId
-                    }));
-                }
-                this.TotalResults = response.totalResults;
-                this.searchResults = searchResults;
-                this.notify({object: this, eventName: Observable.propertyChangeEvent, propertyName: 'SearchResults', value: this.searchResults});
-                this.DismissInput();
-            }
-            this.IsLoading = false;
-        }).catch(error => {
-            console.log(error);
-            this.IsLoading = false;
-        });
+        if (this.searchMode == ViewMode.Movies) {
+            this.SearchForMovie();
+        } else {
+            this.SearchForShow();
+        }
     }
 
     public ClearSearch() {
@@ -128,12 +106,76 @@ export class SearchViewModel extends Observable {
     }
 
     public GetNextPage() {
+        if (this.searchResults.length % 10 != 0 || this.searchResults.length == this.totalResults) {
+            return;
+        }
+
         let currentPage = this.searchResults.length / 10;
-        this.SearchForMovie(++currentPage);
+        if (this.searchMode == ViewMode.Movies) {
+            this.SearchForMovie(++currentPage);
+        } else {
+            this.SearchForShow(++currentPage);
+        }
     }
 
     private DismissInput() {
         let searchBar = <SearchBar>this.page.getViewById('movie-search');
         searchBar.dismissSoftInput();
+    }
+
+    private SearchForMovie(resultsPage: number = 1) {
+        this.movieService
+            .onlineMovieSearch<any>(this.searchText, resultsPage)
+            .then(this.HandleSearchResponse.bind(this))
+            .catch(error => {
+                console.log(error);
+                this.IsLoading = false;
+            });
+    }
+
+    private SearchForShow(resultsPage: number = 1) {
+        this.showService
+            .onlineShowSearch(this.searchText, resultsPage)
+            .then(this.HandleSearchResponse.bind(this))
+            .catch(error => {
+                console.log(error);
+                this.isLoading = false;
+            })
+    }
+
+    private HandleSearchResponse<T>(response: SearchResponse) {
+        if (response.Response == 'False') {
+            this.searchResults = [];
+            this.notify({object: this, eventName: Observable.propertyChangeEvent, propertyName: 'SearchResults', value: this.searchResults});
+        } else {
+            let searchResults = new Array<SearchResultViewModel>();
+            for (let result of response.Search) {
+                let searchResult = <NewSearchResult>result;
+                if (this.searchMode == ViewMode.Movies) {
+                    let myMovie = this.myMovies.find(m => m.ImdbId == searchResult.imdbID);
+                    if (myMovie) {
+                        searchResult.userId = myMovie.UserId;
+                    }
+                } else {
+                    let myShow = this.myShows.find(s => s.ImdbId == searchResult.imdbID);
+                    if (myShow) {
+                        searchResult.userId = myShow.UserId;
+                    }
+                }
+                searchResults.push(new SearchResultViewModel({
+                    title: searchResult.Title,
+                    year: searchResult.Year,
+                    imdbid: searchResult.imdbID,
+                    type: searchResult.Type,
+                    poster: searchResult.Poster,
+                    userId: searchResult.userId
+                }));
+            }
+            this.TotalResults = response.totalResults;
+            this.searchResults = this.searchResults.concat(searchResults);
+            this.notify({object: this, eventName: Observable.propertyChangeEvent, propertyName: 'SearchResults', value: this.searchResults});
+            this.DismissInput();
+        }
+        this.IsLoading = false;
     }
 }

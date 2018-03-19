@@ -4,19 +4,19 @@
             <StackLayout tap="backTap" orientation="horizontal" class="action-wrap" horizontalAlignment="left" verticalAlignment="center">
                 <Label text="Back" class="back-text" />
             </StackLayout>
-            <Label col="1" text="{{ TotalResults }}" verticalAlignment="center" />
+            <!-- <Label col="1" text="{{ TotalResults }}" verticalAlignment="center" /> -->
         </GridLayout>
         <GridLayout columns="*" rows="auto, *" class="search-text-layout">
             <StackLayout>
                 <!-- <TextField text="{{ searchText }}" hint="Search movie title..." class="search-text" />
                 <Label text="A value is required to perform a search" color="red" visibility="{{ searchError ? 'visible' : 'collapse' }}" />
                 <Button text="Search" tap="{{ searchForMovie }}" class="btn" /> -->
-                <SearchBar id="movie-search" hint="Search movie title..." text="{{ SearchText }}" class="search-text" clear="{{ ClearSearch }}" submit="{{ SearchForMovie }}" />
+                <SearchBar id="movie-search" hint="Search movie title..." text="{{ SearchText }}" ios:color="#000000" clear="{{ ClearSearch }}" submit="{{ DoSearch }}" />
             </StackLayout>
             <GridLayout row="1" columns="*" rows="auto, *">
-                <Label text="No Results..." visibility="{{ SearchResults.length == 0 && !isLoading ? 'visible' : 'collapse' }}" horizontalAlignment="center" />
+                <Label text="No Results..." visibility="{{ SearchResults.length == 0 ? 'visible' : 'collapse' }}" horizontalAlignment="center" />
                 <ScrollView row="1">
-                    <ListView row="1" class="movie-list" items="{{ SearchResults }}" loadMoreItems="{{ GetNextPage }}" itemTap="selectMovie" visibility="{{ SearchResults.length > 0 && !isLoading ? 'visible' : 'collapse' }}">
+                    <ListView row="1" class="movie-list" items="{{ SearchResults }}" loadMoreItems="{{ GetNextPage }}" itemTap="selectItem" visibility="{{ SearchResults.length > 0 ? 'visible' : 'collapse' }}">
                         <ListView.itemTemplate>
                             <GridLayout columns="auto, *" rows="auto">
                                 <GridLayout col="0" columns="auto">

@@ -6,10 +6,10 @@
             </StackLayout>
             <!-- <StackLayout col="1" orientation="horizontal" class="action-wrap" horizontalAlignment="left" verticalAlignment="center">
                 <Label text="Movies" class="back-text" />
-            </StackLayout>
-            <StackLayout col="2" orientation="horizontal" class="action-wrap" horizontalAlignment="left" verticalAlignment="center">
-                <Label text="Shows" class="back-text" />
             </StackLayout> -->
+            <StackLayout col="2" tap="{{ ToggleViewMode }}" orientation="horizontal" class="action-wrap" horizontalAlignment="left" verticalAlignment="center">
+                <Label text="{{ ViewMode }}" class="back-text" />
+            </StackLayout>
         </GridLayout>
         <GridLayout rows="auto">
             <SegmentedBar selectedBackgroundColor="#009940" items="{{ ViewOptions }}" selectedIndex="{{ SelectedIndex }}" />
@@ -17,7 +17,7 @@
         <GridLayout>
             <GridLayout row="0">
                 <ScrollView>
-                    <ListView items="{{ Movies }}" itemTap="selectMovie" class="movie-list">
+                    <ListView items="{{ ViewMode == 'Movies' ? Movies : Shows }}" itemTap="selectMovie" class="movie-list">
                         <ListView.itemTemplate>
                             <GridLayout rows="auto" columns="auto, *">
                                 <GridLayout col="0" columns="auto" rows="auto" class="favorite-wrap" tap="toggleFavorite">
@@ -25,7 +25,7 @@
                                 </GridLayout>
                                 <StackLayout col="1" class="info-wrap">
                                     <Label text="{{ Title }}" class="bold info-bigger" />
-                                    <Label text="{{ Director }}" class="info-orange" />
+                                    <Label text="{{ Type == 'Movie' ? Director : Year }}" class="info-orange" />
                                 </StackLayout>
                             </GridLayout>
                         </ListView.itemTemplate>

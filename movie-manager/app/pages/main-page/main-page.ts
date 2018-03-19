@@ -7,6 +7,7 @@ import * as navigationModule from '../../shared/navigation';
 import { ItemEventData } from 'ui/list-view';
 import { SearchViewModel } from '../search-page/search-view-model';
 import { Switch } from 'ui/switch';
+import { ViewMode } from '../../shared/enums';
 
 export function navigatingTo(args: EventData) {
     let page = <Page>args.object;
@@ -28,13 +29,10 @@ export function selectMovie(args: ItemEventData) {
 
 export function searchTap(args: GestureEventData) {
     let mainViewModel = <MainViewModel>args.view.bindingContext;
-    navigationModule.navigateToSearchPage(mainViewModel.Movies);
-}
-
-export function switchLoaded(args: EventData) {
-    let switchComp = <Switch>args.object;
-    let mainViewModel = <MainViewModel>switchComp.bindingContext;
-    switchComp.on('checkedChange', (args: PropertyChangeData) => {
-        mainViewModel.ToggleView();
-    });
+    
+    if (mainViewModel.ViewMode == ViewMode[ViewMode.Movies]) {
+        navigationModule.navigateToSearchPage(mainViewModel.Movies, ViewMode.Movies);
+    } else {
+        navigationModule.navigateToSearchPage(mainViewModel.Shows, ViewMode.Shows);
+    }
 }
