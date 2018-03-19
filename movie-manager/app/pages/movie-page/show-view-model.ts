@@ -78,4 +78,8 @@ export class ShowViewModel extends Observable {
         this.Favorite = !this.Favorite;
         this.showService.toggleFavorite(this.UserId, this.ImdbId, this.Favorite);
     }
+
+    private GetDetails() {
+        
+    }
 }

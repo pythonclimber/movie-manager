@@ -7,9 +7,9 @@
             <!-- <StackLayout col="1" orientation="horizontal" class="action-wrap" horizontalAlignment="left" verticalAlignment="center">
                 <Label text="Movies" class="back-text" />
             </StackLayout> -->
-            <StackLayout col="2" tap="{{ ToggleViewMode }}" orientation="horizontal" class="action-wrap" horizontalAlignment="stretch" verticalAlignment="center">
+            <!-- <StackLayout col="2" tap="{{ ToggleViewMode }}" orientation="horizontal" class="action-wrap" horizontalAlignment="stretch" verticalAlignment="center">
                 <Label text="{{ ViewModeText }}" class="back-text" />
-            </StackLayout>
+            </StackLayout> -->
         </GridLayout>
         <GridLayout rows="auto">
             <SegmentedBar selectedBackgroundColor="#009940" items="{{ ViewOptions }}" selectedIndex="{{ SelectedIndex }}" />
