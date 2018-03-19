@@ -71,6 +71,10 @@ export class MainViewModel extends Observable {
         return ViewMode[this.viewMode];
     }
 
+    get ViewModeText(): string {
+        return this.viewMode == ViewMode.Movies ? ViewMode[ViewMode.Shows] : ViewMode[ViewMode.Movies];
+    }
+
     constructor() {
         super();
         this.movieService = new MovieService();
@@ -99,7 +103,8 @@ export class MainViewModel extends Observable {
         } else {
             this.viewMode = ViewMode.Movies;
         }
-        this.notifyPropertyChange('ViewMode', ViewMode[this.viewMode]);
+        this.notifyPropertyChange('ViewMode', this.ViewMode);
+        this.notifyPropertyChange('ViewModeText', this.ViewModeText);
     }
 
     private GetViewOptions(): SegmentedBarItem[] {

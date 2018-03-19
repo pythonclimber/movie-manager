@@ -1,14 +1,14 @@
 <Page xmlns="http://schemas.nativescript.org/tns.xsd" navigatingTo="navigatingTo" class="page">
     <StackLayout>
         <GridLayout class="action-bar" columns="*, *, *">
-            <StackLayout col="0" tap="searchTap" orientation="horizontal" class="action-wrap" horizontalAlignment="left" verticalAlignment="center">
+            <StackLayout col="0" tap="searchTap" orientation="horizontal" class="action-wrap" horizontalAlignment="stretch" verticalAlignment="center">
                 <Label text="Search" class="back-text" />
             </StackLayout>
             <!-- <StackLayout col="1" orientation="horizontal" class="action-wrap" horizontalAlignment="left" verticalAlignment="center">
                 <Label text="Movies" class="back-text" />
             </StackLayout> -->
-            <StackLayout col="2" tap="{{ ToggleViewMode }}" orientation="horizontal" class="action-wrap" horizontalAlignment="left" verticalAlignment="center">
-                <Label text="{{ ViewMode }}" class="back-text" />
+            <StackLayout col="2" tap="{{ ToggleViewMode }}" orientation="horizontal" class="action-wrap" horizontalAlignment="stretch" verticalAlignment="center">
+                <Label text="{{ ViewModeText }}" class="back-text" />
             </StackLayout>
         </GridLayout>
         <GridLayout rows="auto">
