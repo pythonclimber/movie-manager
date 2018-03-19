@@ -17,7 +17,7 @@
                     <Button text="{{ !UserId ? 'Add' : 'Remove' }}" width="125" height="40" class="btn" android:fontSize="10" ios:fontSize="18" horizontalAlignment="left" tap="{{ !UserId ? AddMovieToMyCollection : RemoveFromMyCollection }}" />
                 </StackLayout>
                 <GridLayout row="1" colSpan="2" class="plot-layout">
-                    <ScrollView>
+                    <ScrollView verticalAlignment="top">
                         <Label  text="{{ Plot }}" textWrap="true" />
                     </ScrollView>
                 </GridLayout>
