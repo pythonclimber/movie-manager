@@ -22,7 +22,10 @@ export function navigatingTo(args: NavigatedData) {
 }
 
 export function goToMovies(args: GestureEventData) {
-    utilsModule.ad.dismissSoftInput();
+    let page = <Page>args.object;
+    if (page.android) {
+        utilsModule.ad.dismissSoftInput();
+    }
     navigationModule.navigateToMainPage();
 }
 
