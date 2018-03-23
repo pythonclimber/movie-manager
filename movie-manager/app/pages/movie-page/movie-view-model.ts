@@ -151,22 +151,6 @@ export class MovieViewModel extends Observable {
         }
     }
 
-    get CanAddToCollection(): boolean {
-        return !this.UserId || this.Wishlist;
-    }
-
-    get CanRemoveFromCollection(): boolean {
-        return this.UserId && !this.Wishlist;
-    }
-
-    get CanAddToWishlist(): boolean {
-        return !this.UserId;
-    }
-
-    get CanRemoveFromWishlist(): boolean {
-        return this.UserId && this.Wishlist;
-    }
-
     constructor(movie: Movie) {
         super();
         this.movie = movie;

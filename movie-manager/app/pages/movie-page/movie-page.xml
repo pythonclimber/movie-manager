@@ -19,12 +19,12 @@
                 </GridLayout>
                 <GridLayout row="1" columns="*, *">
                     <GridLayout col="0">
-                        <Button visibility="{{ CanAddToCollection ? 'visible' : 'hidden' }}" text="Add" width="125" height="40" class="btn" android:fontSize="10" ios:fontSize="18" horizontalAlignment="left" tap="{{ AddToMyCollection }}" />
-                        <Button visibility="{{ !CanAddToCollection ? 'visible' : 'hidden' }}" text="Remove" width="125" height="40" class="btn" android:fontSize="10" ios:fontSize="18" horizontalAlignment="left" tap="{{ RemoveFromMyCollection }}" />
+                        <Button visibility="{{ !UserId || Wishlist ? 'visible' : 'hidden' }}" text="Add" width="125" height="40" class="btn" android:fontSize="10" ios:fontSize="18" horizontalAlignment="left" tap="{{ AddToMyCollection }}" />
+                        <Button visibility="{{ !UserId || Wishlist ? 'hidden' : 'visible' }}" text="Remove" width="125" height="40" class="btn" android:fontSize="10" ios:fontSize="18" horizontalAlignment="left" tap="{{ RemoveFromMyCollection }}" />
                     </GridLayout>
                     <GridLayout col="1">
-                        <Button text="Wishlist" width="125" height="40" class="btn" android:fontSize="10" ios:fontSize="18" horizontalAlignment="left" tap="{{ AddToWishlist }}" visibility="{{ CanAddToWishlist ? 'visible' : 'hidden'}}" />
-                        <Button text="Un-wishlist" width="125" height="40" class="btn" android:fontSize="10" ios:fontSize="18" horizontalAlignment="left" tap="{{ RemoveFromMyCollection }}" visibility="{{ CanRemoveFromWishlist ? 'visible' : 'hidden'}}" />
+                        <Button text="Wishlist" width="125" height="40" class="btn" android:fontSize="10" ios:fontSize="18" horizontalAlignment="left" tap="{{ AddToWishlist }}" visibility="{{ !UserId ? 'visible' : 'hidden'}}" />
+                        <Button text="Un-wishlist" width="125" height="40" class="btn" android:fontSize="10" ios:fontSize="18" horizontalAlignment="left" tap="{{ RemoveFromMyCollection }}" visibility="{{ UserId && Wishlist ? 'visible' : 'hidden'}}" />
                     </GridLayout>
                 </GridLayout>
                 <GridLayout row="2" colSpan="2" class="plot-layout">
