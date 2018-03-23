@@ -8,6 +8,7 @@ import { SearchResultViewModel } from './search-result-view-model';
 import { MovieViewModel } from "../movie-page/movie-view-model";
 import { ViewMode } from "../../shared/enums";
 import { ShowViewModel } from "../movie-page/show-view-model";
+import * as utilsModule from 'utils/utils';
 
 export function navigatingTo(args: NavigatedData) {
     let page = <Page>args.object;
@@ -20,8 +21,9 @@ export function navigatingTo(args: NavigatedData) {
 
 }
 
-export function backTap(args: GestureEventData) {
-    navigationModule.backOnePage();
+export function goToMovies(args: GestureEventData) {
+    utilsModule.ad.dismissSoftInput();
+    navigationModule.navigateToMainPage();
 }
 
 export function selectItem(args: ItemEventData) {
@@ -35,7 +37,8 @@ export function selectItem(args: ItemEventData) {
             userId: searchResult.UserId,
             director: '',
             imdbid: searchResult.ImdbId,
-            favorite: false
+            favorite: false,
+            wishlist: searchResult.Wishlist
         });
         navigationModule.navigateToMovie(movie);
     } else {

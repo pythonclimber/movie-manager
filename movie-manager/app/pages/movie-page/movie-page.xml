@@ -6,17 +6,28 @@
             </StackLayout>
         </GridLayout>
         <GridLayout>
-            <GridLayout columns="auto, *" rows="auto, *"  visibility="{{ IsLoading ? 'hidden' : 'visible' }}">
-                <GridLayout class="image-layout">
-                    <Image src="{{ ImageSource }}" stretch="aspectFill" width="120" height="180" horizontalAlignment="left" verticalAlignment="top" />
+            <GridLayout rows="auto, auto, *"  visibility="{{ IsLoading ? 'hidden' : 'visible' }}">
+                <GridLayout row="0" columns="auto, *">
+                    <GridLayout class="image-layout">
+                        <Image src="{{ ImageSource }}" stretch="aspectFill" width="120" height="180" horizontalAlignment="left" verticalAlignment="top" />
+                    </GridLayout>
+                    <StackLayout class="title-layout" col="1">
+                        <Label text="{{ Title + ' (' + Year + ')' }}" class="main-title" textWrap="true" />
+                        <Label text="{{ Director }}" />
+                        <!-- <Label text="{{ imdbid }}" /> -->
+                    </StackLayout>
                 </GridLayout>
-                <StackLayout class="title-layout" col="1">
-                    <Label text="{{ Title + ' (' + Year + ')' }}" class="main-title" textWrap="true" />
-                    <Label text="{{ Director }}" />
-                    <!-- <Label text="{{ imdbid }}" /> -->
-                    <Button text="{{ !UserId ? 'Add' : 'Remove' }}" width="125" height="40" class="btn" android:fontSize="10" ios:fontSize="18" horizontalAlignment="left" tap="{{ !UserId ? AddMovieToMyCollection : RemoveFromMyCollection }}" />
-                </StackLayout>
-                <GridLayout row="1" colSpan="2" class="plot-layout">
+                <GridLayout row="1" columns="*, *">
+                    <GridLayout col="0">
+                        <Button visibility="{{ CanAddToCollection ? 'visible' : 'hidden' }}" text="Add" width="125" height="40" class="btn" android:fontSize="10" ios:fontSize="18" horizontalAlignment="left" tap="{{ AddToMyCollection }}" />
+                        <Button visibility="{{ !CanAddToCollection ? 'visible' : 'hidden' }}" text="Remove" width="125" height="40" class="btn" android:fontSize="10" ios:fontSize="18" horizontalAlignment="left" tap="{{ RemoveFromMyCollection }}" />
+                    </GridLayout>
+                    <GridLayout col="1">
+                        <Button text="Wishlist" width="125" height="40" class="btn" android:fontSize="10" ios:fontSize="18" horizontalAlignment="left" tap="{{ AddToWishlist }}" visibility="{{ CanAddToWishlist ? 'visible' : 'hidden'}}" />
+                        <Button text="Un-wishlist" width="125" height="40" class="btn" android:fontSize="10" ios:fontSize="18" horizontalAlignment="left" tap="{{ RemoveFromMyCollection }}" visibility="{{ CanRemoveFromWishlist ? 'visible' : 'hidden'}}" />
+                    </GridLayout>
+                </GridLayout>
+                <GridLayout row="2" colSpan="2" class="plot-layout">
                     <ScrollView verticalAlignment="top">
                         <Label  text="{{ Plot }}" textWrap="true" />
                     </ScrollView>

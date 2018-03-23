@@ -155,6 +155,7 @@ export class SearchViewModel extends Observable {
                     let myMovie = this.myMovies.find(m => m.ImdbId == searchResult.imdbID);
                     if (myMovie) {
                         searchResult.userId = myMovie.UserId;
+                        searchResult.wishlist = myMovie.Wishlist;
                     }
                 } else {
                     let myShow = this.myShows.find(s => s.ImdbId == searchResult.imdbID);
@@ -162,14 +163,7 @@ export class SearchViewModel extends Observable {
                         searchResult.userId = myShow.UserId;
                     }
                 }
-                searchResults.push(new SearchResultViewModel({
-                    title: searchResult.Title,
-                    year: searchResult.Year,
-                    imdbid: searchResult.imdbID,
-                    type: searchResult.Type,
-                    poster: searchResult.Poster,
-                    userId: searchResult.userId
-                }));
+                searchResults.push(new SearchResultViewModel(searchResult));
             }
             this.TotalResults = response.totalResults;
             this.searchResults = this.searchResults.concat(searchResults);

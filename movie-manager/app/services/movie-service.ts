@@ -40,12 +40,12 @@ let movies: any = [
 ];
 
 export class MovieService {
-    private _useHttpService: boolean = true;
-    private _apiBaseUrl: string = 'https://ohgnarly.herokuapp.com';
-    private _imdbBaseUrl: string = 'https://www.omdbapi.com/?apiKey=1e37ecbf';
+    private useHttpService: boolean = true;
+    private apiBaseUrl: string = 'https://ohgnarly.herokuapp.com';
+    private imdbBaseUrl: string = 'https://www.omdbapi.com/?apiKey=1e37ecbf';
 
     getMovies<T>(): Promise<T> {
-        if (this._useHttpService) {
+        if (this.useHttpService) {
             let user = loginService.getSavedCredentials();
             return this.loadMoviesFromHttp<T>(user.userId);
         } else {
@@ -70,7 +70,11 @@ export class MovieService {
     }
 
     toggleFavorite(userId: string, imdbid: string, favorite: boolean) {
-        return this.updateMovieViaHttp(userId, imdbid, favorite);
+        return this.updateMovieViaHttp(userId, imdbid, {favorite: favorite});
+    }
+
+    toggleWishlist(userId: string, imdbid: string, wishlist: boolean) {
+        return this.updateMovieViaHttp(userId, imdbid, {wishlist: wishlist});
     }
 
     private loadFakeMovies<T>(): Promise<T> {
@@ -82,7 +86,7 @@ export class MovieService {
     private loadMoviesFromHttp<T>(userId: string): Promise<T> {
         //return new Promise<T>(() => {});
         let requestParams = {
-            url: `${this._apiBaseUrl}/movies/${userId}`,
+            url: `${this.apiBaseUrl}/movies/${userId}`,
             method: 'GET'
         }
         return http.getJSON<T>(requestParams);
@@ -90,7 +94,7 @@ export class MovieService {
 
     private loadMovieDetailsFromHttp<T>(onlineId: string): Promise<T> {
         let requestParams = {
-            url: `${this._imdbBaseUrl}&i=${onlineId}&plot=full`,
+            url: `${this.imdbBaseUrl}&i=${onlineId}&plot=full`,
             method: 'GET'
         };
         return http.getJSON<T>(requestParams);
@@ -98,7 +102,7 @@ export class MovieService {
 
     private loadSearchResultsFromHttp<T>(title: string, page: number = 1): Promise<T> {
         let requestParams = {
-            url: `${this._imdbBaseUrl}&s=${encodeURI(title)}&type=movie&page=${page}`,
+            url: `${this.imdbBaseUrl}&s=${encodeURI(title)}&type=movie&page=${page}`,
             method: 'GET'
         };
         return http.getJSON<T>(requestParams);
@@ -106,7 +110,7 @@ export class MovieService {
 
     private deleteMovieFromHttp(imdbid: string, userId: string): Promise<any> {
         let requestParams = {
-            url: `${this._apiBaseUrl}/movie/${userId}/${imdbid}`,
+            url: `${this.apiBaseUrl}/movie/${userId}/${imdbid}`,
             method: 'DELETE'
         };
 
@@ -124,11 +128,12 @@ export class MovieService {
             userId: user.userId,
             director: movie.Director,
             imdbid: movie.ImdbId,
-            favorite: false
+            favorite: false,
+            wishlist: movie.Wishlist
         };
 
         return http.request({
-            url: `${this._apiBaseUrl}/movie`,
+            url: `${this.apiBaseUrl}/movie`,
             method: 'POST',
             headers: { "Content-Type": "application/json" },
             content: JSON.stringify(data)
@@ -137,15 +142,15 @@ export class MovieService {
         });
     }
 
-    private updateMovieViaHttp(userId: string, imdbid: string, favorite: boolean): Promise<any> {
+    private updateMovieViaHttp(userId: string, imdbid: string, update: Object): Promise<any> {
         let data = {
             userId: userId,
             imdbid: imdbid,
-            favorite: favorite
+            update: update
         };
 
         let requestParams = {
-            url: `${this._apiBaseUrl}/movie`,
+            url: `${this.apiBaseUrl}/movie`,
             method: 'PUT',
             headers: { "Content-Type": "application/json" },
             content: JSON.stringify(data)

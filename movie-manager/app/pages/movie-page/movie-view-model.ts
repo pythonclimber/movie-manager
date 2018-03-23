@@ -5,6 +5,7 @@ import { ImageSource } from "image-source";
 import * as imageService from '../../services/image-service';
 import { SearchResultViewModel } from "../search-page/search-result-view-model";
 import * as navigationModule from '../../shared/navigation'
+import * as utilityModule from '../../shared/utility';
 
 export class MovieViewModel extends Observable {
     private movie: Movie;
@@ -140,21 +141,39 @@ export class MovieViewModel extends Observable {
         }
     }
 
+    get Wishlist(): boolean {
+        return this.movie.wishlist;
+    }
+
+    set Wishlist(value: boolean) {
+        if (value !== this.movie.wishlist) {
+            this.movie.wishlist = value;
+        }
+    }
+
+    get CanAddToCollection(): boolean {
+        return !this.UserId || this.Wishlist;
+    }
+
+    get CanRemoveFromCollection(): boolean {
+        return this.UserId && !this.Wishlist;
+    }
+
+    get CanAddToWishlist(): boolean {
+        return !this.UserId;
+    }
+
+    get CanRemoveFromWishlist(): boolean {
+        return this.UserId && this.Wishlist;
+    }
+
     constructor(movie: Movie) {
         super();
         this.movie = movie;
 
-        if (this.movie.title.startsWith('The ')) {
-            this.movie.title = this.movie.title.substr(4) + ', The'
-        } else if (this.movie.title.startsWith('A ')) {
-            this.movie.title = this.movie.title.substr(2) + ', A'
-        } else if (this.movie.title.startsWith('An ')) {
-            this.movie.title = this.movie.title.substr(3) + ', An'
-        }
+        this.movie.title = utilityModule.formatTitle(this.movie.title);
 
-        if (!this.Plot) {
-            this.Plot = '';
-        }
+        this.Plot = this.Plot || '';
     }
 
     public GetDetails(): Promise<any> {
@@ -170,6 +189,7 @@ export class MovieViewModel extends Observable {
                 this.Year = movie.Year;
                 this.Director = movie.Director;
                 this.ImdbId = movie.imdbID;
+                this.Wishlist = this.Wishlist;
 
                 if (movie.Poster && movie.Poster.startsWith('https')) {
                     imageService.getImageFromHttp(movie.Poster).then(imageSource => {
@@ -187,11 +207,19 @@ export class MovieViewModel extends Observable {
         movieService.toggleFavorite(this.UserId, this.ImdbId, this.Favorite);
     }
 
-    public AddMovieToMyCollection(args: EventData) {
-        let moviesService = new MovieService();
-        moviesService.addMovie(this).then(response => {
-            this.UserId = response.userId;
-        });
+    public AddToMyCollection(args: EventData) {
+        let movieService = new MovieService();
+        if (this.Wishlist) {
+            movieService.toggleWishlist(this.UserId, this.ImdbId, false).then(response => {
+                this.Wishlist = false;
+                navigationModule.navigateToMainPage();
+            });
+        } else {
+            movieService.addMovie(this).then(response => {
+                this.UserId = response.userId;
+                this.Wishlist = false;
+            });
+        }
     }
 
     public RemoveFromMyCollection(args: EventData) {
@@ -199,6 +227,14 @@ export class MovieViewModel extends Observable {
         movieService.deleteMovie(this).then(response => {
             this.UserId = '';
             navigationModule.navigateToMainPage();
+        });
+    }
+
+    public AddToWishlist(args: EventData) {
+        let movieService = new MovieService();
+        this.Wishlist = true;
+        movieService.addMovie(this).then(movie => {
+            this.UserId = movie.userId;
         });
     }
 }

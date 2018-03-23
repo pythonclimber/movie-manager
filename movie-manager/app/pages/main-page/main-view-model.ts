@@ -3,7 +3,7 @@ import { MovieService } from '../../services/movie-service';
 import { MovieViewModel } from '../movie-page/movie-view-model';
 import { Movie, Show } from '../../shared/interfaces';
 import { SegmentedBarItem } from 'ui/segmented-bar';
-import { ViewMode } from '../../shared/enums';
+import { ViewMode, ViewOption } from '../../shared/enums';
 import { ShowService } from '../../services/show-service';
 import { ShowViewModel } from '../movie-page/show-view-model';
 
@@ -40,7 +40,7 @@ export class MainViewModel extends Observable {
         if (value !== this.selectedIndex) {
             this.selectedIndex = value;
             this.notifyPropertyChange('SelectedIndex', value);
-            this.FavoritesOnly = !this.FavoritesOnly;
+            this.ToggleViewOption();
         }
     }
 
@@ -109,11 +109,13 @@ export class MainViewModel extends Observable {
 
     private GetViewOptions(): SegmentedBarItem[] {
         let item1 = new SegmentedBarItem();
-        item1.title = 'All Movies';
+        item1.title = 'All';
         let item2 = new SegmentedBarItem();
         item2.title = 'Favorites';
+        let item3 = new SegmentedBarItem();
+        item3.title = 'Wishlist';
 
-        return [item1, item2];
+        return [item1, item2, item3];
     }
 
     private Init(): void {
@@ -122,6 +124,7 @@ export class MainViewModel extends Observable {
     }
 
     private LoadMovies(): void {
+        this.IsLoading = true;
         this.movieService
             .getMovies<Array<Movie>>()
             .then(movies => {
@@ -129,9 +132,11 @@ export class MainViewModel extends Observable {
                 for (let movie of movies) {
                     movieViewModels.push(new MovieViewModel(movie));
                 }
-                this.movies = movieViewModels;
-                this.filteredMovies = this.movies.sort(this.SortByTitle);
-                this.notify({object: this, eventName: Observable.propertyChangeEvent, propertyName: 'Movies', value: this.filteredMovies});
+                this.movies = movieViewModels.sort(this.SortByTitle);
+                this.ToggleMovies();
+                this.IsLoading = false;
+            }).catch(error => {
+                console.log(error);
             });
     }
 
@@ -169,10 +174,21 @@ export class MainViewModel extends Observable {
     }
 
     private ToggleMovies() {
-        if (this.favoritesOnly) {
-            this.filteredMovies = this.movies.filter(m => m.Favorite);
-        } else {
-            this.filteredMovies = this.movies;
+        // if (this.favoritesOnly) {
+        //     this.filteredMovies = this.movies.filter(m => m.Favorite);
+        // } else {
+        //     this.filteredMovies = this.movies;
+        // }
+        switch(this.SelectedIndex) {
+            case ViewOption.All:
+                this.filteredMovies = this.movies.filter(m => !m.Wishlist);
+                break;
+            case ViewOption.Favorites:
+                this.filteredMovies = this.movies.filter(m => m.Favorite);
+                break;
+            case ViewOption.Wishlist:
+                this.filteredMovies = this.movies.filter(m => m.Wishlist);
+                break;
         }
         this.notify({object: this, eventName: Observable.propertyChangeEvent, propertyName: 'Movies', value: this.filteredMovies});
     }

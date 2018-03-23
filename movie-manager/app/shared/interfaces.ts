@@ -13,6 +13,7 @@ export interface Movie {
     actors?: string;
     plot?: string;
     poster?: string;
+    wishlist: boolean;
 }
 
 export interface NewMovie {
@@ -46,6 +47,7 @@ export interface SearchResult {
     type: string;
     poster: string;
     userId?: string;
+    wishlist?: boolean;
 }
 
 export interface NewSearchResult {
@@ -55,6 +57,7 @@ export interface NewSearchResult {
     Type: string;
     Poster: string;
     userId?: string;
+    wishlist?: boolean;
 }
 
 export interface Show {

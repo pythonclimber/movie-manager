@@ -4,8 +4,8 @@
             <StackLayout col="0" tap="searchTap" orientation="horizontal" class="action-wrap" horizontalAlignment="stretch" verticalAlignment="center">
                 <Label text="Search" class="back-text" />
             </StackLayout>
-            <!-- <StackLayout col="1" orientation="horizontal" class="action-wrap" horizontalAlignment="left" verticalAlignment="center">
-                <Label text="Movies" class="back-text" />
+            <!-- <StackLayout col="2" orientation="horizontal" class="action-wrap" horizontalAlignment="left" verticalAlignment="center">
+                <Label text="{{ SelectedIndex }}" class="back-text" />
             </StackLayout> -->
             <!-- <StackLayout col="2" tap="{{ ToggleViewMode }}" orientation="horizontal" class="action-wrap" horizontalAlignment="stretch" verticalAlignment="center">
                 <Label text="{{ ViewModeText }}" class="back-text" />
@@ -20,7 +20,7 @@
                     <ListView items="{{ ViewMode == 'Movies' ? Movies : Shows }}" itemTap="selectMovie" class="movie-list">
                         <ListView.itemTemplate>
                             <GridLayout rows="auto" columns="auto, *">
-                                <GridLayout col="0" columns="auto" rows="auto" class="favorite-wrap" tap="toggleFavorite">
+                                <GridLayout col="0" visibility="{{ Wishlist ? 'hidden' : 'visible' }}" columns="auto" rows="auto" class="favorite-wrap" tap="toggleFavorite">
                                     <Image class="icon-image" src="{{ Favorite ? 'res://star_green' : 'res://star_white' }}" />
                                 </GridLayout>
                                 <StackLayout col="1" class="info-wrap">
