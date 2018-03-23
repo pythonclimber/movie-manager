@@ -12,7 +12,10 @@ export function startingPage() {
 export function navigateToMovie(movie: MovieViewModel) {
     frameModule.topmost().navigate({
         moduleName: 'pages/movie-page/movie-page',
-        context: movie
+        context: movie,
+        transition: {
+            name: 'slideLeft'
+        }
     });
 }
 
@@ -25,7 +28,10 @@ export function navigateToShow(show: ShowViewModel) {
 
 export function navigateToMainPage() {
     frameModule.topmost().navigate({
-        moduleName: 'pages/main-page/main-page'
+        moduleName: 'pages/main-page/main-page',
+        transition: {
+            name: 'slideRight'
+        }
     });
 }
 
@@ -43,6 +49,9 @@ export function navigateToSearchPage(items: any[], searchMode: ViewMode) {
     }
     frameModule.topmost().navigate({
         moduleName: 'pages/search-page/search-page',
-        context: searchViewModel
+        context: searchViewModel,
+        transition: {
+            name: 'slideLeft'
+        }
     });
 }
