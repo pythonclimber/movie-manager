@@ -128,7 +128,7 @@ export class SearchViewModel extends Observable {
             .onlineMovieSearch<any>(this.searchText, resultsPage)
             .then(this.HandleSearchResponse.bind(this))
             .catch(error => {
-                console.log(error);
+                console.log('search error', error);
                 this.IsLoading = false;
             });
     }
@@ -144,21 +144,21 @@ export class SearchViewModel extends Observable {
     }
 
     private HandleSearchResponse<T>(response: SearchResponse) {
-        if (response.Response == 'False') {
+        if (!response.success) {
             this.searchResults = [];
             this.notify({object: this, eventName: Observable.propertyChangeEvent, propertyName: 'SearchResults', value: this.searchResults});
         } else {
             let searchResults = new Array<SearchResultViewModel>();
-            for (let result of response.Search) {
-                let searchResult = <NewSearchResult>result;
+            for (let result of response.results) {
+                let searchResult = <SearchResult>result;
                 if (this.searchMode == ViewMode.Movies) {
-                    let myMovie = this.myMovies.find(m => m.ImdbId == searchResult.imdbID);
+                    let myMovie = this.myMovies.find(m => m.ImdbId == searchResult.imdbid);
                     if (myMovie) {
                         searchResult.userId = myMovie.UserId;
                         searchResult.wishlist = myMovie.Wishlist;
                     }
                 } else {
-                    let myShow = this.myShows.find(s => s.ImdbId == searchResult.imdbID);
+                    let myShow = this.myShows.find(s => s.ImdbId == searchResult.imdbid);
                     if (myShow) {
                         searchResult.userId = myShow.UserId;
                     }

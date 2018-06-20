@@ -1,38 +1,40 @@
 import * as appSettingsModule from 'application-settings';
 import { FavoriteMovie } from '../shared/interfaces';
 import { MovieViewModel } from '../pages/movie-page/movie-view-model';
+import { BaseService } from '../shared/base-service';
 
 const FAVORITES_KEY: string = 'FAVORITES';
-var favorites: Array<FavoriteMovie>;
 
+export class FavoriteService extends BaseService {
+    private favorites: FavoriteMovie[];
 
-try {
-    favorites = <Array<FavoriteMovie>>JSON.parse(appSettingsModule.getString(FAVORITES_KEY));
-} catch (error) {
-    favorites = new Array<FavoriteMovie>();
-}
+    constructor() {
+        super();
 
-export function addToFavorites(movie: MovieViewModel) {
-    let movieIndex = this.findMovieIndexInFavorites(movie._id);
-    if (movieIndex < 0) {
-        favorites.push({movieId: movie._id});
-        persistFavorites();
+        try {
+            this.favorites = <FavoriteMovie[]>this.GetAppSetting(FAVORITES_KEY)
+        } catch (error) {
+            this.favorites = new Array<FavoriteMovie>();
+        }
     }
-}
 
-export function removeFromFavorites(movie: MovieViewModel) {
-    let movieIndex = this.findMovieIndexInFavorites(movie._id);
-    if (movieIndex >= 0) {
-        favorites.splice(movieIndex, 1);
-        persistFavorites();
+    public AddToFavorites(movie: MovieViewModel) {
+        let movieIndex = this.FindMovieIndexInFavorites(movie._id);
+        if (movieIndex < 0) {
+            this.favorites.push({movieId: movie._id});
+            this.PersistAppSetting(FAVORITES_KEY, this.favorites);
+        }
     }
-}
 
-function persistFavorites() {
-    var jsonString = JSON.stringify(favorites);
-    appSettingsModule.setString(FAVORITES_KEY, jsonString);
-}
+    public RemoveFromFavorites(movie: MovieViewModel) {
+        let movieIndex = this.FindMovieIndexInFavorites(movie._id);
+        if (movieIndex >= 0) {
+            this.favorites.splice(movieIndex, 1);
+            this.PersistAppSetting(FAVORITES_KEY, this.favorites);
+        }
+    }
 
-export function findMovieIndexInFavorites(movieId: string): number {
-    return favorites.findIndex(e => e.movieId === movieId);
+    public FindMovieIndexInFavorites(movieId: string): number {
+        return this.favorites.findIndex(e => e.movieId === movieId);
+    }
 }

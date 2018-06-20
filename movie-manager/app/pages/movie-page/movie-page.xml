@@ -6,33 +6,33 @@
             </StackLayout>
         </GridLayout>
         <GridLayout>
-            <GridLayout rows="auto, auto, *"  visibility="{{ IsLoading ? 'hidden' : 'visible' }}">
-                <GridLayout row="0" columns="auto, *">
-                    <GridLayout class="image-layout">
-                        <Image src="{{ ImageSource }}" stretch="aspectFill" width="120" height="180" horizontalAlignment="left" verticalAlignment="top" />
+            <ScrollView>
+                <GridLayout rows="auto, auto, *"  visibility="{{ IsLoading ? 'hidden' : 'visible' }}">
+                    <GridLayout row="0" columns="auto, *">
+                        <GridLayout class="image-layout">
+                            <Image src="{{ ImageSource }}" stretch="aspectFill" width="120" height="180" horizontalAlignment="left" verticalAlignment="top" />
+                        </GridLayout>
+                        <StackLayout class="title-layout" col="1">
+                            <Label text="{{ Title + ' (' + Year + ')' }}" class="main-title" textWrap="true" />
+                            <Label text="{{ Director }}" />
+                            <Label text="{{ Format }}" />
+                        </StackLayout>
                     </GridLayout>
-                    <StackLayout class="title-layout" col="1">
-                        <Label text="{{ Title + ' (' + Year + ')' }}" class="main-title" textWrap="true" />
-                        <Label text="{{ Director }}" />
-                        <!-- <Label text="{{ imdbid }}" /> -->
-                    </StackLayout>
-                </GridLayout>
-                <GridLayout row="1" columns="*, *">
-                    <GridLayout col="0">
-                        <Button visibility="{{ !UserId || Wishlist ? 'visible' : 'hidden' }}" text="Add" width="125" height="40" class="btn" android:fontSize="10" ios:fontSize="18" horizontalAlignment="left" tap="{{ AddToMyCollection }}" />
-                        <Button visibility="{{ !UserId || Wishlist ? 'hidden' : 'visible' }}" text="Remove" width="125" height="40" class="btn" android:fontSize="10" ios:fontSize="18" horizontalAlignment="left" tap="{{ RemoveFromMyCollection }}" />
+                    <GridLayout row="1" columns="*, *">
+                        <GridLayout col="0">
+                            <Button visibility="{{ !UserId || Wishlist ? 'visible' : 'hidden' }}" text="Add" width="125" height="40" class="btn" android:fontSize="10" ios:fontSize="18" horizontalAlignment="left" tap="{{ AddToMyCollection }}" />
+                            <Button visibility="{{ !UserId || Wishlist ? 'hidden' : 'visible' }}" text="Remove" width="125" height="40" class="btn" android:fontSize="10" ios:fontSize="18" horizontalAlignment="left" tap="{{ RemoveFromMyCollection }}" />
+                        </GridLayout>
+                        <GridLayout col="1">
+                            <Button text="Wishlist" width="125" height="40" class="btn" android:fontSize="10" ios:fontSize="18" horizontalAlignment="left" tap="{{ AddToWishlist }}" visibility="{{ !UserId ? 'visible' : 'hidden'}}" />
+                            <Button text="Un-wishlist" width="125" height="40" class="btn" android:fontSize="10" ios:fontSize="18" horizontalAlignment="left" tap="{{ RemoveFromMyCollection }}" visibility="{{ UserId && Wishlist ? 'visible' : 'hidden'}}" />
+                        </GridLayout>
                     </GridLayout>
-                    <GridLayout col="1">
-                        <Button text="Wishlist" width="125" height="40" class="btn" android:fontSize="10" ios:fontSize="18" horizontalAlignment="left" tap="{{ AddToWishlist }}" visibility="{{ !UserId ? 'visible' : 'hidden'}}" />
-                        <Button text="Un-wishlist" width="125" height="40" class="btn" android:fontSize="10" ios:fontSize="18" horizontalAlignment="left" tap="{{ RemoveFromMyCollection }}" visibility="{{ UserId && Wishlist ? 'visible' : 'hidden'}}" />
-                    </GridLayout>
-                </GridLayout>
-                <GridLayout row="2" colSpan="2" class="plot-layout">
-                    <ScrollView verticalAlignment="top">
+                    <GridLayout row="2" colSpan="2" class="plot-layout">
                         <Label  text="{{ Plot }}" textWrap="true" />
-                    </ScrollView>
+                    </GridLayout>
                 </GridLayout>
-            </GridLayout>
+            </ScrollView>
             <ActivityIndicator busy="{{ IsLoading }}" row="1" horizontalAlignment="center" verticalAlignment="center" />
         </GridLayout>
     </StackLayout>

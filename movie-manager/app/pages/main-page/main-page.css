@@ -1,7 +1,6 @@
 .favorite-wrap {
     vertical-align: top;
     padding: 12;
-    margin-right: 16;
 }
 
 .bold {
@@ -14,4 +13,25 @@
 
 .activity-indicator {
     color: #009940;
+}
+
+.segmented-bar {
+    font-size: 8;
+    background-color: #2b2c2d;
+    color: white;
+    selected-background-color: #009940;
+    height: 30;
+}
+
+.selected-filter {
+    background-color: #999999;
+    height: auto;
+    padding: 0 5;
+    border-radius: 10;
+}
+
+.unselected-filter {
+    height: auto;
+    padding: 0 5;
+    border-radius: 10;
 }

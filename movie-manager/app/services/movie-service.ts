@@ -1,7 +1,8 @@
 import { MovieViewModel } from "../pages/movie-page/movie-view-model";
 import { Movie } from "../shared/interfaces";
 import * as http from 'http';
-import * as loginService from './login-service';
+import { LoginService } from './login-service';
+import { BaseService } from '../shared/base-service';
 
 let movies: any = [
     {
@@ -39,88 +40,32 @@ let movies: any = [
     }
 ];
 
-export class MovieService {
+export class MovieService extends BaseService {
     private useHttpService: boolean = true;
-    private apiBaseUrl: string = 'https://ohgnarly.herokuapp.com';
-    private imdbBaseUrl: string = 'https://www.omdbapi.com/?apiKey=1e37ecbf';
+    private loginService: LoginService;
+
+    constructor() {
+        super();
+        this.loginService = new LoginService();
+    }
 
     getMovies<T>(): Promise<T> {
         if (this.useHttpService) {
-            let user = loginService.getSavedCredentials();
-            return this.loadMoviesFromHttp<T>(user.userId);
+            let user = this.loginService.GetSavedCredentials();
+            let requestParams = {
+                url: `${this.apiBaseUrl}/movies/${user.userId}`,
+                method: 'GET'
+            }
+            return this.ProcessHttpCall<T>(requestParams);
         } else {
-            return this.loadFakeMovies<T>();
+            return new Promise<T>((resolve, reject) => {
+                resolve(movies);
+            });
         }
     }
 
     addMovie(movie: MovieViewModel): Promise<Movie> {
-        return this.addMovieViaHttp(movie);
-    }
-
-    deleteMovie(movie: MovieViewModel): Promise<any> {
-        return this.deleteMovieFromHttp(movie.ImdbId, movie.UserId);
-    }
-
-    getMovieDetails<T>(onlineId: string): Promise<T> {
-        return this.loadMovieDetailsFromHttp<T>(onlineId);
-    }
-
-    onlineMovieSearch<T>(title: string, page: number = 1): Promise<T> {
-        return this.loadSearchResultsFromHttp<T>(title, page);
-    }
-
-    toggleFavorite(userId: string, imdbid: string, favorite: boolean) {
-        return this.updateMovieViaHttp(userId, imdbid, {favorite: favorite});
-    }
-
-    toggleWishlist(userId: string, imdbid: string, wishlist: boolean) {
-        return this.updateMovieViaHttp(userId, imdbid, {wishlist: wishlist});
-    }
-
-    private loadFakeMovies<T>(): Promise<T> {
-        return new Promise<T>((resolve, reject) => {
-            resolve(movies);
-        });
-    }
-
-    private loadMoviesFromHttp<T>(userId: string): Promise<T> {
-        //return new Promise<T>(() => {});
-        let requestParams = {
-            url: `${this.apiBaseUrl}/movies/${userId}`,
-            method: 'GET'
-        }
-        return http.getJSON<T>(requestParams);
-    }
-
-    private loadMovieDetailsFromHttp<T>(onlineId: string): Promise<T> {
-        let requestParams = {
-            url: `${this.imdbBaseUrl}&i=${onlineId}&plot=full`,
-            method: 'GET'
-        };
-        return http.getJSON<T>(requestParams);
-    }
-
-    private loadSearchResultsFromHttp<T>(title: string, page: number = 1): Promise<T> {
-        let requestParams = {
-            url: `${this.imdbBaseUrl}&s=${encodeURI(title)}&type=movie&page=${page}`,
-            method: 'GET'
-        };
-        return http.getJSON<T>(requestParams);
-    }
-
-    private deleteMovieFromHttp(imdbid: string, userId: string): Promise<any> {
-        let requestParams = {
-            url: `${this.apiBaseUrl}/movie/${userId}/${imdbid}`,
-            method: 'DELETE'
-        };
-
-        return http.request(requestParams).then(response => {
-            return response.content.toJSON();
-        });
-    }
-
-    private addMovieViaHttp(movie: MovieViewModel): Promise<Movie> {
-        let user = loginService.getSavedCredentials();
+        let user = this.loginService.GetSavedCredentials();
         let data: Movie = {
             title: movie.Title,
             description: '',
@@ -129,33 +74,107 @@ export class MovieService {
             director: movie.Director,
             imdbid: movie.ImdbId,
             favorite: false,
-            wishlist: movie.Wishlist
-        };
-
-        return http.request({
-            url: `${this.apiBaseUrl}/movie`,
-            method: 'POST',
-            headers: { "Content-Type": "application/json" },
-            content: JSON.stringify(data)
-        }).then(response => {
-            return response.content.toJSON() as Movie;
-        });
-    }
-
-    private updateMovieViaHttp(userId: string, imdbid: string, update: Object): Promise<any> {
-        let data = {
-            userId: userId,
-            imdbid: imdbid,
-            update: update
+            wishlist: movie.Wishlist,
+            format: 'Blu-ray'
         };
 
         let requestParams = {
             url: `${this.apiBaseUrl}/movie`,
-            method: 'PUT',
+            method: 'POST',
             headers: { "Content-Type": "application/json" },
             content: JSON.stringify(data)
         };
 
-        return http.request(requestParams);
+        return this.ProcessHttpCall<Movie>(requestParams);
+    }
+
+    deleteMovie(movie: MovieViewModel): Promise<any> {
+        let requestParams = {
+            url: `${this.apiBaseUrl}/movie/${movie.UserId}/${movie.ImdbId}`,
+            method: 'DELETE'
+        };
+
+        return this.ProcessHttpCall<any>(requestParams);
+    }
+
+    getMovieDetails<T>(onlineId: string): Promise<T> {
+        let requestParams = {
+            url: `${this.apiBaseUrl}/movie-details/${onlineId}`,
+            method: 'GET'
+        };
+
+        return this.ProcessHttpCall<T>(requestParams);
+    }
+
+    onlineMovieSearch<T>(title: string, page: number = 1): Promise<T> {
+        let requestParams = {
+            url: `${this.apiBaseUrl}/movie-search/${title}/${page}`,
+            method: 'GET'
+        };
+        return this.ProcessHttpCall<T>(requestParams);
+    }
+
+    toggleFavorite(userId: string, imdbid: string, favorite: boolean) {
+        let data = {
+            userId: userId,
+            imdbid: imdbid,
+            update: {favorite: favorite}
+        };
+
+        let requestParams = {
+            url: `${this.apiBaseUrl}/movie`,
+            method: 'PATCH',
+            headers: { "Content-Type": "application/json" },
+            content: JSON.stringify(data)
+        };
+
+        return this.ProcessHttpCall<any>(requestParams)
+    }
+
+    toggleWishlist(userId: string, imdbid: string, wishlist: boolean) {
+        let data = {
+            userId: userId,
+            imdbid: imdbid,
+            update: {wishlist: wishlist}
+        };
+
+        let requestParams = {
+            url: `${this.apiBaseUrl}/movie`,
+            method: 'PATCH',
+            headers: { "Content-Type": "application/json" },
+            content: JSON.stringify(data)
+        };
+
+        return this.ProcessHttpCall<any>(requestParams);
+    }
+
+    updateMovies() {
+        this.getMovies<Movie[]>().then(movies => {
+            for (let movie of movies) {
+                let data = {
+                    userId: movie.userId,
+                    imdbid: movie.imdbid,
+                    update: {format: 'Blu-ray'}
+                };
+
+                let request = {
+                    url: `${this.apiBaseUrl}/movie`,
+                    method: 'PATCH',
+                    headers: {"Content-Type": "application/json"},
+                    content: JSON.stringify(data)
+                };
+
+                this.ProcessHttpCall<any>(request);
+            }
+        });
+    }
+
+    getFormats(): Promise<string[]> {
+        let request = {
+            url: `${this.apiBaseUrl}/movie-formats`,
+            method: 'GET'
+        }
+
+        return this.ProcessHttpCall<string[]>(request);
     }
 }

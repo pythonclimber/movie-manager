@@ -55,3 +55,13 @@ export function navigateToSearchPage(items: any[], searchMode: ViewMode) {
         }
     });
 }
+
+export function showFormatPicker(movie: MovieViewModel) {
+    frameModule.topmost().navigate({
+        moduleName: 'pages/format-picker/format-picker',
+        context: movie,
+        transition: {
+            name: 'slideBottom'
+        }
+    })
+}

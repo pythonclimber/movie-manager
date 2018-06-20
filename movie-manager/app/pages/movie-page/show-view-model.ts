@@ -1,6 +1,5 @@
 import { Observable } from 'data/observable'
 import { Show } from '../../shared/interfaces';
-import * as utilityModule from '../../shared/utility';
 import { ShowService } from '../../services/show-service';
 
 export class ShowViewModel extends Observable {
@@ -71,7 +70,7 @@ export class ShowViewModel extends Observable {
         this.show = show;
         this.showService = new ShowService();
 
-        this.show.title = utilityModule.formatTitle(this.show.title);
+        this.show.title = this.showService.FormatTitle(this.show.title);
     }
 
     public ToggleFavorite() {

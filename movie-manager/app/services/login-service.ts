@@ -1,53 +1,53 @@
 import * as httpModule from 'http';
 import * as appSettingsModule from 'application-settings';
 import { SavedCredentials } from '../shared/interfaces';
+import { BaseService } from '../shared/base-service';
 
 const CREDENTIALS_KEY: string = 'CREDENTIALS';
-let credentials: Array<SavedCredentials>;
 
-try {
-    credentials = <Array<SavedCredentials>>JSON.parse(appSettingsModule.getString(CREDENTIALS_KEY));
-} catch (error) {
-    credentials = new Array<SavedCredentials>();
-}
+export class LoginService extends BaseService {
+    private credentials: Array<SavedCredentials>;
 
-export function processLogin(username: string, password: string) {
-    const data = {
-        userName: username,
-        password: password
-    };
-    return httpModule.request({
-        url: 'https://ohgnarly.herokuapp.com/login',
-        method: 'POST',
-        headers: { "Content-Type": "application/json" },
-        content: JSON.stringify(data)
-    }).then(response => {
-        return response.content.toJSON();
-    }, error => {
-        console.log('An error has occurred: ' + error);
-    }).catch(error => {
-        console.log('An error has occurred: ' + error);
-    });
-}
+    constructor() {
+        super();
 
-export function addCredentials(newCredentials: SavedCredentials) {
-    if (credentials.length > 0) {
-        credentials[0] = newCredentials;
-    } else {
-        credentials.push(newCredentials);
+        try {
+            this.credentials = this.GetAppSetting<SavedCredentials[]>(CREDENTIALS_KEY);
+        } catch (error) {
+            this.credentials = new Array<SavedCredentials>();
+        }
     }
-    persistCredentials();
-}
 
-export function getSavedCredentials(): SavedCredentials {
-    if (credentials.length > 0) {
-        return credentials[0];
-    } else {
-        return undefined;
+    ProcessLogin(userName: string, password: string): Promise<any> {
+        const data = {
+            userName: userName,
+            password: password
+        };
+
+        let requestParams = {
+            url: `${this.apiBaseUrl}/login`,
+            method: 'POST',
+            headers: { "Content-Type": "application/json" },
+            content: JSON.stringify(data)
+        };
+
+        return this.ProcessHttpCall<any>(requestParams);
     }
-}
 
-export function persistCredentials() {
-    let jsonString = JSON.stringify(credentials);
-    appSettingsModule.setString(CREDENTIALS_KEY, jsonString);
+    public GetSavedCredentials(): SavedCredentials {
+        if (this.credentials.length > 0) {
+            return this.credentials[0];
+        } else {
+            return undefined;
+        }
+    }
+
+    public AddCredentials(newCredentials: SavedCredentials): void {
+        if (this.credentials.length > 0) {
+            this.credentials[0] = newCredentials;
+        } else {
+            this.credentials.push(newCredentials);
+        }
+        this.PersistAppSetting(CREDENTIALS_KEY, this.credentials);
+    }
 }

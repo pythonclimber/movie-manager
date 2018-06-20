@@ -1,64 +1,64 @@
 import { Observable } from "data/observable";
-import { NewSearchResult } from "../../shared/interfaces";
+import { NewSearchResult, SearchResult } from "../../shared/interfaces";
 import { ImageSource } from "image-source";
 import * as imageService from '../../services/image-service';
 
 
 export class SearchResultViewModel extends Observable {
-    private searchResult: NewSearchResult;
+    private searchResult: SearchResult;
     private imageSource: ImageSource;
 
     get Title(): string {
-        return this.searchResult.Title;
+        return this.searchResult.title;
     }
 
     set Title(value: string) {
-        if (value !== this.searchResult.Title) {
-            this.searchResult.Title = value;
+        if (value !== this.searchResult.title) {
+            this.searchResult.title = value;
             this.notifyPropertyChange('Title', value);
         }
     }
 
     get Year(): string {
-        return this.searchResult.Year;
+        return this.searchResult.year;
     }
 
     set Year(value: string) {
-        if (value !== this.searchResult.Year) {
-            this.searchResult.Year = value;
+        if (value !== this.searchResult.year) {
+            this.searchResult.year = value;
             this.notifyPropertyChange('Year', value);
         }
     }
     
     get ImdbId(): string {
-        return this.searchResult.imdbID;
+        return this.searchResult.imdbid;
     }
 
     set ImdbId(value: string) {
-        if (value !== this.searchResult.imdbID) {
-            this.searchResult.imdbID = value;
+        if (value !== this.searchResult.imdbid) {
+            this.searchResult.imdbid = value;
             this.notifyPropertyChange('ImdbId', value);
         }
     }
 
     get Type(): string {
-        return this.searchResult.Type;
+        return this.searchResult.type;
     }
 
     set Type(value: string) {
-        if (value !== this.searchResult.Type) {
-            this.searchResult.Type = value;
+        if (value !== this.searchResult.type) {
+            this.searchResult.type = value;
             this.notifyPropertyChange('Type', value);
         }
     }
 
     get Poster(): string {
-        return this.searchResult.Poster;
+        return this.searchResult.poster;
     }
 
     set Poster(value: string) {
-        if (value !== this.searchResult.Poster) {
-            this.searchResult.Poster = value;
+        if (value !== this.searchResult.poster) {
+            this.searchResult.poster = value;
             this.notifyPropertyChange('Poster', value);
         }
     }
@@ -82,13 +82,13 @@ export class SearchResultViewModel extends Observable {
         return this.searchResult.wishlist;
     }
 
-    constructor(searchResult: NewSearchResult) {
+    constructor(searchResult: SearchResult) {
         super();
 
         this.searchResult = searchResult;
         this.ImageSource = new ImageSource();
-        if (searchResult.Poster && searchResult.Poster.startsWith('http')) {
-            imageService.getImageFromHttp(searchResult.Poster).then(source => {
+        if (searchResult.poster && searchResult.poster.startsWith('http')) {
+            imageService.getImageFromHttp(searchResult.poster).then(source => {
                 this.ImageSource = source;
             });
         } else {
