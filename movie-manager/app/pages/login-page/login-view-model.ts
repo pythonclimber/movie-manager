@@ -1,6 +1,6 @@
 import { Observable } from "data/observable";
 import { EventData } from 'ui/text-base';
-import * as loginService from '../../services/login-service';
+import { LoginService } from '../../services/login-service';
 import * as navigationModule from '../../shared/navigation';
 
 export class LoginViewModel extends Observable {
@@ -8,6 +8,7 @@ export class LoginViewModel extends Observable {
     private password: string;
     private loginError: boolean;
     private isLoading: boolean;
+    private loginService: LoginService;
 
     get LoginError(): boolean {
         return this.loginError;
@@ -56,7 +57,8 @@ export class LoginViewModel extends Observable {
     public constructor() {
         super();
         this.loginError = false;
-        let savedCredentials = loginService.getSavedCredentials();
+        this.loginService = new LoginService();
+        let savedCredentials = this.loginService.GetSavedCredentials();
         if (savedCredentials) {
             this.username = savedCredentials.username;
             this.password = savedCredentials.password;
@@ -64,12 +66,12 @@ export class LoginViewModel extends Observable {
         this.isLoading = false;
     }
 
-    ProcessLogin(args: EventData) {
+    public ProcessLogin(args: EventData) {
         this.LoginError = false;
         this.IsLoading = true;
-        loginService.processLogin(this.username, this.password).then(loginResponse => {
+        this.loginService.ProcessLogin(this.username, this.password).then(loginResponse => {
             if (loginResponse.success) {
-                loginService.addCredentials({username: this.username, password: this.password, userId: loginResponse.userId});
+                this.loginService.AddCredentials({username: this.username, password: this.password, userId: loginResponse.userId});
                 navigationModule.navigateToMainPage();
             } else {
                 this.loginError = true;

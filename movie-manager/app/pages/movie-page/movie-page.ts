@@ -18,3 +18,4 @@ export function navigatingTo(args: NavigatedData) {
         movieViewModel.IsLoading = false;        
     });
 }
+

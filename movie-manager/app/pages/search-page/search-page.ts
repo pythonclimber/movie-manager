@@ -41,7 +41,8 @@ export function selectItem(args: ItemEventData) {
             director: '',
             imdbid: searchResult.ImdbId,
             favorite: false,
-            wishlist: searchResult.Wishlist
+            wishlist: searchResult.Wishlist,
+            format: ''
         });
         navigationModule.navigateToMovie(movie);
     } else {

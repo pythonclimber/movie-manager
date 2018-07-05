@@ -1,16 +1,15 @@
 import { Observable, EventData } from "data/observable";
-import { Movie, SearchResult, NewMovie } from "../../shared/interfaces";
+import { Movie, MovieDetailResponse } from "../../shared/interfaces";
 import { MovieService } from '../../services/movie-service';
 import { ImageSource } from "image-source";
 import * as imageService from '../../services/image-service';
-import { SearchResultViewModel } from "../search-page/search-result-view-model";
 import * as navigationModule from '../../shared/navigation'
-import * as utilityModule from '../../shared/utility';
 
 export class MovieViewModel extends Observable {
     private movie: Movie;
     private imageSource: ImageSource;
     private isLoading: boolean;
+    private movieService: MovieService;
 
     get Movie(): Movie {
         return this.movie;
@@ -151,32 +150,42 @@ export class MovieViewModel extends Observable {
         }
     }
 
+    get Format(): string {
+        return this.movie.format;
+    }
+
+    set Format(value: string) {
+        if (value !== this.movie.format) {
+            this.movie.format = value;
+            this.notifyPropertyChange('Format', value);
+        }
+    }
+
     constructor(movie: Movie) {
         super();
         this.movie = movie;
+        this.movieService = new MovieService();
 
-        this.movie.title = utilityModule.formatTitle(this.movie.title);
+        this.movie.title = this.movieService.FormatTitle(this.movie.title);
 
         this.Plot = this.Plot || '';
     }
 
     public GetDetails(): Promise<any> {
-        let movieService = new MovieService();
-
-        return movieService.getMovieDetails<any>(this.movie.imdbid).then(response => {
-                let movie = <NewMovie>response;
+        return this.movieService.getMovieDetails<MovieDetailResponse>(this.movie.imdbid).then(response => {
+                let movie = response.movie;
                 this._id = '';
                 this.Description = '';
-                this.Title = movie.Title;
-                this.Plot = movie.Plot;
+                this.Title = movie.title;
+                this.Plot = movie.plot;
                 this.UserId = this.UserId;
-                this.Year = movie.Year;
-                this.Director = movie.Director;
-                this.ImdbId = movie.imdbID;
+                this.Year = movie.year;
+                this.Director = movie.director;
+                this.ImdbId = movie.imdbid;
                 this.Wishlist = this.Wishlist;
 
-                if (movie.Poster && movie.Poster.startsWith('https')) {
-                    imageService.getImageFromHttp(movie.Poster).then(imageSource => {
+                if (movie.poster && movie.poster.startsWith('https')) {
+                    imageService.getImageFromHttp(movie.poster).then(imageSource => {
                         this.ImageSource = imageSource;
                     });
                 }
@@ -187,19 +196,17 @@ export class MovieViewModel extends Observable {
 
     public ToggleFavorite(): void {
         this.Favorite = !this.Favorite;
-        let movieService = new MovieService();
-        movieService.toggleFavorite(this.UserId, this.ImdbId, this.Favorite);
+        this.movieService.toggleFavorite(this.UserId, this.ImdbId, this.Favorite);
     }
 
     public AddToMyCollection(args: EventData) {
-        let movieService = new MovieService();
         if (this.Wishlist) {
-            movieService.toggleWishlist(this.UserId, this.ImdbId, false).then(response => {
+            this.movieService.toggleWishlist(this.UserId, this.ImdbId, false).then(response => {
                 this.Wishlist = false;
                 navigationModule.navigateToMainPage();
             });
         } else {
-            movieService.addMovie(this).then(response => {
+            this.movieService.addMovie(this).then(response => {
                 this.UserId = response.userId;
                 this.Wishlist = false;
             });
@@ -207,17 +214,15 @@ export class MovieViewModel extends Observable {
     }
 
     public RemoveFromMyCollection(args: EventData) {
-        let movieService = new MovieService();
-        movieService.deleteMovie(this).then(response => {
+        this.movieService.deleteMovie(this).then(response => {
             this.UserId = '';
             navigationModule.navigateToMainPage();
         });
     }
 
     public AddToWishlist(args: EventData) {
-        let movieService = new MovieService();
         this.Wishlist = true;
-        movieService.addMovie(this).then(movie => {
+        this.movieService.addMovie(this).then(movie => {
             this.UserId = movie.userId;
         });
     }

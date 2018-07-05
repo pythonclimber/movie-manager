@@ -14,6 +14,7 @@ export interface Movie {
     plot?: string;
     poster?: string;
     wishlist: boolean;
+    format: string;
 }
 
 export interface NewMovie {
@@ -69,13 +70,18 @@ export interface Show {
 }
 
 export interface SearchResponse {
-    Search: Array<NewSearchResult>;
+    results: SearchResult[];
     totalResults: number;
-    Response: string;
+    success: boolean;
 }
 
 export interface Media {
     Title: string;
     Director: string;
     Year: string;
+}
+
+export interface MovieDetailResponse {
+    success: boolean;
+    movie: Movie;
 }

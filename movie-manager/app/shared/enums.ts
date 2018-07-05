@@ -3,8 +3,8 @@ export enum ViewMode {
     Shows
 }
 
-export enum ViewOption {
-    All,
-    Favorites,
-    Wishlist
+export class ViewOptions {
+    static All: string = 'All Movies';
+    static Favorites: string = 'Favorites';
+    static Wishlist: string = 'Wishlist';
 }
