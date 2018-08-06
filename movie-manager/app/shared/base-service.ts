@@ -1,6 +1,6 @@
 import * as http from 'http';
 import * as appSettingsModule from 'application-settings';
-import { ImageSource } from 'image-source/image-source';
+import { ImageSource } from 'image-source';
 
 export class BaseService {
     protected apiBaseUrl: string;

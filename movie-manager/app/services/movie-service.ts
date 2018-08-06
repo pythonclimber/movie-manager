@@ -108,7 +108,7 @@ export class MovieService extends BaseService {
 
     onlineMovieSearch<T>(title: string, page: number = 1): Promise<T> {
         let requestParams = {
-            url: `${this.apiBaseUrl}/movie-search/${title}/${page}`,
+            url: encodeURI(`${this.apiBaseUrl}/movie-search/${title}/${page}`),
             method: 'GET'
         };
         return this.ProcessHttpCall<T>(requestParams);

@@ -15,21 +15,19 @@
             </StackLayout>
             <GridLayout row="1" columns="*" rows="auto, *">
                 <Label text="No Results..." visibility="{{ SearchResults.length == 0 ? 'visible' : 'collapse' }}" horizontalAlignment="center" />
-                <ScrollView row="1">
-                    <ListView row="1" class="movie-list" items="{{ SearchResults }}" loadMoreItems="{{ GetNextPage }}" itemTap="selectItem" visibility="{{ SearchResults.length > 0 ? 'visible' : 'collapse' }}">
-                        <ListView.itemTemplate>
-                            <GridLayout columns="auto, *" rows="auto">
-                                <GridLayout col="0" columns="auto">
-                                    <Image class="icon-image" src="{{ ImageSource }}" width="30" height="45" />
-                                </GridLayout>
-                                <StackLayout col="1">
-                                    <Label text="{{ Title }}" class="info-bigger" />
-                                    <Label text="{{ Year }}" class="info-orange" />
-                                </StackLayout>
+                <ListView row="1" class="movie-list" items="{{ SearchResults }}" loadMoreItems="{{ GetNextPage }}" itemTap="selectItem" visibility="{{ SearchResults.length > 0 ? 'visible' : 'collapse' }}">
+                    <ListView.itemTemplate>
+                        <GridLayout columns="auto, *" rows="auto">
+                            <GridLayout col="0" columns="auto">
+                                <Image class="icon-image" src="{{ ImageSource }}" width="30" height="45" />
                             </GridLayout>
-                        </ListView.itemTemplate>
-                    </ListView>
-                </ScrollView>
+                            <StackLayout col="1">
+                                <Label text="{{ Title }}" class="info-bigger" />
+                                <Label text="{{ Year }}" class="info-orange" />
+                            </StackLayout>
+                        </GridLayout>
+                    </ListView.itemTemplate>
+                </ListView>
                 <ActivityIndicator busy="{{ IsLoading }}" row="1" horizontalAlignment="center" verticalAlignment="center" />
             </GridLayout>
         </GridLayout>

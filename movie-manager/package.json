@@ -9,10 +9,11 @@
 			"version": "3.4.1"
 		},
 		"tns-android": {
-			"version": "3.4.2"
+			"version": "4.3.0-2018-08-02-04"
 		}
 	},
 	"dependencies": {
+		"nativescript-pulltorefresh": "^2.1.1",
 		"nativescript-theme-core": "~1.0.4",
 		"nativescript-ui-sidedrawer": "^3.5.2",
 		"tns-core-modules": "~3.4.0"
