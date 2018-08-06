@@ -1,7 +1,8 @@
 <Page xmlns="http://schemas.nativescript.org/tns.xsd" 
         navigatingTo="navigatingTo" 
         class="page"
-        xmlns:drawer="nativescript-telerik-ui/sidedrawer">
+        xmlns:drawer="nativescript-telerik-ui/sidedrawer"
+        xmlns:PullRefresh="nativescript-pulltorefresh">
     <StackLayout>
         <GridLayout class="action-bar" columns="*, *, *">
             <StackLayout col="0" tap="searchTap" orientation="horizontal" class="action-wrap" horizontalAlignment="stretch" verticalAlignment="center">
@@ -28,7 +29,7 @@
         </GridLayout>
         <GridLayout>
             <GridLayout row="0">
-                <ScrollView>
+                <PullRefresh:PullToRefresh refresh="refreshCollection">
                     <ListView items="{{ ViewMode == 'Movies' ? Movies : Shows }}" itemTap="selectMovie" class="movie-list">
                         <ListView.itemTemplate>
                             <GridLayout rows="auto" columns="auto, *">
@@ -42,7 +43,7 @@
                             </GridLayout>
                         </ListView.itemTemplate>
                     </ListView>
-                </ScrollView>
+                </PullRefresh:PullToRefresh>
             </GridLayout>
             <ActivityIndicator busy="{{ IsLoading }}" row="1" horizontalAlignment="center" verticalAlignment="center" />
         </GridLayout>

@@ -36,3 +36,12 @@ export function searchTap(args: GestureEventData) {
         navigationModule.navigateToSearchPage(mainViewModel.Shows, ViewMode.Shows);
     }
 }
+
+export function refreshCollection(args) {
+    let pullToRefresh = args.object;
+    let mainViewModel = <MainViewModel>pullToRefresh.bindingContext;
+
+
+    mainViewModel.LoadMovies();
+    pullToRefresh.refreshing = false;
+}

@@ -160,7 +160,7 @@ export class MainViewModel extends Observable {
         this.LoadShows();
     }
 
-    private LoadMovies(): void {
+    public LoadMovies(): void {
         this.IsLoading = true;
         this.movieService
             .getMovies<Array<Movie>>()
