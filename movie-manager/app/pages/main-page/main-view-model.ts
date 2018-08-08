@@ -144,25 +144,8 @@ export class MainViewModel extends Observable {
         this.DisplayFilters = !this.DisplayFilters;
     }
 
-    private GetViewOptions(): SegmentedBarItem[] {
-        let item1 = new SegmentedBarItem();
-        item1.title = 'All';
-        let item2 = new SegmentedBarItem();
-        item2.title = 'Favorites';
-        let item3 = new SegmentedBarItem();
-        item3.title = 'Wishlist';
-
-        return [item1, item2, item3];
-    }
-
-    private Init(): void {
-        this.LoadMovies();
-        this.LoadShows();
-    }
-
-    public LoadMovies(): void {
-        this.IsLoading = true;
-        this.movieService
+    public LoadMovies(): Promise<void> {
+        return this.movieService
             .getMovies<Array<Movie>>()
             .then(movies => {
                 let movieViewModels = new Array<MovieViewModel>();
@@ -175,10 +158,28 @@ export class MainViewModel extends Observable {
                 }
                 this.movies = movieViewModels.sort(this.SortByTitle);
                 this.ToggleMovies();
-                this.IsLoading = false;
             }).catch(error => {
                 console.log(error);
             });
+    }
+
+    private GetViewOptions(): SegmentedBarItem[] {
+        let item1 = new SegmentedBarItem();
+        item1.title = 'All';
+        let item2 = new SegmentedBarItem();
+        item2.title = 'Favorites';
+        let item3 = new SegmentedBarItem();
+        item3.title = 'Wishlist';
+
+        return [item1, item2, item3];
+    }
+
+    private Init(): void {
+        this.isLoading = true;
+        this.LoadMovies().then(() => {
+            this.isLoading = false;
+        });
+        //this.LoadShows();
     }
 
     private LoadShows(): void {

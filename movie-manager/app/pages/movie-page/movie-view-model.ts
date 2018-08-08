@@ -200,17 +200,19 @@ export class MovieViewModel extends Observable {
     }
 
     public AddToMyCollection(args: EventData) {
-        if (this.Wishlist) {
-            this.movieService.toggleWishlist(this.UserId, this.ImdbId, false).then(response => {
-                this.Wishlist = false;
-                navigationModule.navigateToMainPage();
-            });
-        } else {
-            this.movieService.addMovie(this).then(response => {
-                this.UserId = response.userId;
-                this.Wishlist = false;
-            });
-        }
+        navigationModule.showFormatPicker(this);
+        // if (this.Wishlist) {
+        //     navigationModule.showFormatPicker(this);
+        //     this.movieService.toggleWishlist(this.UserId, this.ImdbId, false).then(response => {
+        //         this.Wishlist = false;
+        //         navigationModule.navigateToMainPage();
+        //     });
+        // } else {
+        //     this.movieService.addMovie(this).then(response => {
+        //         this.UserId = response.userId;
+        //         this.Wishlist = false;
+        //     });
+        // }
     }
 
     public RemoveFromMyCollection(args: EventData) {

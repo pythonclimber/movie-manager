@@ -19,6 +19,16 @@ export function navigateToMovie(movie: MovieViewModel) {
     });
 }
 
+export function navigateBackToMovie(movie: MovieViewModel) {
+    frameModule.topmost().navigate({
+        moduleName: 'pages/movie-page/movie-page',
+        context: movie,
+        transition: {
+            name: 'slideTop'
+        }
+    });
+}
+
 export function navigateToShow(show: ShowViewModel) {
     frameModule.topmost().navigate({
         moduleName: 'pages/show-page/show-page',
@@ -63,5 +73,5 @@ export function showFormatPicker(movie: MovieViewModel) {
         transition: {
             name: 'slideBottom'
         }
-    })
+    });
 }

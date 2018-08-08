@@ -42,6 +42,7 @@ export function refreshCollection(args) {
     let mainViewModel = <MainViewModel>pullToRefresh.bindingContext;
 
 
-    mainViewModel.LoadMovies();
-    pullToRefresh.refreshing = false;
+    mainViewModel.LoadMovies().then(() => {
+        pullToRefresh.refreshing = false;
+    });
 }

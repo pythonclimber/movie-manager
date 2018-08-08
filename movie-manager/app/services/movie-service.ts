@@ -75,7 +75,7 @@ export class MovieService extends BaseService {
             imdbid: movie.ImdbId,
             favorite: false,
             wishlist: movie.Wishlist,
-            format: 'Blu-ray'
+            format: movie.Wishlist ? '' : movie.Format
         };
 
         let requestParams = {
@@ -131,11 +131,11 @@ export class MovieService extends BaseService {
         return this.ProcessHttpCall<any>(requestParams)
     }
 
-    toggleWishlist(userId: string, imdbid: string, wishlist: boolean) {
+    toggleWishlist(userId: string, imdbid: string, wishlist: boolean, format: string) {
         let data = {
             userId: userId,
             imdbid: imdbid,
-            update: {wishlist: wishlist}
+            update: {wishlist: wishlist, format: format}
         };
 
         let requestParams = {

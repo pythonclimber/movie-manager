@@ -1,8 +1,15 @@
 <Page xmlns="http://schemas.nativescript.org/tns.xsd" 
         navigatingTo="navigatingTo" 
         class="page">
-        <GridLayout rows="*" columns="*">
-            <ListPicker items="{{ Formats }}">
+        <GridLayout rows="auto, *, auto" columns="*">
+            <GridLayout class="action-bar" columns="*">
+                <Label text="Select Format..." class="back-text" horizontalAlignment="center" />
+            </GridLayout>
+            <ListPicker row="1" items="{{ Formats }}" selectedIndex="{{ SelectedIndex }}">
             </ListPicker>
+            <GridLayout rows="*" columns="*,*" row="2">
+                <Button col="0" text="OK" width="125" height="40" class="btn" android:fontSize="10" ios:fontSize="18" horizontalAlignment="left" tap="{{ ChooseFormat }}" />
+                <Button col="1" text="Cancel" width="125" height="40" class="btn" android:fontSize="10" ios:fontSize="18" horizontalAlignment="left" tap="{{ Cancel }}" />
+            </GridLayout>
         </GridLayout>
 </Page>
