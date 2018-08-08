@@ -38,8 +38,6 @@ export class FormatViewModel extends Observable {
         this.movie = movie;
         this.movieService = new MovieService();
         this.selectedIndex = 0;
-
-        console.log(this.selectedIndex);
     }
 
     public ChooseFormat(): void {
