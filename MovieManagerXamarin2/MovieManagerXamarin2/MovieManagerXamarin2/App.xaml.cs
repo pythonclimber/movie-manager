@@ -10,13 +10,19 @@ namespace MovieManagerXamarin2
 	{
 		public App ()
 		{
-			InitializeComponent();
+		    try
+		    {
+		        InitializeComponent();
 
-		    var viewModel = new MainViewModel("58cb3dd6692c796b68ff33ec");
-
-		    viewModel.InitializeAsync();
-
-			MainPage = new MainPage {BindingContext = viewModel};
+		        var viewModel = new MainViewModel("58cb3dd6692c796b68ff33ec");
+		        MainPage = new NavigationPage(new MainPage { BindingContext = viewModel });
+                viewModel.InitializeAsync();
+		        viewModel.Navigation = MainPage.Navigation;
+            }
+		    catch (Exception e)
+		    {
+                Console.Write(e);
+		    }
 		}
 
 		protected override void OnStart()

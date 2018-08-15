@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MovieManagerXamarin2.MoviePage">
+    <ContentPage.Content>
+        <Grid BackgroundColor="#2b2c2d">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid IsVisible="{Binding IsReady}" 
+                      RowSpacing="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0">
+                        <StackLayout HeightRequest="180" 
+                                         WidthRequest="120"
+                                         Orientation="Horizontal"
+                                         Spacing="0">
+                            <Image HorizontalOptions="Start" 
+                                       VerticalOptions="Start" 
+                                       Aspect="AspectFill"  
+                                       Source="{Binding ImageSource}"/>
+                        </StackLayout>
+                    </Grid>
+                    <StackLayout Grid.Column="1" VerticalOptions="Center">
+                        <Label Text="{Binding Title}" 
+                                   FontSize="Large"
+                                   TextColor="White" />
+                        <Label Text="{Binding Director}" TextColor="AntiqueWhite"/>
+                        <Label Text="{Binding Format}" TextColor="AntiqueWhite"/>
+                    </StackLayout>
+                </Grid>
+                <Grid Grid.Row="1" 
+                      BackgroundColor="DodgerBlue">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0" Padding="10,5,10,5">
+                        <Button BackgroundColor="#009940" Text="Add Movie"></Button>
+                    </Grid>
+                    <Grid Grid.Column="1" Padding="10,5,10,5">
+                        <Button BackgroundColor="#009940" Text="Wishlist"></Button>
+                    </Grid>
+                </Grid>
+                <Grid Grid.Row="2"
+                          VerticalOptions="Start">
+                    <ScrollView>
+                        <Label Text="{Binding Plot}" TextColor="White"></Label>
+                    </ScrollView>
+                </Grid>
+            </Grid>
+            <!--<ScrollView Grid.Row="0" BackgroundColor="Green" Padding="0" Margin="0">
+                
+            </ScrollView>-->
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

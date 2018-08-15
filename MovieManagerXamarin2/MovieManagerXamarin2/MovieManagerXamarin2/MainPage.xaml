@@ -4,15 +4,14 @@
              x:Class="MovieManagerXamarin2.MainPage">
     <ContentPage.Content>
         <StackLayout BackgroundColor="#2b2c2d" Spacing="0">
-            <Grid Grid.Row="0" VerticalOptions="Start" BackgroundColor="Orange">
+            <!--<Grid Grid.Row="0" VerticalOptions="Start" BackgroundColor="White">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="50" />
                 </Grid.RowDefinitions>
                 <StackLayout Padding="0,12,0,12" Grid.Row="0" Orientation="Horizontal" HorizontalOptions="Fill" VerticalOptions="Start">
                     <Label TextColor="#2b2c2d" FontSize="Medium"  Margin="0,0,0,2" VerticalOptions="Center" MinimumWidthRequest="75">Search</Label>
-                    <Label Text="{Binding SelectedMovie.Title}"></Label>
                 </StackLayout>
-            </Grid>
+            </Grid>-->
             <Grid Grid.Row="1" VerticalOptions="FillAndExpand">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*" />
@@ -21,7 +20,8 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
-                    <ListView ItemsSource="{Binding Movies}" SelectedItem="{Binding SelectedMovie}">
+                    <ListView ItemsSource="{Binding Movies}"
+                              SelectedItem="{Binding SelectedMovie}">
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <ViewCell>

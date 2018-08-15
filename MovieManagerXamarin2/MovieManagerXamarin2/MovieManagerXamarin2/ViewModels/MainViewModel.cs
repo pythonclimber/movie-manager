@@ -1,22 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Json;
+using System.Linq;
 using System.Net.Http;
-using System.Text;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using MovieManagerXamarin2.Models;
+using MovieManagerXamarin2.Services;
 using Newtonsoft.Json;
+using Xamarin.Forms;
 
 namespace MovieManagerXamarin2.ViewModels
 {
     public class MainViewModel : BaseViewModel
     {
-        private List<Movie> _movies;
-        private Movie _selectedMovie;
+        private List<MovieViewModel> _movies;
+        private MovieViewModel _selectedMovie;
         private string _userId;
+        private MovieService _movieService;
 
-        public List<Movie> Movies
+        public INavigation Navigation { get; set; }
+
+        public List<MovieViewModel> Movies
         {
             get => _movies;
             set
@@ -29,15 +33,30 @@ namespace MovieManagerXamarin2.ViewModels
             }
         }
 
-        public Movie SelectedMovie
+        public MovieViewModel SelectedMovie
         {
             get => _selectedMovie;
             set
             {
-                if (value != _selectedMovie)
+                var sameValue = _selectedMovie?.Equals(value) ?? false;
+                if (!sameValue)
                 {
                     _selectedMovie = value;
-                    OnPropertyChanged("SelectedMovie");
+                    //OnPropertyChanged("SelectedMovie");
+                    if (_selectedMovie != null)
+                    {
+                        try
+                        {
+                            var moviePage = new MoviePage {BindingContext = _selectedMovie };
+                            _selectedMovie.LoadMovieDetails();
+                            Navigation.PushAsync(new NavigationPage(moviePage));
+                            _selectedMovie = null;
+                        }
+                        catch (Exception e)
+                        {
+                            Console.WriteLine(e);
+                        }
+                    }
                 }
             }
         }
@@ -45,58 +64,29 @@ namespace MovieManagerXamarin2.ViewModels
         public MainViewModel(string userId)
         {
             _userId = userId;
+            _movieService = new MovieService();
         }
 
-        public async Task InitializeAsync()
+        public void InitializeAsync()
         {
+#pragma warning disable 4014
             LoadMovies();
+#pragma warning restore 4014
         }
 
         protected async Task LoadMovies()
         {
-            var httpClient = new HttpClient();
-            var httpResponse = 
-                await httpClient.GetStringAsync($"https://ohgnarly.herokuapp.com/movies/{_userId}");
-            Movies = PrepareMovies(httpResponse);
+            Movies = PrepareMovies(await _movieService.GetMovies(_userId));
         }
 
-        protected List<Movie> PrepareMovies(string httpResponse)
+        protected List<MovieViewModel> PrepareMovies(List<Movie> movies)
         {
-            var movies = JsonConvert
-                .DeserializeObject<List<Movie>>(httpResponse);
-            var formatTitleTasks = new List<Task>();
+            var movieViewModels = movies.Select(m => new MovieViewModel(m)).ToList();
 
-            foreach (var movie in movies)
-            {
-                formatTitleTasks.Add(Task.Run(() =>
-                {
-                    return movie.Title = FormatMovieTitle(movie.Title);
-                }));
-            }
+            // ReSharper disable once StringCompareToIsCultureSpecific
+            movieViewModels.Sort((m1, m2) => m1.Title.CompareTo(m2.Title));
 
-            Task.WaitAll(formatTitleTasks.ToArray());
-
-            movies.Sort((m1, m2) => m1.Title.CompareTo(m2.Title));
-
-            return movies;
-        }
-
-        protected string FormatMovieTitle(string title)
-        {
-            if (title.StartsWith("The "))
-            {
-                return title.Substring(4) + ", The";
-            }
-            if (title.StartsWith("A "))
-            {
-                return title.Substring(2) + ", A";
-            }
-            if (title.StartsWith("An "))
-            {
-                return title.Substring(3) + ", An";
-            }
-
-            return title;
+            return movieViewModels;
         }
     }
 }
