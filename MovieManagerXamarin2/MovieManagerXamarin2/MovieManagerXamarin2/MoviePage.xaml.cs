@@ -14,7 +14,13 @@ namespace MovieManagerXamarin2
 	{
 		public MoviePage()
 		{
-			InitializeComponent();
-		}
+		    NavigationPage.SetHasNavigationBar(this, false);
+            if (Application.Current.MainPage is NavigationPage navigationPage)
+            {
+                navigationPage.BarBackgroundColor = Color.FromHex("#2b2c2d");
+		    }
+
+            InitializeComponent();
+        }
 	}
 }

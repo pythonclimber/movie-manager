@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MovieManagerXamarin2.LoginPage">
+    <ContentPage.Content>
+        <Grid BackgroundColor="#2b2c2d">
+            <StackLayout VerticalOptions="Center">
+                <Label Text="Username:"
+                       TextColor="White"/>
+                <Entry Text="{Binding Username}"
+                       TextColor="White"
+                       PlaceholderColor="#009940"/>
+                <Label Text="Password:"
+                       TextColor="White"/>
+                <Entry Text="{Binding Password}"
+                       TextColor="White"
+                       IsPassword="True"/>
+                <Grid Padding="25, 5, 25, 5">
+                    <Button Text="Login"
+                            BackgroundColor="#009940"
+                            TextColor="White"
+                            Command="{Binding LoginTap}">
+                    </Button>
+                </Grid>
+            </StackLayout>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

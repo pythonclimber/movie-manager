@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Net.Http;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using MovieManagerXamarin2.Models;
+using MovieManagerXamarin2.Services;
 using Newtonsoft.Json;
 using Xamarin.Forms;
 
@@ -12,6 +14,7 @@ namespace MovieManagerXamarin2.ViewModels
         private Movie _movie;
         private bool _isReady;
         private ImageSource _imageSource;
+        private readonly IMovieService _movieService;
 
         public string Title
         {
@@ -61,8 +64,53 @@ namespace MovieManagerXamarin2.ViewModels
                 {
                     _isReady = value;
                     OnPropertyChanged("IsReady");
+                    OnPropertyChanged("IsLoading");
                 }
             }
+        }
+
+        public bool IsLoading
+        {
+            get => !_isReady;
+
+        }
+
+        public bool IsMine
+        {
+            get => !string.IsNullOrWhiteSpace(_movie.UserId);
+        }
+
+        public string UserId
+        {
+            get => _movie.UserId;
+            set
+            {
+                if (value != _movie.UserId)
+                {
+                    _movie.UserId = value;
+                    OnPropertyChanged("UserId");
+                    OnPropertyChanged("IsMine");
+                }
+            }
+        }
+
+        public bool Favorite
+        {
+            get => _movie.Favorite;
+            set
+            {
+                if (value != _movie.Favorite)
+                {
+                    _movie.Favorite = value;
+                    OnPropertyChanged("Favorite");
+                    OnPropertyChanged("NotFavorite");
+                }
+            }
+        }
+
+        public bool NotFavorite
+        {
+            get => !_movie.Favorite;
         }
 
         public Movie Movie
@@ -78,6 +126,9 @@ namespace MovieManagerXamarin2.ViewModels
                     OnPropertyChanged("Director");
                     OnPropertyChanged("Plot");
                     OnPropertyChanged("Format");
+                    OnPropertyChanged("UserId");
+                    OnPropertyChanged("IsMine");
+                    OnPropertyChanged("ImdbId");
                 }
             }
         }
@@ -108,12 +159,46 @@ namespace MovieManagerXamarin2.ViewModels
             }
         }
 
+        public string ImdbId
+        {
+            get => _movie.ImdbId;
+            set
+            {
+                if (value != _movie.ImdbId)
+                {
+                    _movie.ImdbId = value;
+                    OnPropertyChanged("ImdbId");
+                }
+            }
+        }
+
+        public ICommand ToggleFavorite { get; }
+
+        public ICommand SelectMovie { get; }
+
+        public ICommand GoBack { get; }
+
         public MovieViewModel(Movie movie)
         {
             _isReady = false;
             _movie = movie;
+            _movieService = new MovieService();
 
             FormatTitle();
+
+            ToggleFavorite = new Command(() =>
+            {
+                Favorite = !Favorite;
+                _movieService.ToggleFavorite(UserId, ImdbId, Favorite);
+            });
+
+            GoBack = new Command(async () =>
+            {
+                IsReady = false;
+                await Navigation.PopAsync();
+            });
+
+            SelectMovie = new Command(SelectMe);
         }
 
         public async Task LoadMovieDetails()
@@ -144,6 +229,13 @@ namespace MovieManagerXamarin2.ViewModels
             {
                 Title = Title.Substring(3) + ", An";
             }
+        }
+
+        protected async void SelectMe()
+        {
+            var moviePage = new MoviePage { BindingContext = this };
+            await Navigation.PushAsync(moviePage);
+            LoadMovieDetails();
         }
     }
 }

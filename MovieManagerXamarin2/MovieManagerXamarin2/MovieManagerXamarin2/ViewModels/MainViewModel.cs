@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Net.Http;
-using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using MovieManagerXamarin2.Models;
 using MovieManagerXamarin2.Services;
-using Newtonsoft.Json;
 using Xamarin.Forms;
 
 namespace MovieManagerXamarin2.ViewModels
@@ -14,11 +11,10 @@ namespace MovieManagerXamarin2.ViewModels
     public class MainViewModel : BaseViewModel
     {
         private List<MovieViewModel> _movies;
-        private MovieViewModel _selectedMovie;
         private string _userId;
         private MovieService _movieService;
 
-        public INavigation Navigation { get; set; }
+        public ICommand SearchForMovie { get; }
 
         public List<MovieViewModel> Movies
         {
@@ -33,38 +29,17 @@ namespace MovieManagerXamarin2.ViewModels
             }
         }
 
-        public MovieViewModel SelectedMovie
-        {
-            get => _selectedMovie;
-            set
-            {
-                var sameValue = _selectedMovie?.Equals(value) ?? false;
-                if (!sameValue)
-                {
-                    _selectedMovie = value;
-                    //OnPropertyChanged("SelectedMovie");
-                    if (_selectedMovie != null)
-                    {
-                        try
-                        {
-                            var moviePage = new MoviePage {BindingContext = _selectedMovie };
-                            _selectedMovie.LoadMovieDetails();
-                            Navigation.PushAsync(new NavigationPage(moviePage));
-                            _selectedMovie = null;
-                        }
-                        catch (Exception e)
-                        {
-                            Console.WriteLine(e);
-                        }
-                    }
-                }
-            }
-        }
-
         public MainViewModel(string userId)
         {
             _userId = userId;
             _movieService = new MovieService();
+
+            SearchForMovie = new Command(() =>
+            {
+                var searchViewModel = new SearchViewModel {Navigation = Navigation};
+                var searchPage = new SearchPage {BindingContext = searchViewModel};
+                Navigation.PushAsync(searchPage);
+            });
         }
 
         public void InitializeAsync()
@@ -81,7 +56,7 @@ namespace MovieManagerXamarin2.ViewModels
 
         protected List<MovieViewModel> PrepareMovies(List<Movie> movies)
         {
-            var movieViewModels = movies.Select(m => new MovieViewModel(m)).ToList();
+            var movieViewModels = movies.Select(m => new MovieViewModel(m) {Navigation = Navigation}).ToList();
 
             // ReSharper disable once StringCompareToIsCultureSpecific
             movieViewModels.Sort((m1, m2) => m1.Title.CompareTo(m2.Title));

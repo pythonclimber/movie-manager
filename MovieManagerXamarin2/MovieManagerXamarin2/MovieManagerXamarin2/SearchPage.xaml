@@ -1,0 +1,102 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MovieManagerXamarin2.SearchPage">
+    <ContentPage.Content>
+        <StackLayout Spacing="0"
+                     BackgroundColor="#2b2c2d">
+            <Grid HorizontalOptions="FillAndExpand"
+                  VerticalOptions="FillAndExpand">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid Padding="0,12,0,12" 
+                             Grid.Row="0"
+                             HorizontalOptions="Fill" 
+                             VerticalOptions="Start">
+                    <Label TextColor="White" 
+                            FontSize="Medium"  
+                            Margin="0,0,0,2" 
+                            VerticalOptions="Center" 
+                            MinimumWidthRequest="75"
+                            Text="My Movies">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding GoToMainPage}" />
+                        </Label.GestureRecognizers>
+                    </Label>
+                </Grid>
+                <Grid Grid.Row="1">
+                    <SearchBar Text="{Binding SearchText}"
+                               Placeholder="Search movie title...."
+                               PlaceholderColor="DarkGray"
+                               TextColor="#2b2c2d"
+                               SearchCommand="{Binding SearchCommand}"
+                               BackgroundColor="White">
+                    </SearchBar>
+                </Grid>
+                <Grid Grid.Row="2"
+                      VerticalOptions="FillAndExpand"
+                      HorizontalOptions="FillAndExpand">
+                    <ActivityIndicator IsRunning="{Binding IsLoading}"
+                                       HorizontalOptions="Center"
+                                       VerticalOptions="Center"
+                                       Color="#009940"
+                                       IsVisible="{Binding IsLoading}">
+                    </ActivityIndicator>
+                    <Label Text="No results...."
+                           TextColor="White"
+                           HorizontalOptions="Center"
+                           VerticalOptions="Center"
+                           IsVisible="{Binding ShowNoResults}">
+                    </Label>
+                    <ListView ItemsSource="{Binding SearchResults}"
+                              IsVisible="{Binding ShowResults}"
+                              VerticalOptions="FillAndExpand"
+                              x:Name="SearchResults">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                        </Grid.RowDefinitions>
+                                        <Grid.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding MovieTap}" />
+                                        </Grid.GestureRecognizers>
+                                        <Grid Grid.Column="0">
+                                            <StackLayout  Grid.Column="0"
+                                                          Spacing="0"
+                                                          HeightRequest="60"
+                                                          WidthRequest="45"
+                                                          Orientation="Horizontal">
+                                                <Image Source="{Binding ImageSource}" />
+                                            </StackLayout>
+                                        </Grid>
+                                        <StackLayout Grid.Column="1"
+                                                     HorizontalOptions="FillAndExpand"
+                                                     Spacing="0">
+                                            <Label Text="{Binding Title}"
+                                                   TextColor="White"
+                                                   FontSize="Medium">
+                                            </Label>
+                                            <Label Text="{Binding Year}"
+                                                   TextColor="#009940"
+                                                   FontSize="Small">
+                                            </Label>
+                                        </StackLayout>
+                                    </Grid>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </Grid>
+            </Grid>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

@@ -3,64 +3,96 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MovieManagerXamarin2.MoviePage">
     <ContentPage.Content>
-        <Grid BackgroundColor="#2b2c2d">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
-            <Grid IsVisible="{Binding IsReady}" 
-                      RowSpacing="0">
+        <StackLayout VerticalOptions="FillAndExpand"
+                     BackgroundColor="#2b2c2d">
+            <Grid Grid.Row="0" VerticalOptions="Start">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="50" />
                 </Grid.RowDefinitions>
-                <Grid Grid.Row="0">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <Grid Grid.Column="0">
-                        <StackLayout HeightRequest="180" 
-                                         WidthRequest="120"
+                <StackLayout Padding="0,12,0,12" 
+                             Grid.Row="0" 
+                             Orientation="Horizontal" 
+                             HorizontalOptions="Fill" 
+                             VerticalOptions="Start">
+                    <Label TextColor="White" 
+                           FontSize="Medium"  
+                           Margin="0,0,0,2" 
+                           VerticalOptions="Center" 
+                           MinimumWidthRequest="75"
+                           Text="Back">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding GoBack}" />
+                        </Label.GestureRecognizers>
+                    </Label>
+                </StackLayout>
+            </Grid>
+            <Grid BackgroundColor="#2b2c2d">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid IsVisible="{Binding IsReady}" 
+                          RowSpacing="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid Grid.Column="0">
+                            <StackLayout HeightRequest="180" 
+                                         MinimumWidthRequest="120"
                                          Orientation="Horizontal"
                                          Spacing="0">
-                            <Image HorizontalOptions="Start" 
+                                <Image HorizontalOptions="Start" 
                                        VerticalOptions="Start" 
                                        Aspect="AspectFill"  
                                        Source="{Binding ImageSource}"/>
-                        </StackLayout>
-                    </Grid>
-                    <StackLayout Grid.Column="1" VerticalOptions="Center">
-                        <Label Text="{Binding Title}" 
+                            </StackLayout>
+                        </Grid>
+                        <StackLayout Grid.Column="1" VerticalOptions="Center">
+                            <Label Text="{Binding Title}" 
                                    FontSize="Large"
                                    TextColor="White" />
-                        <Label Text="{Binding Director}" TextColor="AntiqueWhite"/>
-                        <Label Text="{Binding Format}" TextColor="AntiqueWhite"/>
-                    </StackLayout>
-                </Grid>
-                <Grid Grid.Row="1" 
-                      BackgroundColor="DodgerBlue">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <Grid Grid.Column="0" Padding="10,5,10,5">
-                        <Button BackgroundColor="#009940" Text="Add Movie"></Button>
+                            <Label Text="{Binding Director}" 
+                                   TextColor="AntiqueWhite"/>
+                            <Label Text="{Binding Format}" 
+                                   TextColor="AntiqueWhite"/>
+                        </StackLayout>
                     </Grid>
-                    <Grid Grid.Column="1" Padding="10,5,10,5">
-                        <Button BackgroundColor="#009940" Text="Wishlist"></Button>
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid Grid.Column="0" Padding="10,5,10,5">
+                            <Button BackgroundColor="#009940" 
+                                    Text="Add Movie"
+                                    IsVisible="{Binding IsMine}"></Button>
+                        </Grid>
+                        <Grid Grid.Column="1" Padding="10,5,10,5">
+                            <Button BackgroundColor="#009940" 
+                                    Text="Wishlist"
+                                    IsVisible="{Binding IsMine}"></Button>
+                        </Grid>
                     </Grid>
-                </Grid>
-                <Grid Grid.Row="2"
+                    <Grid Grid.Row="2"
                           VerticalOptions="Start">
-                    <ScrollView>
-                        <Label Text="{Binding Plot}" TextColor="White"></Label>
-                    </ScrollView>
+                        <ScrollView>
+                            <Label Text="{Binding Plot}" 
+                                   TextColor="White"></Label>
+                        </ScrollView>
+                    </Grid>
                 </Grid>
+                <ActivityIndicator IsRunning="{Binding IsLoading}" 
+                                   VerticalOptions="Center" 
+                                   HorizontalOptions="Center"
+                                   Color="#009940">
+                </ActivityIndicator>
             </Grid>
-            <!--<ScrollView Grid.Row="0" BackgroundColor="Green" Padding="0" Margin="0">
-                
-            </ScrollView>-->
-        </Grid>
+        </StackLayout>
     </ContentPage.Content>
 </ContentPage>
