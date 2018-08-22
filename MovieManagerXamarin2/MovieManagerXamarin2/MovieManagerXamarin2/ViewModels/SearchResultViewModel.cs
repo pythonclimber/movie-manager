@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+using System;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using MovieManagerXamarin2.Models;
-using MovieManagerXamarin2.Services;
+using MovieManagerXamarin2.Pages;
+using MovieManagerXamarin2.Shared;
 using Xamarin.Forms;
 
 namespace MovieManagerXamarin2.ViewModels
@@ -13,7 +12,8 @@ namespace MovieManagerXamarin2.ViewModels
     {
         private SearchResult _searchResult;
         private ImageSource _imageSource;
-        private ImageService _imageService;
+
+        #region Bound Properties
 
         public string Title
         {
@@ -114,6 +114,8 @@ namespace MovieManagerXamarin2.ViewModels
 
         public ICommand MovieTap { get; }
 
+        #endregion
+
         public SearchResultViewModel(SearchResult searchResult)
         {
             _searchResult = searchResult;
@@ -131,22 +133,23 @@ namespace MovieManagerXamarin2.ViewModels
                     UserId = UserId,
                     Wishlist = Wishlist
                 };
-                var movieViewModel = new MovieViewModel(movie) {Navigation = Navigation};
+                var movieViewModel =
+                    new MovieViewModel(movie)
+                    {
+                        Navigation = Navigation
+                    };
                 var moviePage = new MoviePage {BindingContext = movieViewModel};
                 await Navigation.PushAsync(moviePage);
-                movieViewModel.LoadMovieDetails();
+                await movieViewModel.LoadMovieDetails();
             });
         }
 
-        public Task LoadImage()
+        public void LoadImage()
         {
-            return Task.Run(() =>
+            if (!string.IsNullOrWhiteSpace(Poster) && Poster.StartsWith("http"))
             {
-                if (!string.IsNullOrWhiteSpace(Poster) && Poster.StartsWith("http"))
-                {
-                    ImageSource = ImageSource.FromUri(new Uri(Poster));
-                }
-            });
+                ImageSource = ImageSource.FromUri(new Uri(Poster));
+            }
         }
     }
 }

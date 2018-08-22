@@ -1,10 +1,11 @@
-﻿using System;
-using System.Net.Http;
+using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using MovieManagerXamarin2.Models;
+using MovieManagerXamarin2.Pages;
 using MovieManagerXamarin2.Services;
-using Newtonsoft.Json;
+using MovieManagerXamarin2.Shared;
 using Xamarin.Forms;
 
 namespace MovieManagerXamarin2.ViewModels
@@ -15,6 +16,9 @@ namespace MovieManagerXamarin2.ViewModels
         private bool _isReady;
         private ImageSource _imageSource;
         private readonly IMovieService _movieService;
+        private List<string> _formats;
+
+        #region Bound Properties
 
         public string Title
         {
@@ -77,7 +81,22 @@ namespace MovieManagerXamarin2.ViewModels
 
         public bool IsMine
         {
-            get => !string.IsNullOrWhiteSpace(_movie.UserId);
+            get => !string.IsNullOrWhiteSpace(_movie.UserId) && !Wishlist;
+        }
+
+        public bool IsNotMine
+        {
+            get => string.IsNullOrWhiteSpace(_movie.UserId) || Wishlist;
+        }
+
+        public bool CanWishlist
+        {
+            get => string.IsNullOrEmpty(_movie.UserId);
+        }
+
+        public bool CanUnWishlist
+        {
+            get => !string.IsNullOrWhiteSpace(_movie.UserId) && _movie.Wishlist;
         }
 
         public string UserId
@@ -90,6 +109,9 @@ namespace MovieManagerXamarin2.ViewModels
                     _movie.UserId = value;
                     OnPropertyChanged("UserId");
                     OnPropertyChanged("IsMine");
+                    OnPropertyChanged("IsNotMine");
+                    OnPropertyChanged("CanUnWishlist");
+                    OnPropertyChanged("CanWishlist");
                 }
             }
         }
@@ -129,6 +151,8 @@ namespace MovieManagerXamarin2.ViewModels
                     OnPropertyChanged("UserId");
                     OnPropertyChanged("IsMine");
                     OnPropertyChanged("ImdbId");
+                    OnPropertyChanged("IsNotMine");
+                    OnPropertyChanged("CanUnWishlist");
                 }
             }
         }
@@ -172,11 +196,41 @@ namespace MovieManagerXamarin2.ViewModels
             }
         }
 
+        public bool Wishlist
+        {
+            get => _movie.Wishlist;
+            set
+            {
+                if (value != _movie.Wishlist)
+                {
+                    _movie.Wishlist = value;
+                    OnPropertyChanged("Wishlist");
+                    OnPropertyChanged("CanUnWishlist");
+                    OnPropertyChanged("IsNotMine");
+                    OnPropertyChanged("IsMine");
+                }
+            }
+        }
+
+        public List<string> Formats
+        {
+            get => _formats;
+            set => SetProperty(ref _formats, value, nameof(Formats));
+        }
+
         public ICommand ToggleFavorite { get; }
 
         public ICommand SelectMovie { get; }
 
         public ICommand GoBack { get; }
+
+        public ICommand AddMovie { get; }
+
+        public ICommand RemoveMovie { get; }
+
+        public ICommand AddWishlist { get; }
+
+        #endregion
 
         public MovieViewModel(Movie movie)
         {
@@ -186,10 +240,13 @@ namespace MovieManagerXamarin2.ViewModels
 
             FormatTitle();
 
-            ToggleFavorite = new Command(() =>
+            ToggleFavorite = new Command(async() =>
             {
                 Favorite = !Favorite;
-                _movieService.ToggleFavorite(UserId, ImdbId, Favorite);
+                
+                
+                await _movieService.ToggleFavorite(UserId, ImdbId, Favorite);
+                await ReloadFavorites();
             });
 
             GoBack = new Command(async () =>
@@ -198,19 +255,55 @@ namespace MovieManagerXamarin2.ViewModels
                 await Navigation.PopAsync();
             });
 
-            SelectMovie = new Command(SelectMe);
+            SelectMovie = new Command(async () =>
+            {
+                var moviePage = new MoviePage { BindingContext = this };
+                await Navigation.PushAsync(moviePage);
+                await LoadMovieDetails();
+            });
+
+            AddMovie = new Command(async () =>
+            {
+                //await _movieService.AddMovie(Movie);
+                //await App.GetInstance().NavigationService.BackToMainPage();
+
+                var viewModel = new FormatPickerViewModel(this);
+
+                await Navigation.PushModalAsync(new FormatPicker {BindingContext = viewModel});
+            });
+
+            RemoveMovie = new Command(async () =>
+            {
+                await _movieService.DeleteMovie(Movie);
+                UserId = "";
+                await App.GetInstance().NavigationService.BackToMainPage();
+            });
+
+            AddWishlist = new Command(async () =>
+            {
+                Wishlist = true;
+                await _movieService.AddMovie(Movie);
+                await App.GetInstance().NavigationService.BackToMainPage();
+            });
         }
 
         public async Task LoadMovieDetails()
         {
             IsReady = false;
 
-            var httpClient = new HttpClient();
-            var httpResponse =
-                await httpClient.GetStringAsync($"https://ohgnarly.herokuapp.com/movie-details/{_movie.ImdbId}");
-            var movieResponse = JsonConvert.DeserializeObject<MovieDetailResponse>(httpResponse);
-            Movie = movieResponse.Movie;
-            ImageSource = ImageSource.FromUri(new Uri(movieResponse.Movie.Poster));
+            var movieResponse = await _movieService.GetMovieDetails(_movie.ImdbId);
+
+            if (movieResponse.Success)
+            {
+                SetMovie(movieResponse.Movie);
+                ImageSource = ImageSource.FromUri(new Uri(movieResponse.Movie.Poster));
+            }
+            else
+            {
+                await Navigation.PopAsync();
+            }
+
+            Formats = await _movieService.GetMovieFormats();
 
             IsReady = true;
         }
@@ -231,11 +324,36 @@ namespace MovieManagerXamarin2.ViewModels
             }
         }
 
-        protected async void SelectMe()
+        protected void SetMovie(Movie movie)
         {
-            var moviePage = new MoviePage { BindingContext = this };
-            await Navigation.PushAsync(moviePage);
-            LoadMovieDetails();
+            Movie = new Movie
+            {
+                UserId = UserId,
+                Wishlist = Wishlist,
+                Poster = movie.Poster,
+                Favorite = Favorite,
+                ImdbId = movie.ImdbId,
+                Title = movie.Title,
+                Director = movie.Director,
+                Plot = movie.Plot,
+                Year = movie.Year,
+                Format = Format,
+                Actors = movie.Actors,
+                Genres = movie.Genres,
+                Writer = movie.Writer,
+                RunTime = movie.RunTime
+            };
+        }
+
+        protected async Task ReloadFavorites()
+        {
+            var mainPage = Application.Current.MainPage as NavigationPage;
+
+            if (mainPage?.RootPage.BindingContext is MainViewModel mainViewModel 
+                && mainViewModel.Filter == FilterModes.Favorites)
+            {
+                await mainViewModel.InitializeAsync();
+            }
         }
     }
 }

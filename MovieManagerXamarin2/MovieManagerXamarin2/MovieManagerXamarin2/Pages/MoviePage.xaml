@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="MovieManagerXamarin2.MoviePage">
+             x:Class="MovieManagerXamarin2.Pages.MoviePage">
     <ContentPage.Content>
         <StackLayout VerticalOptions="FillAndExpand"
                      BackgroundColor="#2b2c2d">
@@ -71,17 +71,35 @@
                         <Grid Grid.Column="0" Padding="10,5,10,5">
                             <Button BackgroundColor="#009940" 
                                     Text="Add Movie"
-                                    IsVisible="{Binding IsMine}"></Button>
+                                    TextColor="White"
+                                    IsVisible="{Binding IsNotMine}"
+                                    Command="{Binding AddMovie}"
+                                    CornerRadius="10"></Button>
+                            <Button BackgroundColor="#009940"
+                                    Text="Remove Movie"
+                                    TextColor="White"
+                                    IsVisible="{Binding IsMine}"
+                                    CornerRadius="10"
+                                    Command="{Binding RemoveMovie}"></Button>
                         </Grid>
                         <Grid Grid.Column="1" Padding="10,5,10,5">
                             <Button BackgroundColor="#009940" 
                                     Text="Wishlist"
-                                    IsVisible="{Binding IsMine}"></Button>
+                                    TextColor="White"
+                                    IsVisible="{Binding IsNotMine}"
+                                    CornerRadius="10"
+                                    Command="{Binding AddWishlist}"></Button>
+                            <Button BackgroundColor="#009940"
+                                    Text="Un-Wishlist"
+                                    TextColor="White"
+                                    IsVisible="{Binding CanUnWishlist}"
+                                    CornerRadius="10"
+                                    Command="{Binding RemoveMovie}"></Button>
                         </Grid>
                     </Grid>
                     <Grid Grid.Row="2"
                           VerticalOptions="Start">
-                        <ScrollView>
+                        <ScrollView Padding="5,0,5,0">
                             <Label Text="{Binding Plot}" 
                                    TextColor="White"></Label>
                         </ScrollView>

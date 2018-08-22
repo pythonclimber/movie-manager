@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="MovieManagerXamarin2.LoginPage">
+             x:Class="MovieManagerXamarin2.Pages.LoginPage">
     <ContentPage.Content>
         <Grid BackgroundColor="#2b2c2d">
             <StackLayout VerticalOptions="Center">

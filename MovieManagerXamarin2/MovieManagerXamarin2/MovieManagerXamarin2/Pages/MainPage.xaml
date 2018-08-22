@@ -1,0 +1,121 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MovieManagerXamarin2.Pages.MainPage">
+    <ContentPage.Content>
+        <StackLayout BackgroundColor="#2b2c2d" Spacing="0">
+            <Grid VerticalOptions="Start">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50" />
+                </Grid.RowDefinitions>
+                <StackLayout Padding="0,12,0,12" 
+                             Grid.Row="0" 
+                             Orientation="Horizontal" 
+                             HorizontalOptions="Fill" 
+                             VerticalOptions="Start">
+                    <Label TextColor="White" 
+                           FontSize="Medium"  
+                           Margin="0,0,0,2" 
+                           VerticalOptions="Center" 
+                           MinimumWidthRequest="75"
+                           Text="Search">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding SearchForMovie}" />
+                        </Label.GestureRecognizers>
+                    </Label>
+                </StackLayout>
+            </Grid>
+            <StackLayout Spacing="0">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid>
+                        <Label Text="Filter:" 
+                               VerticalOptions="Center"
+                               TextColor="White"></Label>
+                    </Grid>
+                    <Grid Grid.Column="1">
+                        <Label Text="{Binding Filter}" 
+                               VerticalOptions="Center"
+                               TextColor="White"
+                               FontAttributes="Bold">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding ChangeFilter}"/>
+                            </Label.GestureRecognizers>
+                        </Label>
+                    </Grid>
+                </Grid>
+                <Grid IsVisible="{Binding DisplayFilters}"
+                      BackgroundColor="#999999">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="25" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <ContentView Padding="2,0,2,0"
+                                 Grid.Column="1">
+                        <ContentView.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding SetNewFilter}" CommandParameter="{Binding AllMovies}" />
+                        </ContentView.GestureRecognizers>
+                        <Label Text="{Binding AllMovies}" FontAttributes="{Binding AllMoviesFont}" VerticalOptions="Center" HorizontalOptions="Start" TextColor="White"></Label>
+                    </ContentView>
+                    <ContentView Padding="2,0,2,0"
+                                 Grid.Column="2">
+                        <ContentView.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding SetNewFilter}" CommandParameter="{Binding Favorites}" />
+                        </ContentView.GestureRecognizers>
+                        <Label Text="{Binding Favorites}" FontAttributes="{Binding FavoritesFont}"  VerticalOptions="Center" HorizontalOptions="Start" TextColor="White"></Label>
+                    </ContentView>
+                    <ContentView Padding="2,0,2,0"
+                                 Grid.Column="3">
+                        <ContentView.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding SetNewFilter}" CommandParameter="{Binding Wishlist}" />
+                        </ContentView.GestureRecognizers>
+                        <Label FontAttributes="{Binding WishlistFont}" Text="{Binding Wishlist}" VerticalOptions="Center" HorizontalOptions="Start" TextColor="White"></Label>
+                    </ContentView>
+                </Grid>
+            </StackLayout>
+            <Grid VerticalOptions="FillAndExpand">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <ListView ItemsSource="{Binding Movies}"
+                              BackgroundColor="#2b2c2d">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <StackLayout Orientation="Horizontal" Spacing="0">
+                                        <Grid VerticalOptions="Start" Padding="12">
+                                            <Grid.GestureRecognizers>
+                                                <TapGestureRecognizer Command="{Binding ToggleFavorite}"/>
+                                            </Grid.GestureRecognizers>
+                                            <Image VerticalOptions="Center" Source="star_white.png" IsVisible="{Binding NotFavorite}" />
+                                            <Image VerticalOptions="Center" Source="star_green.png" IsVisible="{Binding Favorite}" />
+                                        </Grid>
+                                        <StackLayout Spacing="0" HorizontalOptions="FillAndExpand">
+                                            <StackLayout.GestureRecognizers>
+                                                <TapGestureRecognizer Command="{Binding SelectMovie}" NumberOfTapsRequired="1" />
+                                            </StackLayout.GestureRecognizers>
+                                            <Label TextColor="White" FontSize="Medium" Text="{Binding Title}"></Label>
+                                            <Label TextColor="#009940" FontSize="Small" Text="{Binding Director}"></Label>
+                                        </StackLayout>
+                                    </StackLayout>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </Grid>
+            </Grid>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

@@ -7,16 +7,14 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace MovieManagerXamarin2
+namespace MovieManagerXamarin2.Pages
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class LoginPage : ContentPage
+	public partial class FormatPicker : ContentPage
 	{
-		public LoginPage ()
+		public FormatPicker ()
 		{
-		    NavigationPage.SetHasNavigationBar(this, false);
-
-            InitializeComponent ();
+			InitializeComponent ();
 		}
 	}
 }

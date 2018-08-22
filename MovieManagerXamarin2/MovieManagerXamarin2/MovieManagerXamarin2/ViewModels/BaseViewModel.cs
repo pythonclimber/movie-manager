@@ -1,15 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Runtime.CompilerServices;
-using System.Text;
 using Xamarin.Forms;
 
 namespace MovieManagerXamarin2.ViewModels
 {
     public class BaseViewModel : INotifyPropertyChanged
     {
+        protected const string AppBackgroundColor = "#2b2c2d";
         public event PropertyChangedEventHandler PropertyChanged;
+        protected object LockObject = new object();
 
         public INavigation Navigation { get; set; }
 

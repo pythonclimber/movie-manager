@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Input;
@@ -16,6 +15,8 @@ namespace MovieManagerXamarin2.ViewModels
         private bool _searchError;
         private bool _isLoading;
         private int _totalResults;
+
+        #region Bound Properties
 
         public string SearchText
         {
@@ -71,9 +72,13 @@ namespace MovieManagerXamarin2.ViewModels
             get => _searchResults.Count == 0;
         }
 
+        public List<MovieViewModel> MyMovies { get; set; }
+
         public ICommand GoToMainPage { get; }
 
         public ICommand SearchCommand { get; }
+
+        #endregion
 
         public SearchViewModel()
         {
@@ -83,7 +88,8 @@ namespace MovieManagerXamarin2.ViewModels
             GoToMainPage = new Command(async () =>
             {
                 SearchResults.Clear();
-                await Navigation.PopAsync();
+                //await Navigation.PopAsync();
+                await new NavigationService(){Navigation = Navigation}.BackToMainPage();
             });
 
             SearchCommand = new Command(DoSearch);
@@ -102,7 +108,7 @@ namespace MovieManagerXamarin2.ViewModels
                 {
                     results.AddRange(response
                         .Results
-                        .Select(sr => new SearchResultViewModel(sr) {Navigation = Navigation})
+                        .Select(GetSearchResultViewModel)
                         .ToList());
 
                     pageNumber++;
@@ -118,5 +124,22 @@ namespace MovieManagerXamarin2.ViewModels
             SearchResults = results;
             IsLoading = false;
         }
+
+        protected SearchResultViewModel GetSearchResultViewModel(SearchResult searchResult)
+        {
+            var searchResultViewModel = new SearchResultViewModel(searchResult)
+            {
+                Navigation = Navigation
+            };
+
+            var myMovie = MyMovies.FirstOrDefault(m => m.ImdbId == searchResult.ImdbId);
+            if (myMovie != null)
+            {
+                searchResultViewModel.UserId = myMovie.UserId;
+                searchResultViewModel.Wishlist = myMovie.Wishlist;
+            }
+
+            return searchResultViewModel;
+        } 
     }
 }

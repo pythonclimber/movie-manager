@@ -1,4 +1,5 @@
-﻿using System.Windows.Input;
+using System.Windows.Input;
+using MovieManagerXamarin2.Pages;
 using MovieManagerXamarin2.Services;
 using Xamarin.Forms;
 
@@ -50,10 +51,10 @@ namespace MovieManagerXamarin2.ViewModels
                     Navigation = Navigation
                 };
 
+                await _loginService.SaveCredentials(Username, Password, loginResponse.UserId);
                 await Navigation
                     .PushAsync(new MainPage { BindingContext = mainViewModel });
-                mainViewModel.InitializeAsync();
-                await _loginService.SaveCredentials(Username, Password, loginResponse.UserId);
+                await mainViewModel.InitializeAsync();
             }
         }
     }
