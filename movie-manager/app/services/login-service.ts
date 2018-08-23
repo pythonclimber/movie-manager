@@ -55,4 +55,19 @@ export class LoginService extends BaseService {
         }
         this.PersistAppSetting(CREDENTIALS_KEY, this.credentials);
     }
+
+    public WriteObjectToServer(value: any): Promise<any> {
+        const data = {
+            logObject: value
+        }
+
+        let requestParams = {
+            url: `${this.apiBaseUrl}/log`,
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            content: JSON.stringify(data)
+        };
+
+        return this.ProcessHttpCall(requestParams);
+    }
 }
