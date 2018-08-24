@@ -17,11 +17,9 @@ export class SearchViewModel extends Observable {
     private searchError: boolean;
     private isLoading: boolean;
     private totalResults: number;
-    
-    public myMovies: MovieViewModel[];
+
     public page: Page;
     public searchMode: ViewMode;
-    public myShows: ShowViewModel[];
 
     get TotalResults(): number {
         return this.totalResults;
@@ -151,18 +149,18 @@ export class SearchViewModel extends Observable {
             let searchResults = new Array<SearchResultViewModel>();
             for (let result of response.results) {
                 let searchResult = <SearchResult>result;
-                if (this.searchMode == ViewMode.Movies) {
-                    let myMovie = this.myMovies.find(m => m.ImdbId == searchResult.imdbid);
-                    if (myMovie) {
-                        searchResult.userId = myMovie.UserId;
-                        searchResult.wishlist = myMovie.Wishlist;
-                    }
-                } else {
-                    let myShow = this.myShows.find(s => s.ImdbId == searchResult.imdbid);
-                    if (myShow) {
-                        searchResult.userId = myShow.UserId;
-                    }
-                }
+                // if (this.searchMode == ViewMode.Movies) {
+                //     let myMovie = this.myMovies.find(m => m.ImdbId == searchResult.imdbid);
+                //     if (myMovie) {
+                //         searchResult.userId = myMovie.UserId;
+                //         searchResult.wishlist = myMovie.Wishlist;
+                //     }
+                // } else {
+                //     let myShow = this.myShows.find(s => s.ImdbId == searchResult.imdbid);
+                //     if (myShow) {
+                //         searchResult.userId = myShow.UserId;
+                //     }
+                // }
                 searchResults.push(new SearchResultViewModel(searchResult));
             }
             this.TotalResults = response.totalResults;

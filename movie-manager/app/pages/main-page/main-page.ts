@@ -1,12 +1,10 @@
-import { EventData, PropertyChangeData } from 'data/observable';
+import { EventData } from 'data/observable';
 import { Page } from 'ui/page';
 import { MainViewModel } from './main-view-model';
 import { GestureEventData } from 'ui/gestures';
 import { MovieViewModel } from '../movie-page/movie-view-model';
 import * as navigationModule from '../../shared/navigation';
 import { ItemEventData } from 'ui/list-view';
-import { SearchViewModel } from '../search-page/search-view-model';
-import { Switch } from 'ui/switch';
 import { ViewMode } from '../../shared/enums';
 
 export function navigatingTo(args: EventData) {
@@ -15,6 +13,7 @@ export function navigatingTo(args: EventData) {
     if (!page.bindingContext) {
         page.bindingContext = new MainViewModel();
     }
+    page.bindingContext.Init();
 }
 
 export function toggleFavorite(args: GestureEventData) {

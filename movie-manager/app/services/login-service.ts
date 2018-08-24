@@ -65,7 +65,7 @@ export class LoginService extends BaseService {
             url: `${this.apiBaseUrl}/log`,
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
-            content: JSON.stringify(data)
+            content: JSON.stringify(data, this.CircularReplacer)
         };
 
         return this.ProcessHttpCall(requestParams);

@@ -7,7 +7,7 @@ export class BaseService {
     //protected imdbBaseUrl: string;
 
     constructor() {
-        this.apiBaseUrl = 'https://ohgnarly.herokuapp.com';
+        this.apiBaseUrl = 'https://ohgnarly3.herokuapp.com';
         //this.imdbBaseUrl = 'https://www.omdbapi.com/?apiKey=1e37ecbf';
     }
 
@@ -41,5 +41,18 @@ export class BaseService {
             return title.substr(3) + ', An'
         }
         return title;
+    }
+
+    public CircularReplacer() {
+        const seen = new WeakSet();
+        return (key, value) => {
+          if (typeof value === "object" && value !== null) {
+            if (seen.has(value)) {
+              return;
+            }
+            seen.add(value);
+          }
+          return value;
+        };
     }
 }

@@ -6,9 +6,12 @@ import { GestureEventData } from 'ui/gestures';
 import * as navigationModule from '../../shared/navigation';
 import { SearchResultViewModel } from './search-result-view-model';
 import { MovieViewModel } from "../movie-page/movie-view-model";
-import { ViewMode } from "../../shared/enums";
+import { ViewMode, MovieFlow } from "../../shared/enums";
 import { ShowViewModel } from "../movie-page/show-view-model";
 import * as utilsModule from 'utils/utils';
+import { MovieService } from '../../services/movie-service';
+
+const movieService = new MovieService();
 
 export function navigatingTo(args: NavigatedData) {
     let page = <Page>args.object;
@@ -33,18 +36,19 @@ export function selectItem(args: ItemEventData) {
     let searchResult = <SearchResultViewModel>args.view.bindingContext;
     let searchViewModel = <SearchViewModel>args.view.parent.bindingContext;
     if (searchViewModel.searchMode == ViewMode.Movies) {
-        let movie = new MovieViewModel({
+        let movieViewModel = new MovieViewModel({
             _id: '',
             title: searchResult.Title,
             description: '',
-            userId: searchResult.UserId,
+            userId: '',
             director: '',
             imdbid: searchResult.ImdbId,
             favorite: false,
-            wishlist: searchResult.Wishlist,
+            wishlist: false,
             format: ''
-        });
-        navigationModule.navigateToMovie(movie);
+        }, MovieFlow.Search);
+
+        navigationModule.navigateToMovie(movieViewModel);
     } else {
         let show = new ShowViewModel({
             title: searchResult.Title,

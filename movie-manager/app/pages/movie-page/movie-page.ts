@@ -14,8 +14,10 @@ export function navigatingTo(args: NavigatedData) {
     movieViewModel.IsLoading = true;
     page.bindingContext = movieViewModel;
     page.actionBarHidden = true;
-    movieViewModel.GetDetails().then(() => {
-        movieViewModel.IsLoading = false;        
+    movieViewModel.GetLocalDetails().then(() => {
+        movieViewModel.GetOnlineDetails().then(() => {
+            movieViewModel.IsLoading = false;
+        });    
     });
 }
 

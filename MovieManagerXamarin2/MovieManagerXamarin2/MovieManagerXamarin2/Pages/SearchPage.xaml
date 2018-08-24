@@ -72,8 +72,8 @@
                                         <Grid Grid.Column="0">
                                             <StackLayout  Grid.Column="0"
                                                           Spacing="0"
-                                                          HeightRequest="60"
-                                                          WidthRequest="45"
+                                                          HeightRequest="45"
+                                                          WidthRequest="30"
                                                           Orientation="Horizontal">
                                                 <Image Source="{Binding ImageSource}" />
                                             </StackLayout>

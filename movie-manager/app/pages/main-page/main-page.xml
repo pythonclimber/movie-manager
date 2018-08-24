@@ -17,9 +17,11 @@
         </GridLayout>
         <GridLayout rows="auto, auto">
             <!-- <SegmentedBar class="segmented-bar" items="{{ ViewOptions }}" selectedIndex="{{ SelectedIndex }}" /> -->
-            <GridLayout columns="auto, *" height="30">
+            <GridLayout columns="auto, auto" height="30">
                 <Label text="Filter:" verticalAlignment="center" padding="5" />
-                <Label col="1" text="{{ FilterMode }}" verticalAlignment="center" tap="{{ ChangeFilter }}" />
+                <StackLayout orientation="horizontal" col="1" class="selected-filter" margin="5,0">
+                    <Label text="{{ FilterMode }}" verticalAlignment="center" tap="{{ ChangeFilter }}" horizontalAlignment="center" padding="0,5" />
+                </StackLayout>
             </GridLayout>
             <GridLayout row="1" height="30"  visibility="{{ DisplayFilters ? 'visible' : 'collapse' }}" columns="25, *, *, *">
                 <Label col="1" class="{{ FilterMode == 'All Movies' ? 'selected-filter' : 'unselected-filter' }}" text="All Movies" verticalAlignment="center" horizontalAlignment="left" tap="{{ ChangeFilter }}" />
@@ -30,7 +32,7 @@
         <GridLayout>
             <GridLayout row="0">
                 <PullRefresh:PullToRefresh refresh="refreshCollection">
-                    <ListView items="{{ ViewMode == 'Movies' ? Movies : Shows }}" itemTap="selectMovie" class="movie-list">
+                    <ListView items="{{ ViewMode == 'Movies' ? FilteredMovies : Shows }}" itemTap="selectMovie" class="movie-list">
                         <ListView.itemTemplate>
                             <GridLayout rows="auto" columns="auto, *">
                                 <GridLayout columns="auto" rows="auto" class="favorite-wrap" tap="toggleFavorite">

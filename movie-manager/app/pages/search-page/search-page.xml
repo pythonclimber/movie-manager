@@ -11,7 +11,7 @@
                 <!-- <TextField text="{{ searchText }}" hint="Search movie title..." class="search-text" />
                 <Label text="A value is required to perform a search" color="red" visibility="{{ searchError ? 'visible' : 'collapse' }}" />
                 <Button text="Search" tap="{{ searchForMovie }}" class="btn" /> -->
-                <SearchBar id="movie-search" hint="Search movie title..." text="{{ SearchText }}" ios:color="#000000" clear="{{ ClearSearch }}" submit="{{ DoSearch }}" />
+                <SearchBar backgroundColor="#999999" id="movie-search" hint="Search movie title..." text="{{ SearchText }}" textFieldBackgroundColor="white" color="#000000" clear="{{ ClearSearch }}" submit="{{ DoSearch }}" textFieldHintColor="#999999" />
             </StackLayout>
             <GridLayout row="1" columns="*" rows="auto, *">
                 <Label text="No Results..." visibility="{{ SearchResults.length == 0 ? 'visible' : 'collapse' }}" horizontalAlignment="center" />

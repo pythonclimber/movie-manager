@@ -4,12 +4,15 @@ import { MovieService } from '../../services/movie-service';
 import { ImageSource } from "image-source";
 import * as imageService from '../../services/image-service';
 import * as navigationModule from '../../shared/navigation'
+import { MovieFlow } from "../../shared/enums";
 
 export class MovieViewModel extends Observable {
     private movie: Movie;
     private imageSource: ImageSource;
     private isLoading: boolean;
     private movieService: MovieService;
+    private isPaused: boolean;
+    private flow: string;
 
     get Movie(): Movie {
         return this.movie;
@@ -161,17 +164,50 @@ export class MovieViewModel extends Observable {
         }
     }
 
-    constructor(movie: Movie) {
+    get IsPaused(): boolean {
+        return this.isPaused;
+    }
+
+    set IsPaused(value: boolean) {
+        if (value !== this.isPaused) {
+            this.isPaused = value;
+            this.notifyPropertyChange('IsPaused', value);
+        }
+    }
+
+    get Flow(): string {
+        return this.flow;
+    }
+
+    get MovieFlowSearch(): string {
+        return MovieFlow.Search;
+    }
+
+    get MovieFlowCollection(): string {
+        return MovieFlow.Collection;
+    }
+
+    constructor(movie: Movie, flow: string) {
         super();
         this.movie = movie;
         this.movieService = new MovieService();
+        this.flow = flow;
 
         this.movie.title = this.movieService.FormatTitle(this.movie.title);
 
         this.Plot = this.Plot || '';
     }
 
-    public GetDetails(): Promise<any> {
+    public GetLocalDetails(): Promise<any> {
+        return this.movieService.getMovie(this.movie.imdbid).then(response => {
+            if (response.success) {
+                this.UserId = response.movie.userId;
+                this.Wishlist = response.movie.wishlist;
+            }
+        });
+    }
+
+    public GetOnlineDetails(): Promise<any> {
         return this.movieService.getMovieDetails<MovieDetailResponse>(this.movie.imdbid).then(response => {
                 let movie = response.movie;
                 this._id = '';
@@ -216,16 +252,25 @@ export class MovieViewModel extends Observable {
     }
 
     public RemoveFromMyCollection(args: EventData) {
+        this.IsPaused = true;
         this.movieService.deleteMovie(this).then(response => {
             this.UserId = '';
-            navigationModule.navigateToMainPage();
+            this.Wishlist = false;
+            this.IsPaused = false;
+            //navigationModule.navigateToMainPage();
         });
     }
 
     public AddToWishlist(args: EventData) {
+        this.IsPaused = true;
         this.Wishlist = true;
         this.movieService.addMovie(this).then(movie => {
             this.UserId = movie.userId;
+            this.IsPaused = false;
         });
+    }
+
+    public GoToMyMovies() {
+        navigationModule.navigateToMainPage();
     }
 }

@@ -1,7 +1,7 @@
 <Page xmlns="http://schemas.nativescript.org/tns.xsd" 
         navigatingTo="navigatingTo" 
         class="page">
-        <GridLayout rows="auto, *, auto" columns="*">
+        <GridLayout rows="auto, *, auto" columns="*" backgroundColor="#999999">
             <GridLayout class="action-bar" columns="*">
                 <Label text="Select Format..." class="back-text" horizontalAlignment="center" />
             </GridLayout>

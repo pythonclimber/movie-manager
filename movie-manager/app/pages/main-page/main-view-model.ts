@@ -3,7 +3,7 @@ import { MovieService } from '../../services/movie-service';
 import { MovieViewModel } from '../movie-page/movie-view-model';
 import { Movie, Show } from '../../shared/interfaces';
 import { SegmentedBarItem } from 'ui/segmented-bar';
-import { ViewMode, ViewOptions } from '../../shared/enums';
+import { ViewMode, ViewOptions, MovieFlow } from '../../shared/enums';
 import { ShowService } from '../../services/show-service';
 import { ShowViewModel } from '../movie-page/show-view-model';
 import { GestureEventData } from 'ui/gestures';
@@ -23,6 +23,8 @@ export class MainViewModel extends Observable {
     private viewMode: ViewMode;
     private filterMode: string;
     private displayFilters: boolean;
+
+    public Icon: string;
 
     get FavoritesOnly(): boolean {
         return this.favoritesOnly;
@@ -81,8 +83,12 @@ export class MainViewModel extends Observable {
         }
     }
 
-    get Movies(): MovieViewModel[] {
+    get FilteredMovies(): MovieViewModel[] {
         return this.filteredMovies;
+    }
+
+    get Movies(): MovieViewModel[] {
+        return this.movies;
     }
 
     get Shows(): ShowViewModel[] {
@@ -103,6 +109,7 @@ export class MainViewModel extends Observable {
 
     constructor() {
         super();
+        this.Icon = String.fromCharCode(0xea43);
         this.movieService = new MovieService();
         this.movies = new Array<MovieViewModel>();
         this.showService = new ShowService();
@@ -150,10 +157,7 @@ export class MainViewModel extends Observable {
             .then(movies => {
                 let movieViewModels = new Array<MovieViewModel>();
                 for (let movie of movies) {
-                    let movieViewModel = new MovieViewModel(movie);
-                    if (movie.wishlist) {
-                        movieViewModel.GetDetails();
-                    }
+                    let movieViewModel = new MovieViewModel(movie, MovieFlow.Collection);
                     movieViewModels.push(movieViewModel);
                 }
                 this.movies = movieViewModels.sort(this.SortByTitle);
@@ -174,7 +178,7 @@ export class MainViewModel extends Observable {
         return [item1, item2, item3];
     }
 
-    private Init(): void {
+    public Init(): void {
         this.isLoading = true;
         this.LoadMovies().then(() => {
             this.isLoading = false;
@@ -216,22 +220,6 @@ export class MainViewModel extends Observable {
     }
 
     private ToggleMovies() {
-        // if (this.favoritesOnly) {
-        //     this.filteredMovies = this.movies.filter(m => m.Favorite);
-        // } else {
-        //     this.filteredMovies = this.movies;
-        // }
-        // switch(this.SelectedIndex) {
-        //     case ViewOption.All:
-        //         this.filteredMovies = this.movies.filter(m => !m.Wishlist);
-        //         break;
-        //     case ViewOption.Favorites:
-        //         this.filteredMovies = this.movies.filter(m => m.Favorite);
-        //         break;
-        //     case ViewOption.Wishlist:
-        //         this.filteredMovies = this.movies.filter(m => m.Wishlist);
-        //         break;
-        // }
         switch(this.FilterMode) {
             case ViewOptions.All:
                 this.filteredMovies = this.movies.filter(m => !m.Wishlist);

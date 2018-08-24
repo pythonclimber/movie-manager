@@ -4,6 +4,9 @@
             <StackLayout tap="backTap" orientation="horizontal" class="action-wrap" horizontalAlignment="left" verticalAlignment="center">
                 <Label text="Back" class="back-text" />
             </StackLayout>
+            <StackLayout tap="{{ GoToMyMovies }}" col="1" orientation="horizontal" class="action-wrap" verticalAlignment="center" visibility="{{ Flow == MovieFlowSearch ? 'visible' : 'hidden' }}">
+                <Label text="My Movies" class="back-text" />
+            </StackLayout>
         </GridLayout>
         <GridLayout>
             <ScrollView>
@@ -33,7 +36,7 @@
                     </GridLayout>
                 </GridLayout>
             </ScrollView>
-            <ActivityIndicator busy="{{ IsLoading }}" row="1" horizontalAlignment="center" verticalAlignment="center" />
+            <ActivityIndicator busy="{{ IsLoading || IsPaused }}" color="#009940" row="1" horizontalAlignment="center" verticalAlignment="center" />
         </GridLayout>
     </StackLayout>
 </Page>

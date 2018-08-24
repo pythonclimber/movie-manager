@@ -52,9 +52,7 @@ namespace MovieManagerXamarin2.ViewModels
                 };
 
                 await _loginService.SaveCredentials(Username, Password, loginResponse.UserId);
-                await Navigation
-                    .PushAsync(new MainPage { BindingContext = mainViewModel });
-                await mainViewModel.InitializeAsync();
+                await App.GetInstance().NavigationService.BackToMainPage();
             }
         }
     }

@@ -8,3 +8,8 @@ export class ViewOptions {
     static Favorites: string = 'Favorites';
     static Wishlist: string = 'Wishlist';
 }
+
+export class MovieFlow {
+    static Search: string = 'Search';
+    static Collection: string = 'Collection';
+}

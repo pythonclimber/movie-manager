@@ -1,5 +1,5 @@
 import { MovieViewModel } from "../pages/movie-page/movie-view-model";
-import { Movie } from "../shared/interfaces";
+import { Movie, MovieDetailResponse } from "../shared/interfaces";
 import * as http from 'http';
 import { LoginService } from './login-service';
 import { BaseService } from '../shared/base-service';
@@ -62,6 +62,16 @@ export class MovieService extends BaseService {
                 resolve(movies);
             });
         }
+    }
+
+    getMovie(imdbid: string): Promise<MovieDetailResponse> {
+        let user = this.loginService.GetSavedCredentials();
+        let requestParams = {
+            url: `${this.apiBaseUrl}/movie/${user.userId}/${imdbid}`,
+            method: 'GET'
+        };
+
+        return this.ProcessHttpCall<MovieDetailResponse>(requestParams);
     }
 
     addMovie(movie: MovieViewModel): Promise<Movie> {
@@ -140,7 +150,7 @@ export class MovieService extends BaseService {
 
         let requestParams = {
             url: `${this.apiBaseUrl}/movie`,
-            method: 'PATCH',
+            method: 'PUT',
             headers: { "Content-Type": "application/json" },
             content: JSON.stringify(data)
         };
