@@ -14,12 +14,7 @@ export class LoginService extends BaseService {
         try {
             this.credentials = this.GetAppSetting<SavedCredentials[]>(CREDENTIALS_KEY);
         } catch (error) {
-            this.credentials = new Array<SavedCredentials>();
-            this.credentials.push({
-                username: 'aasmith',
-                password: 'Rushmor#3',
-                userId: ''
-            });
+            this.credentials = undefined;
         }
     }
 

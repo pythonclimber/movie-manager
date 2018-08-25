@@ -30,7 +30,7 @@
             </GridLayout>
         </GridLayout>
         <GridLayout>
-            <GridLayout row="0">
+            <GridLayout row="0" visibility="{{ FilteredMovies.length > 0 ? 'visible' : 'collapse' }}">
                 <PullRefresh:PullToRefresh refresh="refreshCollection">
                     <ListView ios:backgroundColor="#2b2c2d" items="{{ ViewMode == 'Movies' ? FilteredMovies : Shows }}" itemTap="selectMovie" class="movie-list">
                         <ListView.itemTemplate>
@@ -47,6 +47,7 @@
                     </ListView>
                 </PullRefresh:PullToRefresh>
             </GridLayout>
+            <Label text="Please search to start adding movies..." visibility="{{ FilteredMovies.length == 0 ? 'visible' : 'collapse' }}" />
             <ActivityIndicator busy="{{ IsLoading }}" row="1" horizontalAlignment="center" verticalAlignment="center" />
         </GridLayout>
     </StackLayout>
