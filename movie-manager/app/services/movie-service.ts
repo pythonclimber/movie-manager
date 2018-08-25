@@ -133,7 +133,7 @@ export class MovieService extends BaseService {
 
         let requestParams = {
             url: `${this.apiBaseUrl}/movie`,
-            method: 'PATCH',
+            method: 'PUT',
             headers: { "Content-Type": "application/json" },
             content: JSON.stringify(data)
         };

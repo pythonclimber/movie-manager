@@ -32,7 +32,7 @@
         <GridLayout>
             <GridLayout row="0">
                 <PullRefresh:PullToRefresh refresh="refreshCollection">
-                    <ListView items="{{ ViewMode == 'Movies' ? FilteredMovies : Shows }}" itemTap="selectMovie" class="movie-list">
+                    <ListView ios:backgroundColor="#2b2c2d" items="{{ ViewMode == 'Movies' ? FilteredMovies : Shows }}" itemTap="selectMovie" class="movie-list">
                         <ListView.itemTemplate>
                             <GridLayout rows="auto" columns="auto, *">
                                 <GridLayout columns="auto" rows="auto" class="favorite-wrap" tap="toggleFavorite">
