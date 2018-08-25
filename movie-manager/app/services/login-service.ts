@@ -14,7 +14,7 @@ export class LoginService extends BaseService {
         try {
             this.credentials = this.GetAppSetting<SavedCredentials[]>(CREDENTIALS_KEY);
         } catch (error) {
-            this.credentials = undefined;
+            this.credentials = new Array<SavedCredentials>();;
         }
     }
 
