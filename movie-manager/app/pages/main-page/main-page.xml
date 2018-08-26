@@ -31,7 +31,7 @@
         </GridLayout>
         <GridLayout>
             <GridLayout row="0" visibility="{{ FilteredMovies.length > 0 ? 'visible' : 'collapse' }}">
-                <PullRefresh:PullToRefresh refresh="refreshCollection">
+                <PullRefresh:PullToRefresh refresh="refreshCollection" color="#009940">
                     <ListView ios:backgroundColor="#2b2c2d" items="{{ ViewMode == 'Movies' ? FilteredMovies : Shows }}" itemTap="selectMovie" class="movie-list">
                         <ListView.itemTemplate>
                             <GridLayout rows="auto" columns="auto, *">

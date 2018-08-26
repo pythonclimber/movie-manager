@@ -193,7 +193,7 @@ export class MovieViewModel extends Observable {
         this.movieService = new MovieService();
         this.flow = flow;
 
-        this.movie.title = this.movieService.FormatTitle(this.movie.title);
+        //this.movie.title = this.movieService.FormatTitle(this.movie.title);
 
         this.Plot = this.Plot || '';
     }

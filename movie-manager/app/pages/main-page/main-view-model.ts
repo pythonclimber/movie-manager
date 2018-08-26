@@ -160,7 +160,7 @@ export class MainViewModel extends Observable {
                     let movieViewModel = new MovieViewModel(movie, MovieFlow.Collection);
                     movieViewModels.push(movieViewModel);
                 }
-                this.movies = movieViewModels.sort(this.SortByTitle);
+                this.movies = movieViewModels.sort(this.SortByTitle.bind(this));
                 this.ToggleMovies();
             }).catch(error => {
                 console.log(error);
@@ -202,9 +202,11 @@ export class MainViewModel extends Observable {
     }
 
     private SortByTitle(item1, item2): number {
-        if (item1.Title < item2.Title)
+        let title1 = this.movieService.FormatTitle(item1.Title);
+        let title2 = this.movieService.FormatTitle(item2.Title);
+        if (title1 < title2)
             return -1;
-        else if (item1.Title > item2.Title) 
+        else if (title1 > title2) 
             return 1;
         else
             return 0;
