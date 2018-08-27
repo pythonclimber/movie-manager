@@ -1,4 +1,4 @@
-import { Observable, EventData } from 'data/observable';
+import { Observable } from 'data/observable';
 import { MovieService } from '../../services/movie-service';
 import { MovieViewModel } from '../movie-page/movie-view-model';
 import { Movie, Show } from '../../shared/interfaces';

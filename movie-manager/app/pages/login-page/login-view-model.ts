@@ -81,4 +81,8 @@ export class LoginViewModel extends Observable {
             this.IsLoading = false;
         });
     }
+
+    public ShowRegistration(): void {
+        navigationModule.goToRegistrationPage();
+    }
 }

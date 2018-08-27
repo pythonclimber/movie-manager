@@ -1,6 +1,6 @@
 import * as httpModule from 'http';
 import * as appSettingsModule from 'application-settings';
-import { SavedCredentials } from '../shared/interfaces';
+import { SavedCredentials, UsernameResponse, BaseResponse, User } from '../shared/interfaces';
 import { BaseService } from '../shared/base-service';
 
 const CREDENTIALS_KEY: string = 'CREDENTIALS';
@@ -64,5 +64,48 @@ export class LoginService extends BaseService {
         };
 
         return this.ProcessHttpCall(requestParams);
+    }
+
+    public CheckUsername(username: string): Promise<UsernameResponse> {
+        let data = {
+            username: username
+        };
+
+        let requestParams = {
+            url: `${this.apiBaseUrl}/check-username`,
+            method: 'POST',
+            headers: { "Content-Type": "application/json" },
+            content: JSON.stringify(data)
+        }
+
+        return this.ProcessHttpCall<UsernameResponse>(requestParams);
+    }
+
+    public CheckEmailAddress(emailAddress: string): Promise<UsernameResponse> {
+        let data = {
+            emailAddress: emailAddress
+        }
+
+        let requestParams = {
+            url: `${this.apiBaseUrl}/check-email`,
+            method: 'POST',
+            headers: { "Content-Type": "application/json" },
+            content: JSON.stringify(data)
+        }
+
+        return this.ProcessHttpCall<UsernameResponse>(requestParams);
+    }
+
+    public CreateUser(user: User): Promise<BaseResponse> {
+        let data = user;
+
+        let requestParams = {
+            url: `${this.apiBaseUrl}/create-user`,
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            content: JSON.stringify(data)
+        }
+
+        return this.ProcessHttpCall<BaseResponse>(requestParams);
     }
 }

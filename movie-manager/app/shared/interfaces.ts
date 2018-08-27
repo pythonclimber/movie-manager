@@ -85,3 +85,19 @@ export interface MovieDetailResponse {
     success: boolean;
     movie: Movie;
 }
+
+export interface UsernameResponse {
+    isAvailable: boolean;
+}
+
+export interface User {
+    username: string;
+    password: string;
+    emailAddress: string;
+    firstName: string;
+    lastName: string;
+}
+
+export interface BaseResponse {
+    success: boolean;
+}

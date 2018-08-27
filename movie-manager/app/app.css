@@ -8,6 +8,10 @@
     height: 50;
 }
 
+.has-error {
+    color: red;
+}
+
 
 .info-bigger {
     color: #999999;

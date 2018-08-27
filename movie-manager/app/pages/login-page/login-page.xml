@@ -1,17 +1,28 @@
 <Page xmlns="http://schemas.nativescript.org/tns.xsd" navigatingTo="navigatingTo" class="page">
     <Page.actionBar>
-        <ActionBar title="Oh Gnarly Movies" icon="" class="action-bar">
+        <ActionBar title="Oh Gnarly Movies" icon="" horizontalAlignment="center" class="action-bar">
         </ActionBar>
     </Page.actionBar>
-    <GridLayout rows="*">
+    <GridLayout rows="*, auto">
         <StackLayout class="login-wrap">
             <Label text="Username:" />
             <TextField text="{{ Username }}" autocorrect="false" />
             <Label text="Password:" />
             <TextField text="{{ Password }}" secure="true" autocorrect="false" />
-            <Label visibility="{{ LoginError ? 'visible' : 'collapsed' }}" text="Invalid username or password" class="login-error" />
+            <Label visibility="{{ LoginError ? 'visible' : 'collapse' }}" text="Invalid username or password" class="login-error" />
             <Button tap="{{ ProcessLogin }}" isEnabled="{{ !IsLoading }}" text="Login" class="btn" />
         </StackLayout>
+        <GridLayout row="1">
+            <!-- <Button tap="{{ ShowRegistration }}" text="New User" class="btn" /> -->
+            <Label color="#009940"
+                   font-size="60" 
+                   horizontalAlignment="center" 
+                   verticalAlignment="center"
+                   text="New User? Click Here"
+                   padding="5, 15"
+                   tap="{{ ShowRegistration }}"
+                   textDecoration="underline" />
+        </GridLayout>
         <ActivityIndicator busy="{{ IsLoading }}" color="#009940" row="1" horizontalAlignment="center" verticalAlignment="center" />
     </GridLayout>
 </Page>
