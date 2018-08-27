@@ -63,3 +63,21 @@ export function showFormatPicker(movie: MovieViewModel) {
         }
     });
 }
+
+export function goToLoginPage() {
+    frameModule.topmost().navigate({
+        moduleName: 'pages/login-page/login-page',
+        transition: {
+            name: 'slideRight'
+        }
+    });
+}
+
+export function goToRegistrationPage() {
+    frameModule.topmost().navigate({
+        moduleName: 'pages/registration-page/registration-page',
+        transition: {
+            name: 'slideLeft'
+        }
+    });
+}

@@ -10,7 +10,7 @@
             <Label text="Password:" />
             <TextField text="{{ Password }}" secure="true" autocorrect="false" />
             <Label visibility="{{ LoginError ? 'visible' : 'collapsed' }}" text="Invalid username or password" class="login-error" />
-            <Button tap="{{ ProcessLogin }}" text="Login" class="btn" />
+            <Button tap="{{ ProcessLogin }}" isEnabled="{{ !IsLoading }}" text="Login" class="btn" />
         </StackLayout>
         <ActivityIndicator busy="{{ IsLoading }}" color="#009940" row="1" horizontalAlignment="center" verticalAlignment="center" />
     </GridLayout>

@@ -1,0 +1,13 @@
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" navigatingTo="navigatingTo" class="page">
+    <StackLayout>
+        <GridLayout class="action-bar" columns="*, auto">
+            <StackLayout tap="{{ GoBack }}" 
+                         orientation="horizontal" 
+                         class="action-wrap" 
+                         horizontalAlignment="left" 
+                         verticalAlignment="center">
+                <Label text="Back" class="back-text" />
+            </StackLayout>
+        </GridLayout>
+    </StackLayout>
+</Page>
