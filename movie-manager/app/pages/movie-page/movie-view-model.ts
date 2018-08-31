@@ -273,4 +273,8 @@ export class MovieViewModel extends Observable {
     public GoToMyMovies() {
         navigationModule.navigateToMainPage();
     }
+
+    public AddFormats() {
+        navigationModule.showFormatPicker(this);
+    }
 }

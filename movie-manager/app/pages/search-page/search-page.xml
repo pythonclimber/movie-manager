@@ -1,4 +1,4 @@
-<Page xmlns="http://schemas.nativescript.org/tns.xsd" class="page" navigatingTo="navigatingTo">
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" class="page" navigatedTo="navigatedTo" navigatingTo="navigatingTo">
     <StackLayout>
         <GridLayout class="action-bar" columns="*, auto">
             <StackLayout tap="goToMovies" orientation="horizontal" class="action-wrap" horizontalAlignment="left" verticalAlignment="center">
@@ -28,7 +28,7 @@
                         </GridLayout>
                     </ListView.itemTemplate>
                 </ListView>
-                <ActivityIndicator busy="{{ IsLoading }}" row="1" horizontalAlignment="center" verticalAlignment="center" />
+                <ActivityIndicator color="#009940" busy="{{ IsLoading }}" row="1" horizontalAlignment="center" verticalAlignment="center" />
             </GridLayout>
         </GridLayout>
     </StackLayout>

@@ -11,35 +11,32 @@
             <NavigationButton icon="res://ic_arrow_back" tap="{{ GoBack }}"></NavigationButton>
         </ActionBar>
     </Page.actionBar>
-    <GridLayout rows="*, auto">
+    <GridLayout>
         <ScrollView>
             <GridLayout padding="0, 45">
-            <StackLayout verticalAlignment="center">
-                <Label text="Email Address:" />
-                <TextField text="{{ EmailAddress }}" autocorrect="false" blur="{{ ValidateEmail }}" />
-                <Label class="has-error" text="{{ EmailAddressError }}" visibility="{{ EmailAddressError.length > 0 ? 'visible' : 'collapse' }}" />
-                <Label text="Requested Username:" />
-                <TextField text="{{ Username }}" autocorrect="false" blur="{{ ValidateUsername }}" />
-                <Label class="has-error" text="{{ UsernameError }}" visibility="{{ UsernameError.length > 0 ? 'visible' : 'collapse' }}" />
-                <Label text="Password:" />
-                <TextField text="{{ Password }}" secure="true" autocorrect="false" blur="{{ ValidatePassword }}" />
-                <Label visibility="{{ PasswordError.length > 0 ? 'visible' : 'collapse' }}" text="Password is required" class="has-error" />
-                <Label text="Confirm Password:" />
-                <TextField text="{{ Confirm }}" secure="true" autocorrect="false" blur="{{ ValidateConfirm }}" />
-                <Label class="has-error" text="{{ ConfirmError }}" visibility="{{ ConfirmError.length > 0 ? 'visible' : 'collapse' }}" />
-                <Label text="First Name:" />
-                <TextField text="{{ FirstName }}" autocorrect="false" blur="{{ ValidateFirstName }}" />
-                <Label class="has-error" text="{{ FirstNameError }}" visibility="{{ FirstNameError.length > 0 ? 'visible' : 'collapse' }}" />
-                <Label text="Last Name:" />
-                <TextField text="{{ LastName }}" autocorrect="false" blur="{{ ValidateLastName }}" />
-                <Label class="has-error" text="{{ LastNameError }}" visibility="{{ LastNameError.length > 0 ? 'visible' : 'collapse' }}" />
-                <Button tap="{{ SubmitRegistration }}" isEnabled="{{ !IsPaused }}" text="Submit" class="btn" />
-            </StackLayout>
+                <ActivityIndicator busy="{{ IsPaused }}" color="#009940" horizontalAlignment="center" verticalAlignment="center" />
+                <StackLayout verticalAlignment="center">
+                    <Label text="Email Address:" />
+                    <TextField text="{{ EmailAddress }}" autocorrect="false" blur="{{ ValidateEmail }}" maxLength="10" />
+                    <Label class="has-error" text="{{ EmailAddressError }}" visibility="{{ EmailAddressError.length > 0 ? 'visible' : 'collapse' }}" />
+                    <Label text="Requested Username:" />
+                    <TextField text="{{ Username }}" autocorrect="false" blur="{{ ValidateUsername }}" maxLength="10" />
+                    <Label class="has-error" text="{{ UsernameError }}" visibility="{{ UsernameError.length > 0 ? 'visible' : 'collapse' }}" />
+                    <Label text="Password:" />
+                    <TextField text="{{ Password }}" secure="true" autocorrect="false" blur="{{ ValidatePassword }}" />
+                    <Label visibility="{{ PasswordError.length > 0 ? 'visible' : 'collapse' }}" text="Password is required" class="has-error" />
+                    <Label text="Confirm Password:" />
+                    <TextField text="{{ Confirm }}" secure="true" autocorrect="false" blur="{{ ValidateConfirm }}" />
+                    <Label class="has-error" text="{{ ConfirmError }}" visibility="{{ ConfirmError.length > 0 ? 'visible' : 'collapse' }}" />
+                    <Label text="First Name:" />
+                    <TextField text="{{ FirstName }}" autocorrect="false" blur="{{ ValidateFirstName }}" />
+                    <Label class="has-error" text="{{ FirstNameError }}" visibility="{{ FirstNameError.length > 0 ? 'visible' : 'collapse' }}" />
+                    <Label text="Last Name:" />
+                    <TextField text="{{ LastName }}" autocorrect="false" blur="{{ ValidateLastName }}" />
+                    <Label class="has-error" text="{{ LastNameError }}" visibility="{{ LastNameError.length > 0 ? 'visible' : 'collapse' }}" />
+                    <Button tap="{{ SubmitRegistration }}" isEnabled="{{ !IsPaused }}" text="Submit" class="btn" />
+                </StackLayout>
             </GridLayout>
         </ScrollView>
-        <GridLayout row="1">
-            
-        </GridLayout>
-        <ActivityIndicator busy="{{ IsPaused }}" color="#009940" horizontalAlignment="center" verticalAlignment="center" />
     </GridLayout>
 </Page>

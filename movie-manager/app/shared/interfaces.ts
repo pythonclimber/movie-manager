@@ -101,3 +101,8 @@ export interface User {
 export interface BaseResponse {
     success: boolean;
 }
+
+export interface FormatItem {
+    name: string;
+    selected: boolean;
+}

@@ -1,63 +1,34 @@
-import { Observable } from "data/observable";
-import * as navigationModule from '../../shared/navigation';
-import { MovieViewModel } from "../movie-page/movie-view-model";
-import { MovieService } from "../../services/movie-service";
-
+import { Observable } from 'data/observable';
+import { FormatItem } from '../../shared/interfaces';
 
 export class FormatViewModel extends Observable {
-    private formats: string[];
-    private movie: MovieViewModel;
-    private movieService: MovieService;
-    private selectedIndex: number;
+    private formatItem: FormatItem
 
-    get Formats(): string[] {
-        return this.formats;
+    get Name(): string {
+        return this.formatItem.name;
     }
 
-    set Formats(value: string[]) {
-        if (value !== this.formats) {
-            this.formats = value;
-            this.notifyPropertyChange('Formats', value);
+    set Name(value: string) {
+        if (value !== this.formatItem.name) {
+            this.formatItem.name = value;
+            this.notifyPropertyChange('Name', value);
         }
     }
 
-    get SelectedIndex(): number {
-        return this.selectedIndex;
+    get Selected(): boolean {
+        return this.formatItem.selected;
     }
 
-    set SelectedIndex(value: number) {
-        if (value !== this.selectedIndex) {
-            this.selectedIndex = value;
-            this.notifyPropertyChange('SelectedIndex', value);
+    set Selected(value: boolean) {
+        if (value !== this.formatItem.selected) {
+            this.formatItem.selected = value;
+            this.notifyPropertyChange('Selected', value);
         }
     }
 
-    constructor(formats: string[], movie: MovieViewModel) {
+    constructor(formatItem: FormatItem) {
         super();
-        this.formats = formats;
-        this.movie = movie;
-        this.movieService = new MovieService();
-        this.selectedIndex = 0;
-    }
 
-    public ChooseFormat(): void {
-        const selectedFormat = this.formats[this.selectedIndex];
-        if (this.movie.Wishlist) {
-            this.movieService.toggleWishlist(this.movie.UserId, this.movie.ImdbId, false, selectedFormat).then(response => {
-                this.movie.Wishlist = false;
-                navigationModule.navigateToMainPage();
-            });
-        } else {
-            this.movie.Format = selectedFormat;
-            this.movieService.addMovie(this.movie).then(response => {
-                this.movie.UserId = response.userId;
-                this.movie.Wishlist = false;
-                navigationModule.backOnePage();
-            });
-        }
-    }
-
-    public Cancel(): void {
-        navigationModule.backOnePage();
+        this.formatItem = formatItem;
     }
 }

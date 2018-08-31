@@ -158,6 +158,25 @@ export class MovieService extends BaseService {
         return this.ProcessHttpCall<any>(requestParams);
     }
 
+    updateFormats(userId: string, imdbid: string, formats: string) {
+        const data = {
+            userId: userId,
+            imdbid: imdbid,
+            update: {
+                format: formats
+            }
+        };
+
+        let requestParams = {
+            url: `${this.apiBaseUrl}/movie`,
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            content: JSON.stringify(data)
+        };
+
+        return this.ProcessHttpCall<any>(requestParams);
+    }
+
     updateMovies() {
         this.getMovies<Movie[]>().then(movies => {
             for (let movie of movies) {

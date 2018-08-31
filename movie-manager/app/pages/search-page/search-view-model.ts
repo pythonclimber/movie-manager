@@ -108,6 +108,8 @@ export class SearchViewModel extends Observable {
             return;
         }
 
+        this.IsLoading = true;
+
         let currentPage = this.searchResults.length / 10;
         if (this.searchMode == ViewMode.Movies) {
             this.SearchForMovie(++currentPage);
