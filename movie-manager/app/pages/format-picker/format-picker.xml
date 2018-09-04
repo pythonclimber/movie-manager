@@ -10,7 +10,7 @@
                     <ListView.itemTemplate>
                         <GridLayout padding="10, 0">
                             <Label text="{{ Name }}" fontSize="24" />
-                            <Switch checked="{{ Selected }}" color="#009940" />
+                            <Switch checked="{{ Selected }}" color="#009940" horizontalAlignment="right" />
                         </GridLayout>
                     </ListView.itemTemplate>
                 </ListView>

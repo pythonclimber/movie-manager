@@ -167,7 +167,6 @@ export class RegistrationViewModel extends Observable {
     public ValidateUsername() {
         this.IsPaused = true;
         this.CheckUsername().then(() => {
-            console.log('username checked');
             this.IsPaused = false;
         });
     }
