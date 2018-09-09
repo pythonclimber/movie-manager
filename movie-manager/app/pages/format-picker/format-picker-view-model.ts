@@ -42,6 +42,7 @@ export class FormatPickerViewModel extends Observable {
 
         const movieFormats = movie.Format.split('|');
         this.formats = formats.map(format => {
+            format = format.trim();
             return new FormatViewModel({
                 name: format,
                 selected: movieFormats.some(mf => mf == format)
@@ -56,7 +57,7 @@ export class FormatPickerViewModel extends Observable {
             return;
         }
 
-        const formatString = selectedFormats.map(sf => sf.Name).join('|');
+        const formatString = selectedFormats.map(sf => sf.Name.trim()).join(' | ');
 
         if (this.movie.Wishlist) {
             this.movieService.toggleWishlist(this.movie.UserId, this.movie.ImdbId, false, formatString).then(response => {
@@ -65,7 +66,6 @@ export class FormatPickerViewModel extends Observable {
             });
         } else if (!!this.movie.UserId) {
             this.movieService.updateFormats(this.movie.UserId, this.movie.ImdbId, formatString).then(() => {
-                this.movie.Format = formatString;
                 navigationModule.backOnePage();
             });
         } else {

@@ -42,8 +42,7 @@
                     <ActivityIndicator IsRunning="{Binding IsLoading}"
                                        HorizontalOptions="Center"
                                        VerticalOptions="Center"
-                                       Color="#009940"
-                                       IsVisible="{Binding IsLoading}">
+                                       Color="#009940">
                     </ActivityIndicator>
                     <Label Text="No results...."
                            TextColor="White"

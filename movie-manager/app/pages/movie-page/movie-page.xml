@@ -19,6 +19,14 @@
                             <Label text="{{ Title + ' (' + Year + ')' }}" class="main-title" textWrap="true" />
                             <Label text="{{ Director }}" />
                             <Label text="{{ Format }}" />
+                            <GridLayout columns="auto,auto,auto,auto,auto" visibility="{{ !Rating ? 'collapse' : 'visible' }}">
+                                <Image id="star-1" col="0" src="{{ Rating >= 1 ? 'res://star_green' : 'res://star_white' }}" />
+                                <Image id="star-2" col="1" src="{{ Rating >= 2 ? 'res://star_green' : 'res://star_white' }}" />
+                                <Image id="star-3" col="2" src="{{ Rating >= 3 ? 'res://star_green' : 'res://star_white' }}" />
+                                <Image id="star-4" col="3" src="{{ Rating >= 4 ? 'res://star_green' : 'res://star_white' }}" />
+                                <Image id="star-5" col="4" src="{{ Rating == 5 ? 'res://star_green' : 'res://star_white' }}" />
+                            </GridLayout>
+                            <Label color="#009940" text="Click to rate" tap="{{ AddRating }}" textDecoration="underline" fontSize="18" visibility="{{ !Rating ? 'visible' : 'collapse' }}" />
                         </StackLayout>
                     </GridLayout>
                     <GridLayout row="1" columns="*, *">

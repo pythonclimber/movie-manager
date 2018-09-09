@@ -33,7 +33,13 @@ namespace MovieManagerXamarin2.ViewModels
         public string Filter
         {
             get => _filter;
-            set => SetProperty(ref _filter, value, nameof(Filter));
+            set
+            {
+                if (SetProperty(ref _filter, value, nameof(Filter)))
+                {
+                    FilterMovies();
+                }
+            }
         }
 
         public bool DisplayFilters
@@ -97,6 +103,8 @@ namespace MovieManagerXamarin2.ViewModels
 
         public string Wishlist { get; } = FilterModes.Wishlist;
 
+        public List<string> Filters { get; }
+
         #endregion
 
         public MainViewModel(string userId)
@@ -107,6 +115,13 @@ namespace MovieManagerXamarin2.ViewModels
             _allMoviesFont = FontAttributes.Bold;
             _favoritesFont = FontAttributes.None;
             _wishlistFont = FontAttributes.None;
+
+            Filters = new List<string>
+            {
+                FilterModes.AllMovies,
+                FilterModes.Favorites,
+                FilterModes.Wishlist
+            };
 
             SearchForMovie = new Command(() =>
             {

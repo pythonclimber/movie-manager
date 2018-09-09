@@ -1,18 +1,19 @@
-<Page xmlns="http://schemas.nativescript.org/tns.xsd" navigatingTo="navigatingTo" class="page">
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" navigatingTo="navigatingTo" navigatedTo="navigatedTo" class="page">
     <Page.actionBar>
         <ActionBar title="Oh Gnarly Movies" icon="" horizontalAlignment="center" class="action-bar">
         </ActionBar>
     </Page.actionBar>
     <GridLayout rows="*, auto">
-        <StackLayout class="login-wrap">
-            <Label text="Username:" />
-            <TextField text="{{ Username }}" autocorrect="false" />
-            <Label text="Password:" />
-            <TextField text="{{ Password }}" secure="true" autocorrect="false" />
-            <Label visibility="{{ LoginError ? 'visible' : 'collapse' }}" text="Invalid username or password" class="login-error" />
-            <Button tap="{{ ProcessLogin }}" isEnabled="{{ !IsLoading }}" text="Login" class="btn" />
-        </StackLayout>
-        <GridLayout row="1">
+        <GridLayout class="login-wrap" rows="auto,auto,auto">
+            <!-- <Label text="Username:" /> -->
+            <TextField id="username" row="0" text="{{ Username }}" autocorrect="false" hint="Username" />
+            <!-- <Label text="Password:" /> -->
+            <TextField id="password" row="1" text="{{ Password }}" secure="true" autocorrect="false" hint="Password" />
+            <!-- <Label visibility="{{ LoginError ? 'visible' : 'collapse' }}" text="Invalid username or password" class="login-error" /> -->
+            <Button row="2" tap="{{ ProcessLogin }}" isEnabled="{{ !IsLoading }}" text="Login" class="btn"/>
+            <ActivityIndicator busy="{{ IsLoading }}" color="#009940" rowSpan="3"  width="20" height="20" verticalAlignment="center" horizontalAlignment="center" />
+        </GridLayout>
+        <GridLayout row="1" visibility="{{ IsLoading ? 'hidden' : 'visible' }}">
             <!-- <Button tap="{{ ShowRegistration }}" text="New User" class="btn" /> -->
             <Label color="#009940"
                    font-size="60" 
@@ -23,6 +24,5 @@
                    tap="{{ ShowRegistration }}"
                    textDecoration="underline" />
         </GridLayout>
-        <ActivityIndicator busy="{{ IsLoading }}" color="#009940" row="1" horizontalAlignment="center" verticalAlignment="center" />
     </GridLayout>
 </Page>

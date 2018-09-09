@@ -28,7 +28,7 @@
             <StackLayout Spacing="0">
                 <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
@@ -38,16 +38,14 @@
                         <Label Text="Filter:" 
                                VerticalOptions="Center"
                                TextColor="White"></Label>
+                        
                     </Grid>
                     <Grid Grid.Column="1">
-                        <Label Text="{Binding Filter}" 
-                               VerticalOptions="Center"
-                               TextColor="White"
-                               FontAttributes="Bold">
-                            <Label.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding ChangeFilter}"/>
-                            </Label.GestureRecognizers>
-                        </Label>
+                        <Picker ItemsSource="{Binding Filters}"
+                                SelectedItem="{Binding Filter}"
+                                TextColor="White"
+                                FontAttributes="Bold"
+                                BackgroundColor="#2b2c2d"></Picker>
                     </Grid>
                 </Grid>
                 <Grid IsVisible="{Binding DisplayFilters}"
@@ -99,7 +97,7 @@
                                             <Grid.GestureRecognizers>
                                                 <TapGestureRecognizer Command="{Binding ToggleFavorite}"/>
                                             </Grid.GestureRecognizers>
-                                            <Image VerticalOptions="Center" Source="star_white.png" IsVisible="{Binding NotFavorite}" />
+                                            <Image VerticalOptions="Center" Source="star_white.png" IsVisible="{Binding Favorite, Converter={StaticResource InvertBoolConverter}}" />
                                             <Image VerticalOptions="Center" Source="star_green.png" IsVisible="{Binding Favorite}" />
                                         </Grid>
                                         <StackLayout Spacing="0" HorizontalOptions="FillAndExpand">

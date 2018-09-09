@@ -175,6 +175,17 @@ export class MovieViewModel extends Observable {
         }
     }
 
+    get Rating(): number {
+        return this.movie.rating;
+    }
+
+    set Rating(value: number) {
+        if (value !== this.movie.rating) {
+            this.movie.rating = value;
+            this.notifyPropertyChange("Rating", value);
+        }
+    }
+
     get Flow(): string {
         return this.flow;
     }
@@ -193,6 +204,14 @@ export class MovieViewModel extends Observable {
         this.movieService = new MovieService();
         this.flow = flow;
 
+        if (this.Title == 'Before Sunset') {
+            this.Rating = 5;
+        } else if (this.Title == 'Batman Begins') {
+            this.Rating = undefined;
+        } else {
+            this.Rating = 1;
+        }
+
         //this.movie.title = this.movieService.FormatTitle(this.movie.title);
 
         this.Plot = this.Plot || '';
@@ -203,6 +222,7 @@ export class MovieViewModel extends Observable {
             if (response.success) {
                 this.UserId = response.movie.userId;
                 this.Wishlist = response.movie.wishlist;
+                this.Format = response.movie.format;
             }
         });
     }
@@ -276,5 +296,9 @@ export class MovieViewModel extends Observable {
 
     public AddFormats() {
         navigationModule.showFormatPicker(this);
+    }
+
+    public AddRating() {
+        console.log('show rating page');
     }
 }

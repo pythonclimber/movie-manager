@@ -5,7 +5,7 @@
             <GridLayout class="action-bar" columns="*">
                 <Label text="Select Format..." class="back-text" horizontalAlignment="center" />
             </GridLayout>
-            <StackLayout row="1">
+            <GridLayout rows="*" row="1">
                 <ListView items="{{ Formats }}">
                     <ListView.itemTemplate>
                         <GridLayout padding="10, 0">
@@ -14,7 +14,7 @@
                         </GridLayout>
                     </ListView.itemTemplate>
                 </ListView>
-            </StackLayout>
+            </GridLayout>
             <GridLayout rows="*" columns="*,*" row="2">
                 <Button col="1" text="OK" width="125" height="40" class="btn" android:fontSize="10" ios:fontSize="18" horizontalAlignment="center" tap="{{ ChooseFormats }}" />
                 <Button col="0" text="Cancel" width="125" height="40" class="btn" android:fontSize="10" ios:fontSize="18" horizontalAlignment="center" tap="{{ Cancel }}" />

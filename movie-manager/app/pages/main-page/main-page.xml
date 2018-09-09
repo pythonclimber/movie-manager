@@ -8,20 +8,14 @@
             <StackLayout col="0" tap="searchTap" orientation="horizontal" class="action-wrap" horizontalAlignment="stretch" verticalAlignment="center">
                 <Label text="Search" class="back-text" />
             </StackLayout>
-            <!-- <StackLayout col="2" orientation="horizontal" class="action-wrap" horizontalAlignment="left" verticalAlignment="center">
-                <Label text="{{ SelectedIndex }}" class="back-text" />
-            </StackLayout> -->
-            <!-- <StackLayout col="2" tap="{{ ToggleViewMode }}" orientation="horizontal" class="action-wrap" horizontalAlignment="stretch" verticalAlignment="center">
-                <Label text="{{ ViewModeText }}" class="back-text" />
-            </StackLayout> -->
         </GridLayout>
         <GridLayout rows="auto, auto">
-            <!-- <SegmentedBar class="segmented-bar" items="{{ ViewOptions }}" selectedIndex="{{ SelectedIndex }}" /> -->
             <GridLayout columns="auto, auto" height="30">
                 <Label text="Filter:" verticalAlignment="center" padding="5" />
                 <StackLayout orientation="horizontal" col="1" class="selected-filter" margin="5,0">
                     <Label text="{{ FilterMode }}" verticalAlignment="center" tap="{{ ChangeFilter }}" horizontalAlignment="center" padding="0,5" />
                 </StackLayout>
+                <!-- <ListPicker col="1" items="{{ Filters }}" selectedIndex="{{ SelectedIndex }}" /> -->
             </GridLayout>
             <GridLayout row="1" height="30"  visibility="{{ DisplayFilters ? 'visible' : 'collapse' }}" columns="25, *, *, *">
                 <Label col="1" class="{{ FilterMode == 'All Movies' ? 'selected-filter' : 'unselected-filter' }}" text="All Movies" verticalAlignment="center" horizontalAlignment="left" tap="{{ ChangeFilter }}" />
@@ -40,7 +34,7 @@
                                 </GridLayout>
                                 <StackLayout col="1" class="info-wrap">
                                     <Label text="{{ Title }}" class="bold info-bigger" />
-                                    <Label text="{{ Type == 'Movie' ? Director : Year }}" class="info-orange" />
+                                    <Label text="{{ Type == 'Movie' ? Format : Year }}" class="info-orange" />
                                 </StackLayout>
                             </GridLayout>
                         </ListView.itemTemplate>

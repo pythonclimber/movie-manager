@@ -17,6 +17,7 @@ namespace MovieManagerXamarin2.ViewModels
         private ImageSource _imageSource;
         private readonly IMovieService _movieService;
         private List<string> _formats;
+        private bool _isAdding;
 
         #region Bound Properties
 
@@ -62,21 +63,7 @@ namespace MovieManagerXamarin2.ViewModels
         public bool IsReady
         {
             get => _isReady;
-            set
-            {
-                if (value != _isReady)
-                {
-                    _isReady = value;
-                    OnPropertyChanged("IsReady");
-                    OnPropertyChanged("IsLoading");
-                }
-            }
-        }
-
-        public bool IsLoading
-        {
-            get => !_isReady;
-
+            set => SetProperty(ref _isReady, value, nameof(IsReady));
         }
 
         public bool IsMine
@@ -84,19 +71,9 @@ namespace MovieManagerXamarin2.ViewModels
             get => !string.IsNullOrWhiteSpace(_movie.UserId) && !Wishlist;
         }
 
-        public bool IsNotMine
-        {
-            get => string.IsNullOrWhiteSpace(_movie.UserId) || Wishlist;
-        }
-
         public bool CanWishlist
         {
             get => string.IsNullOrEmpty(_movie.UserId);
-        }
-
-        public bool CanUnWishlist
-        {
-            get => !string.IsNullOrWhiteSpace(_movie.UserId) && _movie.Wishlist;
         }
 
         public string UserId
@@ -128,11 +105,6 @@ namespace MovieManagerXamarin2.ViewModels
                     OnPropertyChanged("NotFavorite");
                 }
             }
-        }
-
-        public bool NotFavorite
-        {
-            get => !_movie.Favorite;
         }
 
         public Movie Movie
@@ -218,6 +190,12 @@ namespace MovieManagerXamarin2.ViewModels
             set => SetProperty(ref _formats, value, nameof(Formats));
         }
 
+        public bool IsAdding
+        {
+            get => _isAdding;
+            set => SetProperty(ref _isAdding, value, nameof(IsAdding));
+        }
+
         public ICommand ToggleFavorite { get; }
 
         public ICommand SelectMovie { get; }
@@ -236,6 +214,7 @@ namespace MovieManagerXamarin2.ViewModels
         {
             _isReady = false;
             _movie = movie;
+            _isAdding = false;
             _movieService = new MovieService();
 
             FormatTitle();
@@ -267,9 +246,10 @@ namespace MovieManagerXamarin2.ViewModels
                 //await _movieService.AddMovie(Movie);
                 //await App.GetInstance().NavigationService.BackToMainPage();
 
-                var viewModel = new FormatPickerViewModel(this);
+                //var viewModel = new FormatPickerViewModel(this);
 
-                await Navigation.PushModalAsync(new FormatPicker {BindingContext = viewModel});
+                //await Navigation.PushModalAsync(new FormatPicker {BindingContext = viewModel});
+                IsAdding = true;
             });
 
             RemoveMovie = new Command(async () =>

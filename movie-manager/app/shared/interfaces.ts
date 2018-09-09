@@ -15,6 +15,7 @@ export interface Movie {
     poster?: string;
     wishlist: boolean;
     format: string;
+    rating?: number;
 }
 
 export interface NewMovie {

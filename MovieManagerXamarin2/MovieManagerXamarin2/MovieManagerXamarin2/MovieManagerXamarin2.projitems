@@ -15,6 +15,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Converters\InvertBoolConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Pages\FormatPicker.xaml.cs">
       <DependentUpon>FormatPicker.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -93,5 +94,8 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="$(MSBuildThisFileDirectory)Converters\" />
   </ItemGroup>
 </Project>

@@ -9,10 +9,8 @@ import { MovieViewModel } from "../movie-page/movie-view-model";
 import { ViewMode, MovieFlow } from "../../shared/enums";
 import { ShowViewModel } from "../movie-page/show-view-model";
 import * as utilsModule from 'utils/utils';
-import { MovieService } from '../../services/movie-service';
 import * as viewModule from 'ui/core/view'
-
-const movieService = new MovieService();
+import { SearchBar } from 'ui/search-bar';
 
 export function navigatingTo(args: NavigatedData) {
     let page = <Page>args.object;
@@ -24,23 +22,17 @@ export function navigatingTo(args: NavigatedData) {
     }
 }
 
-export function navigatedTo(args: EventData) {
-    console.log(args.object);
+export function navigatedTo(args: NavigatedData) {
     let page = <Page>args.object;
-    let searchField = viewModule.getViewById(page, 'movie-search');
+    let searchField = <SearchBar>viewModule.getViewById(page, 'movie-search');
 
     if (searchField.ios) {
-        console.log('ios');
-        searchField.ios.focus();
+        searchField.focus();
     }
 
     if (searchField.android) {
-        console.log('android');
-         setTimeout(() => {
-             searchField.android.requestFocus();
-
-             utilsModule.ad.getInputMethodManager().showSoftInput(searchField.android, 0);
-         }, 300)
+        searchField.android.requestFocus();
+        utilsModule.ad.showSoftInput(searchField.android);
     }
 }
 

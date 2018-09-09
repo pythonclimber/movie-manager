@@ -23,6 +23,7 @@ export class MainViewModel extends Observable {
     private viewMode: ViewMode;
     private filterMode: string;
     private displayFilters: boolean;
+    private filters: string[];
 
     public Icon: string;
 
@@ -107,6 +108,10 @@ export class MainViewModel extends Observable {
         return this.viewMode == ViewMode.Movies ? ViewMode[ViewMode.Shows] : ViewMode[ViewMode.Movies];
     }
 
+    get Filters(): string[] {
+        return this.filters;
+    }
+
     constructor() {
         super();
         this.Icon = String.fromCharCode(0xea43);
@@ -114,6 +119,11 @@ export class MainViewModel extends Observable {
         this.movies = new Array<MovieViewModel>();
         this.showService = new ShowService();
         this.shows = new Array<ShowViewModel>();
+        this.filters = [
+            ViewOptions.All,
+            ViewOptions.Favorites,
+            ViewOptions.Wishlist
+        ];
         this.Init();
 
         this.isLoading = false;

@@ -10,6 +10,7 @@ namespace MovieManagerXamarin2.ViewModels
         private ILoginService _loginService;
         private string _username;
         private string _password;
+        private bool _isReady;
 
         public string Username
         {
@@ -23,6 +24,25 @@ namespace MovieManagerXamarin2.ViewModels
             set => SetProperty(ref _password, value, "Password");
         }
 
+        public bool IsReady
+        {
+            get => _isReady;
+            set
+            {
+                if (value != _isReady)
+                {
+                    _isReady = value;
+                    OnPropertyChanged(nameof(IsReady));
+                    OnPropertyChanged(nameof(IsPaused));
+                }
+            }
+        }
+
+        public bool IsPaused
+        {
+            get => !_isReady;
+        }
+
         public ICommand LoginTap { get; }
 
         public LoginViewModel()
@@ -33,16 +53,21 @@ namespace MovieManagerXamarin2.ViewModels
             _username = credentials?.Username;
             _password = credentials?.Password;
 
-            LoginTap = new Command(async () =>
-            {
-                var waitViewModel = new WaitViewModel(ProcessLogin);
-                await Navigation.PushAsync(new WaitingPage {BindingContext = waitViewModel});
-                waitViewModel.ProcessWait();
-            });
+            //LoginTap = new Command(async () =>
+            //{
+            //    var waitViewModel = new WaitViewModel(ProcessLogin);
+            //    await Navigation.PushAsync(new WaitingPage {BindingContext = waitViewModel});
+            //    waitViewModel.ProcessWait();
+            //});
+
+            LoginTap = new Command(ProcessLogin);
+
+            _isReady = true;
         }
 
         protected async void ProcessLogin()
         {
+            IsReady = false;
             var loginResponse = await _loginService.Login(Username, Password);
             if (loginResponse.Success)
             {
@@ -53,6 +78,7 @@ namespace MovieManagerXamarin2.ViewModels
 
                 await _loginService.SaveCredentials(Username, Password, loginResponse.UserId);
                 await App.GetInstance().NavigationService.BackToMainPage();
+                IsReady = true;
             }
         }
     }

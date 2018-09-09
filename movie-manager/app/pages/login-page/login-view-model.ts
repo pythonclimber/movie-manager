@@ -77,8 +77,8 @@ export class LoginViewModel extends Observable {
                 this.loginError = true;
                 this.Password = '';
                 this.Username = '';
+                this.IsLoading = false;
             }
-            this.IsLoading = false;
         });
     }
 
