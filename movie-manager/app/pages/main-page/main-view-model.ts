@@ -3,7 +3,7 @@ import { MovieService } from '../../services/movie-service';
 import { MovieViewModel } from '../movie-page/movie-view-model';
 import { Movie, Show } from '../../shared/interfaces';
 import { SegmentedBarItem } from 'ui/segmented-bar';
-import { ViewMode, ViewOptions, MovieFlow } from '../../shared/enums';
+import { ViewMode, ViewOptions, MovieFlow, SortModes } from '../../shared/enums';
 import { ShowService } from '../../services/show-service';
 import { ShowViewModel } from '../movie-page/show-view-model';
 import { GestureEventData } from 'ui/gestures';
@@ -11,6 +11,7 @@ import { Label } from 'ui/label';
 
 export class MainViewModel extends Observable {
     private movies: MovieViewModel[];
+    private wishlist: MovieViewModel[];
     private shows: ShowViewModel[];
     private movieService: MovieService;
     private showService: ShowService;
@@ -18,14 +19,13 @@ export class MainViewModel extends Observable {
     private favoritesOnly: boolean;
     private filteredMovies: MovieViewModel[];
     private filteredShows: ShowViewModel[];
-    private viewOptions: SegmentedBarItem[];
     private selectedIndex: number;
     private viewMode: ViewMode;
     private filterMode: string;
     private displayFilters: boolean;
     private filters: string[];
-
-    public Icon: string;
+    private sortMode: string;
+    private displaySortModes: boolean;
 
     get FavoritesOnly(): boolean {
         return this.favoritesOnly;
@@ -84,6 +84,28 @@ export class MainViewModel extends Observable {
         }
     }
 
+    get SortMode(): string {
+        return this.sortMode;
+    }
+
+    set SortMode(value: string) {
+        if (value !== this.sortMode) {
+            this.sortMode = value;
+            this.notifyPropertyChange('SortMode', value);
+        }
+    }
+
+    get DisplaySortModes(): boolean {
+        return this.displaySortModes;
+    }
+
+    set DisplaySortModes(value: boolean) {
+        if (value !== this.displaySortModes) {
+            this.displaySortModes = value;
+            this.notifyPropertyChange('DisplaySortModes', value);
+        }
+    }
+
     get FilteredMovies(): MovieViewModel[] {
         return this.filteredMovies;
     }
@@ -94,10 +116,6 @@ export class MainViewModel extends Observable {
 
     get Shows(): ShowViewModel[] {
         return this.filteredShows;
-    }
-
-    get ViewOptions(): SegmentedBarItem[] {
-        return this.viewOptions;
     }
 
     get ViewMode(): string {
@@ -112,9 +130,16 @@ export class MainViewModel extends Observable {
         return this.filters;
     }
 
+    get ViewOptions(): ViewOptions {
+        return ViewOptions;
+    }
+
+    get SortModes(): SortModes {
+        return SortModes;
+    }
+
     constructor() {
         super();
-        this.Icon = String.fromCharCode(0xea43);
         this.movieService = new MovieService();
         this.movies = new Array<MovieViewModel>();
         this.showService = new ShowService();
@@ -128,10 +153,10 @@ export class MainViewModel extends Observable {
 
         this.isLoading = false;
         this.selectedIndex = 0;
-        this.viewOptions = this.GetViewOptions();
         this.viewMode = ViewMode.Movies;
         this.filterMode = ViewOptions.All;
         this.displayFilters = false;
+        this.sortMode = SortModes.Alphabetical;
     }
 
     public ToggleViewOption(): void {
@@ -156,36 +181,34 @@ export class MainViewModel extends Observable {
         var label = <Label>args.object;
         if (label.text != this.filterMode) {
             this.FilterMode = label.text;
-            this.ToggleMovies();
+            this.FilterMovies();
         }
         this.DisplayFilters = !this.DisplayFilters;
+    }
+
+    public ChangeSort(args: GestureEventData): void {
+        let label = <Label>args.object;
+        if (label.text !== this.sortMode) {
+            this.SortMode = label.text;
+            this.SortMovies();
+        }
+        this.DisplaySortModes = !this.DisplaySortModes;
     }
 
     public LoadMovies(): Promise<void> {
         return this.movieService
             .getMovies<Array<Movie>>()
             .then(movies => {
-                let movieViewModels = new Array<MovieViewModel>();
-                for (let movie of movies) {
-                    let movieViewModel = new MovieViewModel(movie, MovieFlow.Collection);
-                    movieViewModels.push(movieViewModel);
-                }
-                this.movies = movieViewModels.sort(this.SortByTitle.bind(this));
-                this.ToggleMovies();
+                let myMovies = movies.filter(m => !m.wishlist).map(m => new MovieViewModel(m, MovieFlow.Collection));
+                this.wishlist = movies
+                    .filter(m => m.wishlist)
+                    .map(m => new MovieViewModel(m, MovieFlow.Collection))
+                    .sort(this.SortByTitle.bind(this));
+                this.movies = myMovies.sort(this.SortByTitle.bind(this));
+                this.FilterMovies();
             }).catch(error => {
                 console.log(error);
             });
-    }
-
-    private GetViewOptions(): SegmentedBarItem[] {
-        let item1 = new SegmentedBarItem();
-        item1.title = 'All';
-        let item2 = new SegmentedBarItem();
-        item2.title = 'Favorites';
-        let item3 = new SegmentedBarItem();
-        item3.title = 'Wishlist';
-
-        return [item1, item2, item3];
     }
 
     public Init(): void {
@@ -222,6 +245,17 @@ export class MainViewModel extends Observable {
             return 0;
     }
 
+    private SortByReverseTitle(item1, item2): number {
+        let title1 = this.movieService.FormatTitle(item1.Title);
+        let title2 = this.movieService.FormatTitle(item2.Title);
+        if (title1 < title2)
+            return 1;
+        else if (title1 > title2) 
+            return -1;
+        else
+            return 0;
+    }
+
     private ToggleShows() {
         if (this.favoritesOnly) {
             this.filteredShows = this.shows.filter(m => m.Favorite);
@@ -231,21 +265,77 @@ export class MainViewModel extends Observable {
         this.notify({object: this, eventName: Observable.propertyChangeEvent, propertyName: 'Shows', value: this.filteredShows});
     }
 
+    private FilterMovies() {
+        this.ToggleMovies();
+        this.notify({object: this, eventName: Observable.propertyChangeEvent, propertyName: 'Movies', value: this.filteredMovies});
+    }
+
     private ToggleMovies() {
         switch(this.FilterMode) {
             case ViewOptions.All:
                 this.filteredMovies = this.movies.filter(m => !m.Wishlist);
+                this.SortMovies();
                 break;
             case ViewOptions.Favorites:
                 this.filteredMovies = this.movies.filter(m => m.Favorite);
                 break;
             case ViewOptions.Wishlist:
-                this.filteredMovies = this.movies.filter(m => m.Wishlist);
+                this.filteredMovies = this.wishlist;
+                break;
+            case ViewOptions.FiveStar:
+                this.filteredMovies = this.movies.filter(m => m.Rating == 10);
+                break;
+            case ViewOptions.FourStar: 
+                this.filteredMovies = this.movies.filter(m => m.Rating > 7 && m.Rating <= 9);
+                break;
+            case ViewOptions.ThreeStar:
+                this.filteredMovies = this.movies.filter(m => m.Rating > 5 && m.Rating <= 7);
+                break;
+            case ViewOptions.TwoStar:
+                this.filteredMovies = this.movies.filter(m => m.Rating > 3 && m.Rating <= 5);
+                break;
+            case ViewOptions.OneStar:
+                this.filteredMovies = this.movies.filter(m => m.Rating > 1 && m.Rating <= 3);
+                break;
+            case ViewOptions.Unrated:
+                this.filteredMovies = this.movies.filter(m => !m.Rating);
                 break;
             default:
                 this.filteredMovies = [];
                 break;
         }
+    }
+
+    private SortMovies(): void {
+        switch(this.sortMode) {
+            case SortModes.Alphabetical:
+                this.filteredMovies = this.filteredMovies.sort(this.SortByTitle.bind(this));
+                break;
+            case SortModes.Rating:
+                //this.filteredMovies = this.movies.sort(this.SortByReverseTitle.bind(this));
+                this.SortByRating();
+                break;
+            default:
+                break;
+        }
         this.notify({object: this, eventName: Observable.propertyChangeEvent, propertyName: 'Movies', value: this.filteredMovies});
+    }
+
+    private SortByRating() {
+        let movieChunks = [];
+        let max = 10;
+        for (let i = max; i >= 0; i--) {
+            if (i > 0) {
+                movieChunks.push(this.filteredMovies.filter(m => m.Rating == i));
+            } else {
+                movieChunks.push(this.filteredMovies.filter(m => !m.Rating));
+            }
+            movieChunks[10-i].sort(this.SortByTitle.bind(this));
+        }
+
+        this.filteredMovies = [];
+        movieChunks.forEach(e => {
+            this.filteredMovies = this.filteredMovies.concat(e);
+        });
     }
 }

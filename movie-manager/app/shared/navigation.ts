@@ -81,3 +81,13 @@ export function goToRegistrationPage() {
         }
     });
 }
+
+export function goToRatingPage(movie: MovieViewModel) {
+    frameModule.topmost().navigate({
+        moduleName: 'pages/rating-page/rating-page',
+        context: movie,
+        transition: {
+            name: 'slideBottom'
+        }
+    })
+}

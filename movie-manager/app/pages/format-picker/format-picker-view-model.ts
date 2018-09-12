@@ -40,7 +40,7 @@ export class FormatPickerViewModel extends Observable {
         this.movieService = new MovieService();
         this.selectedIndex = 0;
 
-        const movieFormats = movie.Format.split('|');
+        const movieFormats = movie.Format.split('|').map(mf => mf.trim());
         this.formats = formats.map(format => {
             format = format.trim();
             return new FormatViewModel({

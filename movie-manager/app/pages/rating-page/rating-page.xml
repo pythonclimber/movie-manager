@@ -1,0 +1,25 @@
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" 
+      navigatingTo="navigatingTo" 
+      class="page">
+    <GridLayout rows="auto, *, auto" columns="*" backgroundColor="#2b2c2d">
+        <GridLayout class="action-bar" columns="*">
+            <Label text="{{ 'Rate ' + Title }}" class="back-text" horizontalAlignment="center" />
+        </GridLayout>
+        <GridLayout rows="*" row="1">
+            <GridLayout rows="auto,auto" verticalAlignment="center">
+                <GridLayout row="0" columns="*,*,*,*,*" horizontalAlignment="center">
+                    <Image id="star-1" height="70" width="70" col="0" src="{{ Rating >= 2 ? 'res://star_green_56' : (Rating == 1 ? 'res://star_half_56' : 'res://star_white_56') }}" />
+                    <Image id="star-2" height="70" width="70" col="1" src="{{ Rating >= 4 ? 'res://star_green_56' : (Rating == 3 ? 'res://star_half_56' : 'res://star_white_56') }}" />
+                    <Image id="star-3" height="70" width="70" col="2" src="{{ Rating >= 6 ? 'res://star_green_56' : (Rating == 5 ? 'res://star_half_56' : 'res://star_white_56') }}" />
+                    <Image id="star-4" height="70" width="70" col="3" src="{{ Rating >= 8 ? 'res://star_green_56' : (Rating == 7 ? 'res://star_half_56' : 'res://star_white_56') }}" />
+                    <Image id="star-5" height="70" width="70" col="4" src="{{ Rating >= 10 ? 'res://star_green_56' : (Rating == 9 ? 'res://star_half_56' : 'res://star_white_56') }}" />
+                </GridLayout>
+                <Slider backgroundColor="white" row="1" minValue="0" maxValue="10" value="{{ Rating }}" margin="30,0" />
+            </GridLayout>
+        </GridLayout>
+        <GridLayout rows="*" columns="*,*" row="2">
+            <Button col="1" text="OK" width="125" height="40" class="btn" android:fontSize="10" ios:fontSize="18" horizontalAlignment="center" tap="{{ SaveRating }}" />
+            <Button col="0" text="Cancel" width="125" height="40" class="btn" android:fontSize="10" ios:fontSize="18" horizontalAlignment="center" tap="{{ Cancel }}" />
+        </GridLayout>
+    </GridLayout>
+</Page>

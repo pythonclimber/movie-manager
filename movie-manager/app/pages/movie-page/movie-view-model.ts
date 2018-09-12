@@ -204,12 +204,8 @@ export class MovieViewModel extends Observable {
         this.movieService = new MovieService();
         this.flow = flow;
 
-        if (this.Title == 'Before Sunset') {
-            this.Rating = 5;
-        } else if (this.Title == 'Batman Begins') {
-            this.Rating = undefined;
-        } else {
-            this.Rating = 1;
+        if (!this.movie.rating) {
+            this.movie.rating = 0;
         }
 
         //this.movie.title = this.movieService.FormatTitle(this.movie.title);
@@ -299,6 +295,6 @@ export class MovieViewModel extends Observable {
     }
 
     public AddRating() {
-        console.log('show rating page');
+        navigationModule.goToRatingPage(this);
     }
 }

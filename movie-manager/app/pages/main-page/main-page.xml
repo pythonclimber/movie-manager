@@ -1,8 +1,8 @@
 <Page xmlns="http://schemas.nativescript.org/tns.xsd" 
-        navigatingTo="navigatingTo" 
-        class="page"
-        xmlns:drawer="nativescript-telerik-ui/sidedrawer"
-        xmlns:PullRefresh="nativescript-pulltorefresh">
+      navigatingTo="navigatingTo" 
+      class="page"
+      xmlns:drawer="nativescript-telerik-ui/sidedrawer"
+      xmlns:PullRefresh="nativescript-pulltorefresh">
     <StackLayout>
         <GridLayout class="action-bar" columns="*, *, *">
             <StackLayout col="0" tap="searchTap" orientation="horizontal" class="action-wrap" horizontalAlignment="stretch" verticalAlignment="center">
@@ -10,17 +10,44 @@
             </StackLayout>
         </GridLayout>
         <GridLayout rows="auto, auto">
-            <GridLayout columns="auto, auto" height="30">
-                <Label text="Filter:" verticalAlignment="center" padding="5" />
-                <StackLayout orientation="horizontal" col="1" class="selected-filter" margin="5,0">
-                    <Label text="{{ FilterMode }}" verticalAlignment="center" tap="{{ ChangeFilter }}" horizontalAlignment="center" padding="0,5" />
-                </StackLayout>
-                <!-- <ListPicker col="1" items="{{ Filters }}" selectedIndex="{{ SelectedIndex }}" /> -->
+            <GridLayout columns="*, auto" height="30">
+                <GridLayout columns="auto,auto" visibility="{{ !DisplaySortModes ? 'visible' : 'collapse'}}">
+                    <Label text="Filter:" verticalAlignment="center" padding="5" />
+                    <StackLayout orientation="horizontal" col="1" class="selected-filter" margin="5,0">
+                        <Label text="{{ FilterMode }}" verticalAlignment="center" tap="{{ ChangeFilter }}" horizontalAlignment="center" padding="0,5" />
+                    </StackLayout>
+                </GridLayout>
+                <GridLayout col="1" columns="auto,auto" visibility="{{ FilterMode == ViewOptions.All && !DisplayFilters ? 'visible' : 'collapse' }}">
+                    <Label text="Sort:" verticalAlignment="center" padding="5" />
+                    <StackLayout col="1" orientation="horizontal" class="selected-filter" margin="5,0">
+                        <Label text="{{ SortMode }}" verticalAlignment="center" tap="{{ ChangeSort }}" horizontalAlignment="center" padding="0,5" />
+                    </StackLayout>
+                </GridLayout>
             </GridLayout>
-            <GridLayout row="1" height="30"  visibility="{{ DisplayFilters ? 'visible' : 'collapse' }}" columns="25, *, *, *">
-                <Label col="1" class="{{ FilterMode == 'All Movies' ? 'selected-filter' : 'unselected-filter' }}" text="All Movies" verticalAlignment="center" horizontalAlignment="left" tap="{{ ChangeFilter }}" />
-                <Label col="2" class="{{ FilterMode == 'Favorites' ? 'selected-filter' : 'unselected-filter' }}" text="Favorites" verticalAlignment="center" horizontalAlignment="left" tap="{{ ChangeFilter }}" />
-                <Label col="3" class="{{ FilterMode == 'Wishlist' ? 'selected-filter' : 'unselected-filter' }}" text="Wishlist" verticalAlignment="center" horizontalAlignment="left" tap="{{ ChangeFilter }}" />
+            <GridLayout rows="auto,auto,auto" row="1" visibility="{{ DisplayFilters ? 'visible' : 'collapse' }}">
+                <GridLayout row="0" columns="25,*,*,*" height="30">
+                    <Label col="1" class="{{ FilterMode == ViewOptions.All ? 'selected-filter' : 'unselected-filter' }}" text="{{ ViewOptions.All }}" verticalAlignment="center" horizontalAlignment="left" tap="{{ ChangeFilter }}" />
+                    <Label col="2" class="{{ FilterMode == ViewOptions.FiveStar ? 'selected-filter' : 'unselected-filter' }}" text="{{ ViewOptions.FiveStar }}" verticalAlignment="center" horizontalAlignment="left" tap="{{ ChangeFilter }}" />
+                    <Label col="3" class="{{ FilterMode == ViewOptions.FourStar ? 'selected-filter' : 'unselected-filter' }}" text="{{ ViewOptions.FourStar }}" verticalAlignment="center" horizontalAlignment="left" tap="{{ ChangeFilter }}" />
+                </GridLayout>
+                <GridLayout row="1" columns="25,*,*,*" height="30">
+                    <Label col="1" class="{{ FilterMode == ViewOptions.ThreeStar ? 'selected-filter' : 'unselected-filter' }}" text="{{ ViewOptions.ThreeStar }}" verticalAlignment="center" horizontalAlignment="left" tap="{{ ChangeFilter }}" />
+                    <Label col="2" class="{{ FilterMode == ViewOptions.TwoStar ? 'selected-filter' : 'unselected-filter' }}" text="{{ ViewOptions.TwoStar }}" verticalAlignment="center" horizontalAlignment="left" tap="{{ ChangeFilter }}" />
+                    <Label col="3" class="{{ FilterMode == ViewOptions.OneStar ? 'selected-filter' : 'unselected-filter' }}" text="{{ ViewOptions.OneStar }}" verticalAlignment="center" horizontalAlignment="left" tap="{{ ChangeFilter }}" />
+                </GridLayout>
+                <GridLayout row="2" columns="25,*,*,*" height="30">
+                    <Label col="1" class="{{ FilterMode == ViewOptions.Unrated ? 'selected-filter' : 'unselected-filter' }}" text="{{ ViewOptions.Unrated }}" verticalAlignment="center" horizontalAlignment="left" tap="{{ ChangeFilter }}" />
+                    <Label col="2" class="{{ FilterMode == ViewOptions.Wishlist ? 'selected-filter' : 'unselected-filter' }}" text="{{ ViewOptions.Wishlist }}" verticalAlignment="center" horizontalAlignment="left" tap="{{ ChangeFilter }}" />
+                </GridLayout>
+            </GridLayout>
+            <!-- <GridLayout row="1" height="30"  visibility="{{ DisplayFilters ? 'visible' : 'collapse' }}" columns="25, *, *, *">
+                <Label col="1" class="{{ FilterMode == ViewOptions.All ? 'selected-filter' : 'unselected-filter' }}" text="{{ ViewOptions.All }}" verticalAlignment="center" horizontalAlignment="left" tap="{{ ChangeFilter }}" />
+                <Label col="2" class="{{ FilterMode == ViewOptions.Favorites ? 'selected-filter' : 'unselected-filter' }}" text="{{ ViewOptions.Favorites }}" verticalAlignment="center" horizontalAlignment="left" tap="{{ ChangeFilter }}" />
+                <Label col="3" class="{{ FilterMode == ViewOptions.Wishlist ? 'selected-filter' : 'unselected-filter' }}" text="{{ ViewOptions.Wishlist }}" verticalAlignment="center" horizontalAlignment="left" tap="{{ ChangeFilter }}" />
+            </GridLayout> -->
+            <GridLayout row="1" height="30" visibility="{{ DisplaySortModes ? 'visible' : 'collapse' }}" columns="25, *, *, *">
+                <Label col="1" class="{{ SortMode == SortModes.Alphabetical ? 'selected-filter' : 'unselected-filter' }}" text="{{ SortModes.Alphabetical }}" verticalAlignment="center" horizontalAlignment="left" tap="{{ ChangeSort }}" />
+                <Label col="2" class="{{ SortMode == SortModes.Rating ? 'selected-filter' : 'unselected-filter' }}" text="{{ SortModes.Rating }}" verticalAlignment="center" horizontalAlignment="left" tap="{{ ChangeSort }}" />
             </GridLayout>
         </GridLayout>
         <GridLayout>
@@ -29,12 +56,23 @@
                     <ListView ios:backgroundColor="#2b2c2d" items="{{ ViewMode == 'Movies' ? FilteredMovies : Shows }}" itemTap="selectMovie" class="movie-list">
                         <ListView.itemTemplate>
                             <GridLayout rows="auto" columns="auto, *">
-                                <GridLayout columns="auto" rows="auto" class="favorite-wrap" tap="toggleFavorite">
-                                    <Image class="icon-image" src="{{ Favorite ? 'res://star_green' : 'res://star_white' }}" />
+                                <GridLayout columns="auto" rows="auto, auto" class="favorite-wrap" tap="toggleFavorite">
+                                    <!-- <Image class="icon-image" src="{{ Favorite ? 'res://star_green' : 'res://star_white' }}" /> -->
+                                    <!-- <Label text="{{ Rating / 2 }}" fontSize="18" horizontalAlignment="center" color="#009940" />
+                                    <Label row="1" text="stars" class="info-orange" /> -->
                                 </GridLayout>
                                 <StackLayout col="1" class="info-wrap">
                                     <Label text="{{ Title }}" class="bold info-bigger" />
-                                    <Label text="{{ Type == 'Movie' ? Format : Year }}" class="info-orange" />
+                                    <GridLayout columns="*,auto" padding="0,5,0,0">
+                                        <Label text="{{ Type == 'Movie' ? Format : Year }}" class="info-orange" />
+                                        <GridLayout visibility="{{ !Rating ? 'collapse' : 'visible'  }}" col="1" columns="auto,auto,auto,auto,auto">
+                                            <Image id="star-1" height="16" width="16" col="0" src="{{ Rating >= 2 ? 'res://star_green' : (Rating == 1 ? 'res://star_half' : 'res://star_white') }}" />
+                                            <Image id="star-2" height="16" width="16" col="1" src="{{ Rating >= 4 ? 'res://star_green' : (Rating == 3 ? 'res://star_half' : 'res://star_white') }}" />
+                                            <Image id="star-3" height="16" width="16" col="2" src="{{ Rating >= 6 ? 'res://star_green' : (Rating == 5 ? 'res://star_half' : 'res://star_white') }}" />
+                                            <Image id="star-4" height="16" width="16" col="3" src="{{ Rating >= 8 ? 'res://star_green' : (Rating == 7 ? 'res://star_half' : 'res://star_white') }}" />
+                                            <Image id="star-5" height="16" width="16" col="4" src="{{ Rating >= 10 ? 'res://star_green' : (Rating == 9 ? 'res://star_half' : 'res://star_white') }}" />
+                                        </GridLayout>
+                                    </GridLayout>
                                 </StackLayout>
                             </GridLayout>
                         </ListView.itemTemplate>
