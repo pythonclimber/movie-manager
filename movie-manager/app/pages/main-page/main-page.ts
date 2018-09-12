@@ -30,9 +30,9 @@ export function searchTap(args: GestureEventData) {
     let mainViewModel = <MainViewModel>args.view.bindingContext;
     
     if (mainViewModel.ViewMode == ViewMode[ViewMode.Movies]) {
-        navigationModule.navigateToSearchPage(mainViewModel.Movies, ViewMode.Movies);
+        navigationModule.navigateToSearchPage(ViewMode.Movies);
     } else {
-        navigationModule.navigateToSearchPage(mainViewModel.Shows, ViewMode.Shows);
+        navigationModule.navigateToSearchPage(ViewMode.Shows);
     }
 }
 

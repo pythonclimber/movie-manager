@@ -42,7 +42,7 @@ export function backOnePage() {
     frameModule.topmost().goBack();
 }
 
-export function navigateToSearchPage(items: any[], searchMode: ViewMode) {
+export function navigateToSearchPage(searchMode: ViewMode) {
     let searchViewModel = new SearchViewModel();
     searchViewModel.searchMode = searchMode;
     frameModule.topmost().navigate({

@@ -110,14 +110,6 @@ export class MainViewModel extends Observable {
         return this.filteredMovies;
     }
 
-    get Movies(): MovieViewModel[] {
-        return this.movies;
-    }
-
-    get Shows(): ShowViewModel[] {
-        return this.filteredShows;
-    }
-
     get ViewMode(): string {
         return ViewMode[this.viewMode];
     }
@@ -142,6 +134,7 @@ export class MainViewModel extends Observable {
         super();
         this.movieService = new MovieService();
         this.movies = new Array<MovieViewModel>();
+        this.wishlist = new Array<MovieViewModel>();
         this.showService = new ShowService();
         this.shows = new Array<ShowViewModel>();
         this.filters = [
@@ -199,12 +192,15 @@ export class MainViewModel extends Observable {
         return this.movieService
             .getMovies<Array<Movie>>()
             .then(movies => {
-                let myMovies = movies.filter(m => !m.wishlist).map(m => new MovieViewModel(m, MovieFlow.Collection));
+                let myMovies = 
                 this.wishlist = movies
                     .filter(m => m.wishlist)
                     .map(m => new MovieViewModel(m, MovieFlow.Collection))
                     .sort(this.SortByTitle.bind(this));
-                this.movies = myMovies.sort(this.SortByTitle.bind(this));
+                this.movies = movies
+                    .filter(m => !m.wishlist)
+                    .map(m => new MovieViewModel(m, MovieFlow.Collection))
+                    .sort(this.SortByTitle.bind(this));
                 this.FilterMovies();
             }).catch(error => {
                 console.log(error);
@@ -241,17 +237,6 @@ export class MainViewModel extends Observable {
             return -1;
         else if (title1 > title2) 
             return 1;
-        else
-            return 0;
-    }
-
-    private SortByReverseTitle(item1, item2): number {
-        let title1 = this.movieService.FormatTitle(item1.Title);
-        let title2 = this.movieService.FormatTitle(item2.Title);
-        if (title1 < title2)
-            return 1;
-        else if (title1 > title2) 
-            return -1;
         else
             return 0;
     }

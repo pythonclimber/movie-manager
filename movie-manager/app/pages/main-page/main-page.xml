@@ -9,8 +9,8 @@
                 <Label text="Search" class="back-text" />
             </StackLayout>
         </GridLayout>
-        <GridLayout rows="auto, auto">
-            <GridLayout columns="*, auto" height="30">
+        <GridLayout rows="auto, auto, auto">
+            <GridLayout height="30" columns="*,auto">
                 <GridLayout columns="auto,auto" visibility="{{ !DisplaySortModes ? 'visible' : 'collapse'}}">
                     <Label text="Filter:" verticalAlignment="center" padding="5" />
                     <StackLayout orientation="horizontal" col="1" class="selected-filter" margin="5,0">
@@ -19,25 +19,33 @@
                 </GridLayout>
                 <GridLayout col="1" columns="auto,auto" visibility="{{ FilterMode == ViewOptions.All && !DisplayFilters ? 'visible' : 'collapse' }}">
                     <Label text="Sort:" verticalAlignment="center" padding="5" />
-                    <StackLayout col="1" orientation="horizontal" class="selected-filter" margin="5,0">
+                    <StackLayout col="1" orientation="horizontal" class="selected-filter" margin="5,5,5,0">
                         <Label text="{{ SortMode }}" verticalAlignment="center" tap="{{ ChangeSort }}" horizontalAlignment="center" padding="0,5" />
                     </StackLayout>
                 </GridLayout>
             </GridLayout>
-            <GridLayout rows="auto,auto,auto" row="1" visibility="{{ DisplayFilters ? 'visible' : 'collapse' }}">
+            <!-- <GridLayout row="{{ DisplaySortModes ? 0 : 1  }}" visibility="{{ FilterMode == ViewOptions.All && !DisplayFilters ? 'visible' : 'collapse' }}">
+                <GridLayout columns="auto,auto">
+                    <Label text="Sort:" verticalAlignment="center" padding="5" />
+                    <StackLayout col="1" orientation="horizontal" class="selected-filter" margin="5,5,5,0">
+                        <Label text="{{ SortMode }}" verticalAlignment="center" tap="{{ ChangeSort }}" horizontalAlignment="center" padding="0,5" />
+                    </StackLayout>
+                </GridLayout>
+            </GridLayout> -->
+            <GridLayout rows="auto,auto,auto" row="1" backgroundColor="#999999" visibility="{{ DisplayFilters ? 'visible' : 'collapse' }}">
                 <GridLayout row="0" columns="25,*,*,*" height="30">
-                    <Label col="1" class="{{ FilterMode == ViewOptions.All ? 'selected-filter' : 'unselected-filter' }}" text="{{ ViewOptions.All }}" verticalAlignment="center" horizontalAlignment="left" tap="{{ ChangeFilter }}" />
-                    <Label col="2" class="{{ FilterMode == ViewOptions.FiveStar ? 'selected-filter' : 'unselected-filter' }}" text="{{ ViewOptions.FiveStar }}" verticalAlignment="center" horizontalAlignment="left" tap="{{ ChangeFilter }}" />
-                    <Label col="3" class="{{ FilterMode == ViewOptions.FourStar ? 'selected-filter' : 'unselected-filter' }}" text="{{ ViewOptions.FourStar }}" verticalAlignment="center" horizontalAlignment="left" tap="{{ ChangeFilter }}" />
+                    <Label col="1" class="{{ FilterMode == ViewOptions.All ? 'selected-filter-menu' : 'unselected-filter' }}" text="{{ ViewOptions.All }}" verticalAlignment="center" horizontalAlignment="left" tap="{{ ChangeFilter }}" />
+                    <Label col="2" class="{{ FilterMode == ViewOptions.FiveStar ? 'selected-filter-menu' : 'unselected-filter' }}" text="{{ ViewOptions.FiveStar }}" verticalAlignment="center" horizontalAlignment="left" tap="{{ ChangeFilter }}" />
+                    <Label col="3" class="{{ FilterMode == ViewOptions.FourStar ? 'selected-filter-menu' : 'unselected-filter' }}" text="{{ ViewOptions.FourStar }}" verticalAlignment="center" horizontalAlignment="left" tap="{{ ChangeFilter }}" />
                 </GridLayout>
                 <GridLayout row="1" columns="25,*,*,*" height="30">
-                    <Label col="1" class="{{ FilterMode == ViewOptions.ThreeStar ? 'selected-filter' : 'unselected-filter' }}" text="{{ ViewOptions.ThreeStar }}" verticalAlignment="center" horizontalAlignment="left" tap="{{ ChangeFilter }}" />
-                    <Label col="2" class="{{ FilterMode == ViewOptions.TwoStar ? 'selected-filter' : 'unselected-filter' }}" text="{{ ViewOptions.TwoStar }}" verticalAlignment="center" horizontalAlignment="left" tap="{{ ChangeFilter }}" />
-                    <Label col="3" class="{{ FilterMode == ViewOptions.OneStar ? 'selected-filter' : 'unselected-filter' }}" text="{{ ViewOptions.OneStar }}" verticalAlignment="center" horizontalAlignment="left" tap="{{ ChangeFilter }}" />
+                    <Label col="1" class="{{ FilterMode == ViewOptions.ThreeStar ? 'selected-filter-menu' : 'unselected-filter' }}" text="{{ ViewOptions.ThreeStar }}" verticalAlignment="center" horizontalAlignment="left" tap="{{ ChangeFilter }}" />
+                    <Label col="2" class="{{ FilterMode == ViewOptions.TwoStar ? 'selected-filter-menu' : 'unselected-filter' }}" text="{{ ViewOptions.TwoStar }}" verticalAlignment="center" horizontalAlignment="left" tap="{{ ChangeFilter }}" />
+                    <Label col="3" class="{{ FilterMode == ViewOptions.OneStar ? 'selected-filter-menu' : 'unselected-filter' }}" text="{{ ViewOptions.OneStar }}" verticalAlignment="center" horizontalAlignment="left" tap="{{ ChangeFilter }}" />
                 </GridLayout>
                 <GridLayout row="2" columns="25,*,*,*" height="30">
-                    <Label col="1" class="{{ FilterMode == ViewOptions.Unrated ? 'selected-filter' : 'unselected-filter' }}" text="{{ ViewOptions.Unrated }}" verticalAlignment="center" horizontalAlignment="left" tap="{{ ChangeFilter }}" />
-                    <Label col="2" class="{{ FilterMode == ViewOptions.Wishlist ? 'selected-filter' : 'unselected-filter' }}" text="{{ ViewOptions.Wishlist }}" verticalAlignment="center" horizontalAlignment="left" tap="{{ ChangeFilter }}" />
+                    <Label col="1" class="{{ FilterMode == ViewOptions.Unrated ? 'selected-filter-menu' : 'unselected-filter' }}" text="{{ ViewOptions.Unrated }}" verticalAlignment="center" horizontalAlignment="left" tap="{{ ChangeFilter }}" />
+                    <Label col="2" class="{{ FilterMode == ViewOptions.Wishlist ? 'selected-filter-menu' : 'unselected-filter' }}" text="{{ ViewOptions.Wishlist }}" verticalAlignment="center" horizontalAlignment="left" tap="{{ ChangeFilter }}" />
                 </GridLayout>
             </GridLayout>
             <!-- <GridLayout row="1" height="30"  visibility="{{ DisplayFilters ? 'visible' : 'collapse' }}" columns="25, *, *, *">
@@ -45,9 +53,9 @@
                 <Label col="2" class="{{ FilterMode == ViewOptions.Favorites ? 'selected-filter' : 'unselected-filter' }}" text="{{ ViewOptions.Favorites }}" verticalAlignment="center" horizontalAlignment="left" tap="{{ ChangeFilter }}" />
                 <Label col="3" class="{{ FilterMode == ViewOptions.Wishlist ? 'selected-filter' : 'unselected-filter' }}" text="{{ ViewOptions.Wishlist }}" verticalAlignment="center" horizontalAlignment="left" tap="{{ ChangeFilter }}" />
             </GridLayout> -->
-            <GridLayout row="1" height="30" visibility="{{ DisplaySortModes ? 'visible' : 'collapse' }}" columns="25, *, *, *">
-                <Label col="1" class="{{ SortMode == SortModes.Alphabetical ? 'selected-filter' : 'unselected-filter' }}" text="{{ SortModes.Alphabetical }}" verticalAlignment="center" horizontalAlignment="left" tap="{{ ChangeSort }}" />
-                <Label col="2" class="{{ SortMode == SortModes.Rating ? 'selected-filter' : 'unselected-filter' }}" text="{{ SortModes.Rating }}" verticalAlignment="center" horizontalAlignment="left" tap="{{ ChangeSort }}" />
+            <GridLayout backgroundColor="#999999" row="1" height="30" visibility="{{ DisplaySortModes ? 'visible' : 'collapse' }}" columns="*, 105, 105">
+                <Label col="1" class="{{ SortMode == SortModes.Alphabetical ? 'selected-filter-menu' : 'unselected-filter' }}" text="{{ SortModes.Alphabetical }}" verticalAlignment="center" horizontalAlignment="center" tap="{{ ChangeSort }}" />
+                <Label col="2" class="{{ SortMode == SortModes.Rating ? 'selected-filter-menu' : 'unselected-filter' }}" text="{{ SortModes.Rating }}" verticalAlignment="center" horizontalAlignment="center" tap="{{ ChangeSort }}" />
             </GridLayout>
         </GridLayout>
         <GridLayout>
