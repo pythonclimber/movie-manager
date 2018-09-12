@@ -1,4 +1,3 @@
-import { EventData } from "data/observable";
 import { Page, NavigatedData } from "ui/page";
 import { SearchViewModel } from "./search-view-model";
 import { ItemEventData } from 'ui/list-view';
@@ -31,8 +30,14 @@ export function navigatedTo(args: NavigatedData) {
     }
 
     if (searchField.android) {
-        searchField.android.requestFocus();
-        utilsModule.ad.showSoftInput(searchField.android);
+        setTimeout(() => {
+            try {
+                searchField.android.requestFocus();
+                utilsModule.ad.showSoftInput(searchField.android);
+            } catch (error) {
+                console.log('error: ', error)
+            }
+        }, 300);
     }
 }
 
