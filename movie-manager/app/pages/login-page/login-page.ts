@@ -12,12 +12,17 @@ export function navigatingTo(args: EventData) {
 
 export function navigatedTo(args: EventData) {
     let page = <Page>args.object;
-    let color = new colorModule.Color('#FFFFFF');
     let usernameField = <TextField>page.getViewById('username');
     let passwordField = <TextField>page.getViewById('password');
     if (usernameField.android) {
+        let color = new colorModule.Color('#FFFFFF');
         usernameField.android.setHintTextColor(color.android);
         passwordField.android.setHintTextColor(color.android);
     } else if (usernameField.ios) {
+        let color = new colorModule.Color('#777777');
+        let placeholder = usernameField.ios.valueForKey('placeholderLabel');
+        placeholder.textColor = color.ios;
+        placeholder = passwordField.ios.valueForKey('placeholderLabel');
+        placeholder.textColor = color.ios;
     }
 }
