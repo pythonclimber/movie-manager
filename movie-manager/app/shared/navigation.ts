@@ -1,8 +1,9 @@
 import * as frameModule from 'ui/frame';
-import { MovieViewModel } from '../pages/movie-page/movie-view-model';
-import { ShowViewModel } from '../pages/movie-page/show-view-model';
-import { SearchViewModel } from '../pages/search-page/search-view-model';
+import { MovieViewModel } from '../view-models/movie-view-model';
+import { ShowViewModel } from '../view-models/show-view-model';
+import { SearchViewModel } from '../view-models/search-view-model';
 import { ViewMode } from './enums';
+
 
 export function startingPage() {
     return 'pages/login-page/login-page'

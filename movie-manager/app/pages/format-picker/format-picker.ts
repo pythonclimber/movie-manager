@@ -1,7 +1,7 @@
 import { Page, NavigatedData } from 'ui/page';
-import { FormatPickerViewModel } from './format-picker-view-model';
+import { FormatPickerViewModel } from '../../view-models/format-picker-view-model';
 import { MovieService } from "../../services/movie-service";
-import { MovieViewModel } from '../movie-page/movie-view-model';
+import { MovieViewModel } from '../../view-models/movie-view-model';
 
 export function navigatingTo(args: NavigatedData) {
     let page = <Page>args.object;

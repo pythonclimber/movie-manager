@@ -1,7 +1,5 @@
-import * as appSettingsModule from 'application-settings';
-import { FavoriteMovie } from '../shared/interfaces';
-import { MovieViewModel } from '../pages/movie-page/movie-view-model';
-import { BaseService } from '../shared/base-service';
+import { FavoriteMovie, Movie } from '../shared/interfaces';
+import { BaseService } from './base-service';
 
 const FAVORITES_KEY: string = 'FAVORITES';
 
@@ -18,7 +16,7 @@ export class FavoriteService extends BaseService {
         }
     }
 
-    public AddToFavorites(movie: MovieViewModel) {
+    public AddToFavorites<T extends Movie>(movie: T) {
         let movieIndex = this.FindMovieIndexInFavorites(movie._id);
         if (movieIndex < 0) {
             this.favorites.push({movieId: movie._id});
@@ -26,7 +24,7 @@ export class FavoriteService extends BaseService {
         }
     }
 
-    public RemoveFromFavorites(movie: MovieViewModel) {
+    public RemoveFromFavorites<T extends Movie>(movie: T) {
         let movieIndex = this.FindMovieIndexInFavorites(movie._id);
         if (movieIndex >= 0) {
             this.favorites.splice(movieIndex, 1);

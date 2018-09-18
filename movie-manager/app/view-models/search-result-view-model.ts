@@ -1,7 +1,7 @@
 import { Observable } from "data/observable";
-import { NewSearchResult, SearchResult } from "../../shared/interfaces";
+import { SearchResult } from "../shared/interfaces";
 import { ImageSource } from "image-source";
-import * as imageService from '../../services/image-service';
+import * as imageService from '../services/image-service';
 
 
 export class SearchResultViewModel extends Observable {

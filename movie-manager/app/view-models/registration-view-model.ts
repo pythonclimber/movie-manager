@@ -1,8 +1,8 @@
-import { Observable, EventData } from 'data/observable';
-import * as navigationModule from '../../shared/navigation';
-import { LoginService } from '../../services/login-service';
+import { Observable } from 'data/observable';
+import * as navigationModule from '../shared/navigation';
+import { LoginService } from '../services/login-service';
 import * as dialogModule from 'ui/dialogs';
-import { User } from '../../shared/interfaces';
+import { User } from '../shared/interfaces';
 
 export class RegistrationViewModel extends Observable {
     private loginService: LoginService;

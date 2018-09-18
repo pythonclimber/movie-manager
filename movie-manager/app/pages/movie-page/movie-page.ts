@@ -1,7 +1,7 @@
 import { GestureEventData } from 'ui/gestures';
 import * as navigationModule from '../../shared/navigation';
 import { Page, NavigatedData } from 'ui/page';
-import { MovieViewModel } from './movie-view-model';
+import { MovieViewModel } from '../../view-models/movie-view-model';
 
 export function backTap(args: GestureEventData) {
     navigationModule.backOnePage();

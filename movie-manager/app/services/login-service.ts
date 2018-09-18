@@ -1,7 +1,5 @@
-import * as httpModule from 'http';
-import * as appSettingsModule from 'application-settings';
 import { SavedCredentials, UsernameResponse, BaseResponse, User } from '../shared/interfaces';
-import { BaseService } from '../shared/base-service';
+import { BaseService } from './base-service';
 
 const CREDENTIALS_KEY: string = 'CREDENTIALS';
 
@@ -49,21 +47,6 @@ export class LoginService extends BaseService {
             this.credentials.push(newCredentials);
         }
         this.PersistAppSetting(CREDENTIALS_KEY, this.credentials);
-    }
-
-    public WriteObjectToServer(value: any): Promise<any> {
-        const data = {
-            logObject: value
-        }
-
-        let requestParams = {
-            url: `${this.apiBaseUrl}/log`,
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            content: JSON.stringify(data, this.CircularReplacer)
-        };
-
-        return this.ProcessHttpCall(requestParams);
     }
 
     public CheckUsername(username: string): Promise<UsernameResponse> {

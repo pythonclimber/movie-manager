@@ -8,6 +8,14 @@
     height: 50;
 }
 
+.btn-tablet {
+    font-size: 36;
+    background-color: #009940;
+    color: white;
+    width: 400;
+    height: 100;
+}
+
 .has-error {
     color: red;
 }
@@ -18,8 +26,19 @@
     font-size: 20;
 }
 
+.info-bigger-tablet {
+    color: #999999;
+    font-size: 40;
+}
+
 .info-orange {
     font-size: 12;
+    color: #009940;
+    margin: 0;
+}
+
+.info-orange-tablet {
+    font-size: 24;
     color: #009940;
     margin: 0;
 }
@@ -33,6 +52,11 @@
     height: 44;
     vertical-align: top;
     /* background-color: #2b2c2d; */
+}
+
+.action-bar-tablet {
+    height: 88;
+    vertical-align: top;
 }
 
 .action-wrap {

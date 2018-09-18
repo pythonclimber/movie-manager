@@ -1,7 +1,7 @@
 import { Observable } from "data/observable";
-import * as navigationModule from '../../shared/navigation';
-import { MovieViewModel } from "../movie-page/movie-view-model";
-import { MovieService } from "../../services/movie-service";
+import * as navigationModule from '../shared/navigation';
+import { MovieViewModel } from "./movie-view-model";
+import { MovieService } from "../services/movie-service";
 import { FormatViewModel } from "./format-view-model";
 import * as dialogModule from 'ui/dialogs';
 

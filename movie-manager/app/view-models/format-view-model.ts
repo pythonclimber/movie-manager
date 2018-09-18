@@ -1,5 +1,5 @@
 import { Observable } from 'data/observable';
-import { FormatItem } from '../../shared/interfaces';
+import { FormatItem } from '../shared/interfaces';
 
 export class FormatViewModel extends Observable {
     private formatItem: FormatItem

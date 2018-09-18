@@ -1,0 +1,35 @@
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" class="page" navigatedTo="navigatedTo" navigatingTo="navigatingTo">
+    <StackLayout>
+        <GridLayout class="action-bar" columns="*, auto" height="88">
+            <StackLayout tap="goToMovies" orientation="horizontal" class="action-wrap" horizontalAlignment="left" verticalAlignment="center">
+                <Label text="Movies" class="back-text" fontSize="32" />
+            </StackLayout>
+            <!-- <Label col="1" text="{{ TotalResults }}" verticalAlignment="center" /> -->
+        </GridLayout>
+        <GridLayout columns="*" rows="auto, *" class="search-text-layout">
+            <StackLayout>
+                <!-- <TextField text="{{ searchText }}" hint="Search movie title..." class="search-text" />
+                <Label text="A value is required to perform a search" color="red" visibility="{{ searchError ? 'visible' : 'collapse' }}" />
+                <Button text="Search" tap="{{ searchForMovie }}" class="btn" /> -->
+                <SearchBar backgroundColor="#999999" id="movie-search" hint="Search movie title..." text="{{ SearchText }}" textFieldBackgroundColor="white" color="#000000" clear="{{ ClearSearch }}" submit="{{ DoSearch }}" textFieldHintColor="#999999" />
+            </StackLayout>
+            <GridLayout row="1" columns="*" rows="auto, *">
+                <Label text="No Results..." visibility="{{ SearchResults.length == 0 ? 'visible' : 'collapse' }}" horizontalAlignment="center" fontSize="48"/>
+                <ListView row="1" class="movie-list" items="{{ SearchResults }}" loadMoreItems="{{ GetNextPage }}" itemTap="selectItem" visibility="{{ SearchResults.length > 0 ? 'visible' : 'collapse' }}">
+                    <ListView.itemTemplate>
+                        <GridLayout columns="auto, *" rows="auto">
+                            <GridLayout col="0" columns="auto">
+                                <Image class="icon-image" src="{{ ImageSource }}" width="76" height="114" />
+                            </GridLayout>
+                            <StackLayout col="1">
+                                <Label text="{{ Title }}" class="info-bigger-tablet" />
+                                <Label text="{{ Year }}" class="info-orange-tablet" />
+                            </StackLayout>
+                        </GridLayout>
+                    </ListView.itemTemplate>
+                </ListView>
+                <ActivityIndicator color="#009940" busy="{{ IsLoading }}" row="1" horizontalAlignment="center" verticalAlignment="center" />
+            </GridLayout>
+        </GridLayout>
+    </StackLayout>
+</Page>

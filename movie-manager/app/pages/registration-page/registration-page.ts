@@ -1,6 +1,6 @@
 import { EventData } from 'data/observable';
 import { Page } from 'ui/page';
-import { RegistrationViewModel } from './registration-view-model';
+import { RegistrationViewModel } from '../../view-models/registration-view-model';
 
 export function navigatingTo(args: EventData) {
     const page = <Page>args.object;

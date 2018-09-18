@@ -1,11 +1,10 @@
 import { Observable } from 'data/observable';
-import { MovieService } from '../../services/movie-service';
-import { MovieViewModel } from '../movie-page/movie-view-model';
-import { Movie, Show } from '../../shared/interfaces';
-import { SegmentedBarItem } from 'ui/segmented-bar';
-import { ViewMode, ViewOptions, MovieFlow, SortModes } from '../../shared/enums';
-import { ShowService } from '../../services/show-service';
-import { ShowViewModel } from '../movie-page/show-view-model';
+import { MovieService } from '../services/movie-service';
+import { MovieViewModel } from './movie-view-model';
+import { Movie, Show } from '../shared/interfaces';
+import { ViewMode, ViewOptions, MovieFlow, SortModes } from '../shared/enums';
+import { ShowService } from '../services/show-service';
+import { ShowViewModel } from './show-view-model';
 import { GestureEventData } from 'ui/gestures';
 import { Label } from 'ui/label';
 

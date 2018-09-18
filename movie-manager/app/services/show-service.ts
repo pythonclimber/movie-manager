@@ -1,7 +1,5 @@
-import * as http from 'http';
 import { LoginService } from './login-service';
-import { ShowViewModel } from '../pages/movie-page/show-view-model';
-import { BaseService } from '../shared/base-service';
+import { BaseService } from './base-service';
 
 export class ShowService extends BaseService { 
     private loginService: LoginService;

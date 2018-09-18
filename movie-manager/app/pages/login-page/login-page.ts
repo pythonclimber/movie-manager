@@ -1,6 +1,6 @@
 import { EventData } from "data/observable";
 import { Page } from 'ui/page';
-import { LoginViewModel } from "./login-view-model";
+import { LoginViewModel } from "../../view-models/login-view-model";
 import { TextField } from 'ui/text-field';
 import * as colorModule from 'color';
 

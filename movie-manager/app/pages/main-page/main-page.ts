@@ -1,8 +1,8 @@
 import { EventData } from 'data/observable';
 import { Page } from 'ui/page';
-import { MainViewModel } from './main-view-model';
+import { MainViewModel } from '../../view-models/main-view-model';
 import { GestureEventData } from 'ui/gestures';
-import { MovieViewModel } from '../movie-page/movie-view-model';
+import { MovieViewModel } from '../../view-models/movie-view-model';
 import * as navigationModule from '../../shared/navigation';
 import { ItemEventData } from 'ui/list-view';
 import { ViewMode } from '../../shared/enums';

@@ -1,0 +1,23 @@
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" 
+        navigatingTo="navigatingTo" 
+        class="page">
+        <GridLayout rows="auto, *, auto" columns="*" backgroundColor="#999999">
+            <GridLayout class="action-bar" columns="*" height="88">
+                <Label text="Select Format..." class="back-text" horizontalAlignment="center" fontSize="32" />
+            </GridLayout>
+            <GridLayout rows="*" row="1">
+                <ListView items="{{ Formats }}">
+                    <ListView.itemTemplate>
+                        <GridLayout padding="10,25,10,0">
+                            <Label text="{{ Name }}" fontSize="48" />
+                            <Switch checked="{{ Selected }}" horizontalAlignment="right" color="#009940" />
+                        </GridLayout>
+                    </ListView.itemTemplate>
+                </ListView>
+            </GridLayout>
+            <GridLayout rows="*" columns="*,*" row="2">
+                <Button col="1" text="OK" width="250" height="80" class="btn" android:fontSize="20" ios:fontSize="18" horizontalAlignment="center" tap="{{ ChooseFormats }}" />
+                <Button col="0" text="Cancel" width="250" height="80" class="btn" android:fontSize="20" ios:fontSize="18" horizontalAlignment="center" tap="{{ Cancel }}" />
+            </GridLayout>
+        </GridLayout>
+</Page>

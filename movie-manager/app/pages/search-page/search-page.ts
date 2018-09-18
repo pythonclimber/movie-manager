@@ -1,12 +1,12 @@
 import { Page, NavigatedData } from "ui/page";
-import { SearchViewModel } from "./search-view-model";
+import { SearchViewModel } from "../../view-models/search-view-model";
 import { ItemEventData } from 'ui/list-view';
 import { GestureEventData } from 'ui/gestures';
 import * as navigationModule from '../../shared/navigation';
-import { SearchResultViewModel } from './search-result-view-model';
-import { MovieViewModel } from "../movie-page/movie-view-model";
+import { SearchResultViewModel } from '../../view-models/search-result-view-model';
+import { MovieViewModel } from "../../view-models/movie-view-model";
 import { ViewMode, MovieFlow } from "../../shared/enums";
-import { ShowViewModel } from "../movie-page/show-view-model";
+import { ShowViewModel } from "../../view-models/show-view-model";
 import * as utilsModule from 'utils/utils';
 import * as viewModule from 'ui/core/view'
 import { SearchBar } from 'ui/search-bar';

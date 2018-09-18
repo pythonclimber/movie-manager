@@ -1,8 +1,7 @@
-import { MovieViewModel } from "../pages/movie-page/movie-view-model";
+import { MovieViewModel } from "../view-models/movie-view-model";
 import { Movie, MovieDetailResponse } from "../shared/interfaces";
-import * as http from 'http';
 import { LoginService } from './login-service';
-import { BaseService } from '../shared/base-service';
+import { BaseService } from './base-service';
 
 let movies: any = [
     {

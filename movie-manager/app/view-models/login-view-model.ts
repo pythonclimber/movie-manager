@@ -1,7 +1,7 @@
 import { Observable } from "data/observable";
 import { EventData } from 'ui/text-base';
-import { LoginService } from '../../services/login-service';
-import * as navigationModule from '../../shared/navigation';
+import { LoginService } from '../services/login-service';
+import * as navigationModule from '../shared/navigation';
 
 export class LoginViewModel extends Observable {
     private username: string;

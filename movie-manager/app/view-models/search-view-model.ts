@@ -1,13 +1,11 @@
 import { Observable } from "ui/frame";
-import { MovieService } from '../../services/movie-service';
-import { SearchResult, NewSearchResult, SearchResponse } from "../../shared/interfaces";
+import { MovieService } from '../services/movie-service';
+import { SearchResult, SearchResponse } from "../shared/interfaces";
 import { SearchResultViewModel } from "./search-result-view-model";
-import { MovieViewModel } from '../movie-page/movie-view-model';
 import { Page } from 'ui/page';
 import { SearchBar } from 'ui/search-bar';
-import { ViewMode } from "../../shared/enums";
-import { ShowViewModel } from "../movie-page/show-view-model";
-import { ShowService } from "../../services/show-service";
+import { ViewMode } from "../shared/enums";
+import { ShowService } from "../services/show-service";
 
 export class SearchViewModel extends Observable {
     private searchText: string;

@@ -1,10 +1,10 @@
 import { Observable, EventData } from "data/observable";
-import { Movie, MovieDetailResponse } from "../../shared/interfaces";
-import { MovieService } from '../../services/movie-service';
+import { Movie, MovieDetailResponse } from "../shared/interfaces";
+import { MovieService } from '../services/movie-service';
 import { ImageSource } from "image-source";
-import * as imageService from '../../services/image-service';
-import * as navigationModule from '../../shared/navigation'
-import { MovieFlow } from "../../shared/enums";
+import * as imageService from '../services/image-service';
+import * as navigationModule from '../shared/navigation'
+import { MovieFlow } from "../shared/enums";
 
 export class MovieViewModel extends Observable {
     private movie: Movie;
