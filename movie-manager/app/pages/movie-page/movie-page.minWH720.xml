@@ -16,7 +16,7 @@
                             <Image src="{{ ImageSource }}" stretch="aspectFill" width="360" height="540" horizontalAlignment="left" verticalAlignment="top" />
                         </GridLayout>
                         <StackLayout class="title-layout" col="1">
-                            <Label text="{{ Title + ' (' + Year + ')' }}" class="main-title" textWrap="true" />
+                            <Label text="{{ Title + ' (' + Year + ')' }}" class="main-title-tablet" textWrap="true" />
                             <Label text="{{ Director }}" class="director-info"/>
                             <Label text="{{ Format }}" class="director-info"/>
                             <GridLayout tap="{{ AddRating }}" visibility="{{ Flow == MovieFlowCollection && !Wishlist ? 'visible' : 'collapse' }}">

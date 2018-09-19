@@ -7,9 +7,9 @@
     <GridLayout rows="*, auto">
         <GridLayout class="login-wrap" rows="auto,auto,auto">
             <!-- <Label text="Username:" /> -->
-            <TextField id="username" row="0" text="{{ Username }}" fontSize="32" autocorrect="false" hint="Username" />
+            <TextField margin="25,100" id="username" row="0" text="{{ Username }}" fontSize="32" autocorrect="false" hint="Username" />
             <!-- <Label text="Password:" /> -->
-            <TextField id="password" row="1" text="{{ Password }}" fontSize="32" secure="true" autocorrect="false" hint="Password" />
+            <TextField margin="25,100" id="password" row="1" text="{{ Password }}" fontSize="32" secure="true" autocorrect="false" hint="Password" />
             <Label visibility="{{ LoginError ? 'visible' : 'collapse' }}" fontSize="24" text="Invalid username or password" class="login-error" />
             <Button margin="50,0" row="2" tap="{{ ProcessLogin }}" isEnabled="{{ !IsLoading }}" text="Login" class="btn-tablet"/>
             <ActivityIndicator busy="{{ IsLoading }}" color="#009940" rowSpan="3"  width="60" height="60" verticalAlignment="center" horizontalAlignment="center" />

@@ -1,4 +1,9 @@
 .main-title {
+    font-size: 18;
+    color: white;
+}
+
+.main-title-tablet {
     font-size: 36;
     color: white;
 }
