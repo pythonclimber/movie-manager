@@ -3,7 +3,9 @@ import { MovieViewModel } from '../view-models/movie-view-model';
 import { ShowViewModel } from '../view-models/show-view-model';
 import { SearchViewModel } from '../view-models/search-view-model';
 import { ViewMode } from './enums';
+import { MainViewModel } from '../view-models/main-view-model';
 
+let mainViewModel: MainViewModel;
 
 export function startingPage() {
     return 'pages/login-page/login-page'
@@ -27,8 +29,10 @@ export function navigateToShow(show: ShowViewModel) {
 }
 
 export function navigateToMainPage() {
+    mainViewModel = mainViewModel || new MainViewModel();
     frameModule.topmost().navigate({
         moduleName: 'pages/main-page/main-page',
+        context: mainViewModel,
         transition: {
             name: 'slideRight'
         }

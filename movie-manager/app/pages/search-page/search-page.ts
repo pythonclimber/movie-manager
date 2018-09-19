@@ -62,7 +62,8 @@ export function selectItem(args: ItemEventData) {
             imdbid: searchResult.ImdbId,
             favorite: false,
             wishlist: false,
-            format: ''
+            format: '',
+            poster: searchResult.Poster
         }, MovieFlow.Search);
 
         navigationModule.navigateToMovie(movieViewModel);

@@ -84,7 +84,8 @@ export class MovieService extends BaseService {
             imdbid: movie.ImdbId,
             favorite: false,
             wishlist: movie.Wishlist,
-            format: movie.Wishlist ? '' : movie.Format
+            format: movie.Wishlist ? '' : movie.Format,
+            poster: movie.Poster
         };
 
         let requestParams = {

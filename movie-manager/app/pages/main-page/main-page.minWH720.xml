@@ -63,11 +63,12 @@
                 <PullRefresh:PullToRefresh refresh="refreshCollection" color="#009940">
                     <ListView ios:backgroundColor="#2b2c2d" items="{{ ViewMode == 'Movies' ? FilteredMovies : Shows }}" itemTap="selectMovie" class="movie-list">
                         <ListView.itemTemplate>
-                            <GridLayout rows="auto" columns="auto, *">
-                                <GridLayout columns="auto" rows="auto, auto" class="favorite-wrap" tap="toggleFavorite">
+                            <GridLayout rows="auto" columns="auto, *" padding="4,0">
+                                <GridLayout columns="auto" rows="auto, auto" padding="0,20,0,10" tap="toggleFavorite">
                                     <!-- <Image class="icon-image" src="{{ Favorite ? 'res://star_green' : 'res://star_white' }}" /> -->
                                     <!-- <Label text="{{ Rating / 2 }}" fontSize="18" horizontalAlignment="center" color="#009940" />
                                     <Label row="1" text="stars" class="info-orange" /> -->
+                                    <Image src="{{ ImageSource }}" height="150" width="100" />
                                 </GridLayout>
                                 <StackLayout col="1" class="info-wrap">
                                     <Label text="{{ Title }}" class="bold info-bigger-tablet" />

@@ -1,5 +1,4 @@
-import { EventData } from 'data/observable';
-import { Page } from 'ui/page';
+import { Page, NavigatedData } from 'ui/page';
 import { MainViewModel } from '../../view-models/main-view-model';
 import { GestureEventData } from 'ui/gestures';
 import { MovieViewModel } from '../../view-models/movie-view-model';
@@ -7,9 +6,11 @@ import * as navigationModule from '../../shared/navigation';
 import { ItemEventData } from 'ui/list-view';
 import { ViewMode } from '../../shared/enums';
 
-export function navigatingTo(args: EventData) {
+export function navigatingTo(args: NavigatedData) {
     let page = <Page>args.object;
+    let mainViewModel = <MainViewModel>args.context;
     page.actionBarHidden = true;
+    page.bindingContext = mainViewModel;
     if (!page.bindingContext) {
         page.bindingContext = new MainViewModel();
     }

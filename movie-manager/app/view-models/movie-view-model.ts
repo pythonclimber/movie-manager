@@ -186,6 +186,17 @@ export class MovieViewModel extends Observable {
         }
     }
 
+    get Poster(): string {
+        return this.movie.poster;
+    }
+
+    set Poster(value: string) {
+        if (value !== this.movie.poster) {
+            this.movie.poster = value;
+            this.notifyPropertyChange('Poster', value);
+        }
+    }
+
     get Flow(): string {
         return this.flow;
     }
@@ -211,6 +222,8 @@ export class MovieViewModel extends Observable {
         //this.movie.title = this.movieService.FormatTitle(this.movie.title);
 
         this.Plot = this.Plot || '';
+
+        this.LoadMovieImage(movie);
     }
 
     public GetLocalDetails(): Promise<any> {
@@ -236,11 +249,7 @@ export class MovieViewModel extends Observable {
                 this.ImdbId = movie.imdbid;
                 this.Wishlist = this.Wishlist;
 
-                if (movie.poster && movie.poster.startsWith('https')) {
-                    imageService.getImageFromHttp(movie.poster).then(imageSource => {
-                        this.ImageSource = imageSource;
-                    });
-                }
+                //this.LoadMovieImage(movie);
         }).catch(error => {
             console.log(error);
         });
@@ -296,5 +305,13 @@ export class MovieViewModel extends Observable {
 
     public AddRating() {
         navigationModule.goToRatingPage(this);
+    }
+
+    private LoadMovieImage(movie: Movie): void {
+        if (!this.ImageSource && movie.poster && movie.poster.startsWith('https')) {
+            imageService.getImageFromHttp(movie.poster).then(imageSource => {
+                this.ImageSource = imageSource;
+            });
+        }
     }
 }
