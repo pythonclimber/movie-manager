@@ -33,7 +33,7 @@ export class RatingViewModel extends Observable {
     }
 
     public SaveRating(): void {
-        const movieRating = this.rating;
+        const movieRating = this.rating > 9.9 ? Math.round(this.rating) : Math.floor(this.rating);
         this.movie.Rating = movieRating;
         this.movieService
             .updateRating(this.movie.UserId, this.movie.ImdbId, movieRating)

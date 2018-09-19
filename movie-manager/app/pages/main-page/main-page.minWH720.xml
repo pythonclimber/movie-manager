@@ -75,11 +75,11 @@
                                     <GridLayout columns="*,auto" padding="0,5,0,0">
                                         <Label text="{{ Type == 'Movie' ? Format : Year }}" class="info-orange-tablet" />
                                         <GridLayout visibility="{{ !Rating ? 'collapse' : 'visible'  }}" col="1" columns="auto,auto,auto,auto,auto">
-                                            <Image id="star-1" height="32" width="32" col="0" src="{{ Rating >= 2 ? 'res://star_green' : (Rating == 1 ? 'res://star_half' : 'res://star_white') }}" />
-                                            <Image id="star-2" height="32" width="32" col="1" src="{{ Rating >= 4 ? 'res://star_green' : (Rating == 3 ? 'res://star_half' : 'res://star_white') }}" />
-                                            <Image id="star-3" height="32" width="32" col="2" src="{{ Rating >= 6 ? 'res://star_green' : (Rating == 5 ? 'res://star_half' : 'res://star_white') }}" />
-                                            <Image id="star-4" height="32" width="32" col="3" src="{{ Rating >= 8 ? 'res://star_green' : (Rating == 7 ? 'res://star_half' : 'res://star_white') }}" />
-                                            <Image id="star-5" height="32" width="32" col="4" src="{{ Rating >= 10 ? 'res://star_green' : (Rating == 9 ? 'res://star_half' : 'res://star_white') }}" />
+                                            <Image id="star-1" height="32" width="32" col="0" src="{{ Rating >= 2 ? 'res://star_green' : (Rating >= 1 ? 'res://star_half' : 'res://star_white') }}" />
+                                            <Image id="star-2" height="32" width="32" col="1" src="{{ Rating >= 4 ? 'res://star_green' : (Rating >= 3 ? 'res://star_half' : 'res://star_white') }}" />
+                                            <Image id="star-3" height="32" width="32" col="2" src="{{ Rating >= 6 ? 'res://star_green' : (Rating >= 5 ? 'res://star_half' : 'res://star_white') }}" />
+                                            <Image id="star-4" height="32" width="32" col="3" src="{{ Rating >= 8 ? 'res://star_green' : (Rating >= 7 ? 'res://star_half' : 'res://star_white') }}" />
+                                            <Image id="star-5" height="32" width="32" col="4" src="{{ Rating >= 9.9 ? 'res://star_green' : (Rating >= 9 ? 'res://star_half' : 'res://star_white') }}" />
                                         </GridLayout>
                                     </GridLayout>
                                 </StackLayout>

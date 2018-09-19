@@ -8,18 +8,18 @@
         <GridLayout rows="*" row="1">
             <GridLayout rows="auto,auto" verticalAlignment="center">
                 <GridLayout row="0" columns="*,*,*,*,*" horizontalAlignment="center">
-                    <Image id="star-1" height="140" width="140" col="0" src="{{ Rating >= 2 ? 'res://star_green_1024' : (Rating == 1 ? 'res://star_half_1024' : 'res://star_white_1024') }}" />
-                    <Image id="star-2" height="140" width="140" col="1" src="{{ Rating >= 4 ? 'res://star_green_1024' : (Rating == 3 ? 'res://star_half_1024' : 'res://star_white_1024') }}" />
-                    <Image id="star-3" height="140" width="140" col="2" src="{{ Rating >= 6 ? 'res://star_green_1024' : (Rating == 5 ? 'res://star_half_1024' : 'res://star_white_1024') }}" />
-                    <Image id="star-4" height="140" width="140" col="3" src="{{ Rating >= 8 ? 'res://star_green_1024' : (Rating == 7 ? 'res://star_half_1024' : 'res://star_white_1024') }}" />
-                    <Image id="star-5" height="140" width="140" col="4" src="{{ Rating >= 10 ? 'res://star_green_1024' : (Rating == 9 ? 'res://star_half_1024' : 'res://star_white_1024') }}" />
+                    <Image id="star-1" height="140" width="140" col="0" src="{{ Rating >= 2 ? 'res://star_green_1024' : (Rating >= 1 ? 'res://star_half_1024' : 'res://star_white_1024') }}" />
+                    <Image id="star-2" height="140" width="140" col="1" src="{{ Rating >= 4 ? 'res://star_green_1024' : (Rating >= 3 ? 'res://star_half_1024' : 'res://star_white_1024') }}" />
+                    <Image id="star-3" height="140" width="140" col="2" src="{{ Rating >= 6 ? 'res://star_green_1024' : (Rating >= 5 ? 'res://star_half_1024' : 'res://star_white_1024') }}" />
+                    <Image id="star-4" height="140" width="140" col="3" src="{{ Rating >= 8 ? 'res://star_green_1024' : (Rating >= 7 ? 'res://star_half_1024' : 'res://star_white_1024') }}" />
+                    <Image id="star-5" height="140" width="140" col="4" src="{{ Rating >= 9.9 ? 'res://star_green_1024' : (Rating >= 9 ? 'res://star_half_1024' : 'res://star_white_1024') }}" />
                 </GridLayout>
                 <Slider backgroundColor="white" row="1" minValue="0" maxValue="10" value="{{ Rating }}" margin="30,30" />
             </GridLayout>
         </GridLayout>
         <GridLayout rows="*" columns="*,*" row="2">
-            <Button col="1" text="OK" width="250" height="80" class="btn" android:fontSize="20" ios:fontSize="18" horizontalAlignment="center" tap="{{ SaveRating }}" />
-            <Button col="0" text="Cancel" width="250" height="80" class="btn" android:fontSize="20" ios:fontSize="18" horizontalAlignment="center" tap="{{ Cancel }}" />
+            <Button col="1" text="OK" width="250" height="80" class="btn" android:fontSize="20" ios:fontSize="36" horizontalAlignment="center" tap="{{ SaveRating }}" />
+            <Button col="0" text="Cancel" width="250" height="80" class="btn" android:fontSize="20" ios:fontSize="36" horizontalAlignment="center" tap="{{ Cancel }}" />
         </GridLayout>
     </GridLayout>
 </Page>
