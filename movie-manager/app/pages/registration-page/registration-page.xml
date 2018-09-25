@@ -1,44 +1,82 @@
-<Page xmlns="http://schemas.nativescript.org/tns.xsd" navigatingTo="navigatingTo" class="page">
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" 
+      navigatingTo="navigatingTo" 
+      class="page">
     <Page.actionBar>
-        <!-- <StackLayout tap="{{ GoBack }}" 
-                     orientation="horizontal" 
-                     class="action-wrap" 
-                     horizontalAlignment="left" 
-                     verticalAlignment="center">
-            <Label text="Back" class="back-text" />
-        </StackLayout> -->
         <ActionBar class="action-bar">
-            <StackLayout orientation="horizontal" horizontalAlignment="left">
-                <!-- <NavigationButton icon="res://ic_arrow_back" tap="{{ GoBack }}"></NavigationButton> -->
-                <Image src="res://ic_arrow_back" height="20" width="20" tap="{{ GoBack }}" />
-                <Label margin="0,0,0,7" text="Create new user" class="back-text" />
+            <StackLayout orientation="horizontal" 
+                         horizontalAlignment="left">
+                <Image  src="res://ic_arrow_back" 
+                        height="20" 
+                        width="20" 
+                        tap="{{ GoBack }}" />
+                <Label  margin="0,0,0,7" 
+                        text="Create new user" 
+                        class="back-text" />
             </StackLayout>
         </ActionBar>
     </Page.actionBar>
     <GridLayout>
         <ScrollView>
             <GridLayout padding="0, 45">
-                <ActivityIndicator busy="{{ IsPaused }}" color="#009940" horizontalAlignment="center" verticalAlignment="center" />
+                <ActivityIndicator  busy="{{ IsPaused }}" 
+                                    color="#009940" 
+                                    horizontalAlignment="center" 
+                                    verticalAlignment="center" />
                 <StackLayout verticalAlignment="center">
                     <Label text="Email Address:"/>
-                    <TextField text="{{ EmailAddress }}" autocorrect="false" blur="{{ ValidateEmail }}" maxLength="100"/>
-                    <Label class="has-error" text="{{ EmailAddressError }}" visibility="{{ EmailAddressError.length > 0 ? 'visible' : 'collapse' }}"/>
+                    <TextField  text="{{ EmailAddress }}" 
+                                autocorrect="false" 
+                                blur="{{ ValidateEmail }}" 
+                                maxLength="100"/>
+                    <Label  class="has-error" 
+                            text="{{ EmailAddressError }}" 
+                            visibility="{{ EmailAddressError.length > 0 ? 'visible' : 'collapse' }}"/>
                     <Label text="Requested Username:"/>
-                    <TextField text="{{ Username }}" autocorrect="false" blur="{{ ValidateUsername }}" maxLength="100"/>
-                    <Label class="has-error" text="{{ UsernameError }}" visibility="{{ UsernameError.length > 0 ? 'visible' : 'collapse' }}"/>
+                    <TextField  text="{{ Username }}" 
+                                autocorrect="false" 
+                                blur="{{ ValidateUsername }}" 
+                                maxLength="100"/>
+                    <Label  class="has-error" 
+                            text="{{ UsernameError }}" 
+                            visibility="{{ UsernameError.length > 0 ? 'visible' : 'collapse' }}"/>
                     <Label text="Password:"/>
-                    <TextField text="{{ Password }}" secure="true" autocorrect="false" blur="{{ ValidatePassword }}" maxLength="100"/>
-                    <Label visibility="{{ PasswordError.length > 0 ? 'visible' : 'collapse' }}" text="Password is required" class="has-error"/>
+                    <TextField  text="{{ Password }}" 
+                                secure="true" 
+                                autocorrect="false" 
+                                blur="{{ ValidatePassword }}" 
+                                maxLength="100"/>
+                    <Label  visibility="{{ PasswordError.length > 0 ? 'visible' : 'collapse' }}" 
+                            text="Password is required" 
+                            class="has-error"/>
                     <Label text="Confirm Password:"/>
-                    <TextField text="{{ Confirm }}" secure="true" autocorrect="false" blur="{{ ValidateConfirm }}" maxLength="100"/>
-                    <Label class="has-error" text="{{ ConfirmError }}" visibility="{{ ConfirmError.length > 0 ? 'visible' : 'collapse' }}"/>
+                    <TextField  text="{{ Confirm }}" 
+                                secure="true" 
+                                autocorrect="false" 
+                                blur="{{ ValidateConfirm }}" 
+                                maxLength="100"/>
+                    <Label  class="has-error" 
+                            text="{{ ConfirmError }}" 
+                            visibility="{{ ConfirmError.length > 0 ? 'visible' : 'collapse' }}"/>
                     <Label text="First Name:"/>
-                    <TextField text="{{ FirstName }}" autocorrect="false" blur="{{ ValidateFirstName }}" maxLength="100"/>
-                    <Label class="has-error" text="{{ FirstNameError }}" visibility="{{ FirstNameError.length > 0 ? 'visible' : 'collapse' }}"/>
+                    <TextField  text="{{ FirstName }}" 
+                                autocorrect="false" 
+                                blur="{{ ValidateFirstName }}" 
+                                maxLength="100"/>
+                    <Label  class="has-error" 
+                            text="{{ FirstNameError }}" 
+                            visibility="{{ FirstNameError.length > 0 ? 'visible' : 'collapse' }}"/>
                     <Label text="Last Name:"/>
-                    <TextField text="{{ LastName }}" autocorrect="false" blur="{{ ValidateLastName }}" maxLength="100"/>
-                    <Label class="has-error" text="{{ LastNameError }}" visibility="{{ LastNameError.length > 0 ? 'visible' : 'collapse' }}"/>
-                    <Button tap="{{ SubmitRegistration }}" isEnabled="{{ !IsPaused }}" text="Submit" class="btn" />
+                    <TextField  text="{{ LastName }}" 
+                                autocorrect="false" 
+                                blur="{{ ValidateLastName }}" 
+                                maxLength="100"/>
+                    <Label  class="has-error" 
+                            text="{{ LastNameError }}" 
+                            visibility="{{ LastNameError.length > 0 ? 'visible' : 'collapse' }}"/>
+                    <Button tap="{{ SubmitRegistration }}" 
+                            isEnabled="{{ !IsPaused }}" 
+                            text="Submit" 
+                            class="btn" />
                 </StackLayout>
             </GridLayout>
         </ScrollView>
