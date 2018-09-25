@@ -7,6 +7,9 @@ import { ShowService } from '../services/show-service';
 import { ShowViewModel } from './show-view-model';
 import { GestureEventData } from 'ui/gestures';
 import { Label } from 'ui/label';
+import { Page } from 'ui/page'
+import { GridLayout, ItemSpec, GridUnitType } from 'ui/layouts/grid-layout';
+import { Image } from 'ui/image';
 
 export class MainViewModel extends Observable {
     private movies: MovieViewModel[];
@@ -25,6 +28,9 @@ export class MainViewModel extends Observable {
     private filters: string[];
     private sortMode: string;
     private displaySortModes: boolean;
+    private gridMovies: MovieViewModel[][];
+
+    public Page: Page;
 
     get FavoritesOnly(): boolean {
         return this.favoritesOnly;
@@ -109,6 +115,10 @@ export class MainViewModel extends Observable {
         return this.filteredMovies;
     }
 
+    get GridMovies(): MovieViewModel[][] {
+        return this.gridMovies;
+    }
+
     get ViewMode(): string {
         return ViewMode[this.viewMode];
     }
@@ -136,6 +146,7 @@ export class MainViewModel extends Observable {
         this.wishlist = new Array<MovieViewModel>();
         this.showService = new ShowService();
         this.shows = new Array<ShowViewModel>();
+        this.gridMovies = new Array<MovieViewModel[]>();
         this.filters = [
             ViewOptions.All,
             ViewOptions.Favorites,
@@ -196,16 +207,13 @@ export class MainViewModel extends Observable {
                     .map(m => new MovieViewModel(m, MovieFlow.Collection))
                     .concat(this.wishlist)
                     .sort(this.SortByTitle.bind(this));
-                // this.movies = movies
-                //     .filter(m => !m.wishlist)
-                //     .map(m => new MovieViewModel(m, MovieFlow.Collection))
-                //     .sort(this.SortByTitle.bind(this));
                 this.movies = movies
                     .filter(m => !m.wishlist && this.movies.every(mvm => mvm.ImdbId !== m.imdbid))
                     .map(m => new MovieViewModel(m, MovieFlow.Collection))
                     .concat(this.movies)
                     .sort(this.SortByTitle.bind(this));
                 this.FilterMovies();
+                //this.LoadMovieGrid([].concat(this.movies));
             }).catch(error => {
                 console.log(error);
             });
@@ -256,13 +264,14 @@ export class MainViewModel extends Observable {
 
     private FilterMovies() {
         this.ToggleMovies();
-        this.notify({object: this, eventName: Observable.propertyChangeEvent, propertyName: 'Movies', value: this.filteredMovies});
+        this.notify({object: this, eventName: Observable.propertyChangeEvent, propertyName: 'FilteredMovies', value: this.filteredMovies});
     }
 
     private ToggleMovies() {
         switch(this.FilterMode) {
             case ViewOptions.All:
-                this.filteredMovies = this.movies.filter(m => !m.Wishlist);
+                this.filteredMovies = this.movies;
+                //this.LoadMovieGrid(this.movies.slice(0));
                 this.SortMovies();
                 break;
             case ViewOptions.Favorites:
@@ -307,7 +316,7 @@ export class MainViewModel extends Observable {
             default:
                 break;
         }
-        this.notify({object: this, eventName: Observable.propertyChangeEvent, propertyName: 'Movies', value: this.filteredMovies});
+        this.notify({object: this, eventName: Observable.propertyChangeEvent, propertyName: 'FilteredMovies', value: this.filteredMovies});
     }
 
     private SortByRating() {
@@ -326,5 +335,43 @@ export class MainViewModel extends Observable {
         movieChunks.forEach(e => {
             this.filteredMovies = this.filteredMovies.concat(e);
         });
+    }
+
+    private LoadMovieGrid(movies: MovieViewModel[]): void {
+        this.gridMovies = [];
+        while (movies.length >= 3) {
+            this.gridMovies.push(movies.splice(0, 3));
+        }
+
+        if (movies.length > 0) {
+            this.gridMovies.push(movies);
+        }
+
+        let movieGrid = <GridLayout>this.Page.getViewById('movie-grid');
+        for (let i = 0; i < this.gridMovies.length; i++) {
+            movieGrid.addRow(new ItemSpec(1, GridUnitType.AUTO));
+            let gridRow = new GridLayout();
+            gridRow.row = i;
+            let row = this.gridMovies[i];
+            for (let j = 0; j < row.length; j++) {
+                gridRow.addColumn(new ItemSpec(1, GridUnitType.STAR));
+                let imageFrame = new GridLayout();
+                let image = new Image();
+                image.src = row[j].ImageSource;
+                image.height = 162;
+                image.width = 108;
+                
+                imageFrame.col = j;
+                imageFrame.padding = 5;
+                imageFrame.addChild(image);
+
+                gridRow.addChild(imageFrame);
+            }
+
+            movieGrid.addChild(gridRow);
+        }
+
+        //this.notify({object: this, eventName: Observable.propertyChangeEvent, propertyName: 'GridMovies', value: this.gridMovies});
+        this.notifyPropertyChange('GridMovies', this.gridMovies);
     }
 }

@@ -1,53 +1,118 @@
-<Page xmlns="http://schemas.nativescript.org/tns.xsd" class="page" navigatingTo="navigatingTo">    
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" 
+      class="page" 
+      navigatingTo="navigatingTo">    
     <StackLayout>
-        <GridLayout class="action-bar" columns="*, auto">
-            <StackLayout tap="backTap" orientation="horizontal" class="action-wrap" horizontalAlignment="left" verticalAlignment="center">
-                <Label text="Back" class="back-text" />
+        <GridLayout class="action-bar"
+                    columns="*, auto">
+            <StackLayout tap="backTap"
+                         class="action-wrap">
+                <Label text="Back"
+                       class="back-text"/>
             </StackLayout>
-            <StackLayout tap="{{ GoToMyMovies }}" col="1" orientation="horizontal" class="action-wrap" verticalAlignment="center" visibility="{{ Flow == MovieFlowSearch ? 'visible' : 'hidden' }}">
-                <Label text="My Movies" class="back-text" />
+            <StackLayout tap="{{ GoToMyMovies }}"
+                         col="1"
+                         class="action-wrap"
+                         visibility="{{ Flow == MovieFlowSearch ? 'visible' : 'hidden' }}">
+                <Label text="My Movies"
+                       class="back-text"/>
             </StackLayout>
         </GridLayout>
-        <GridLayout>
+        <GridLayout id="movie-details"
+                    padding="0,10">
             <ScrollView>
-                <GridLayout rows="auto, auto, *"  visibility="{{ IsLoading ? 'hidden' : 'visible' }}">
-                    <GridLayout row="0" columns="auto, *">
+                <GridLayout rows="auto, auto, *"
+                            visibility="{{ IsLoading ? 'hidden' : 'visible' }}">
+                    <GridLayout row="0"
+                                columns="auto, *">
                         <GridLayout class="image-layout">
-                            <Image src="{{ ImageSource }}" stretch="aspectFill" width="120" height="180" horizontalAlignment="left" verticalAlignment="top" />
+                            <Image src="{{ ImageSource }}"
+                                   class="movie-image"/>
                         </GridLayout>
-                        <StackLayout class="title-layout" col="1">
-                            <Label text="{{ Title + ' (' + Year + ')' }}" class="main-title" textWrap="true" />
-                            <Label text="{{ Director }}" />
-                            <Label text="{{ Format }}" />
-                            <GridLayout tap="{{ AddRating }}" visibility="{{ Flow == MovieFlowCollection && !Wishlist ? 'visible' : 'collapse' }}">
-                                <GridLayout columns="auto,auto,auto,auto,auto" visibility="{{ !Rating ? 'collapse' : 'visible' }}">
-                                    <Image id="star-1" height="24" width="24" col="0" src="{{ Rating >= 2 ? 'res://star_green_1024' : (Rating >= 1 ? 'res://star_half_1024' : 'res://star_white_1024') }}" />
-                                    <Image id="star-2" height="24" width="24" col="1" src="{{ Rating >= 4 ? 'res://star_green_1024' : (Rating >= 3 ? 'res://star_half_1024' : 'res://star_white_1024') }}" />
-                                    <Image id="star-3" height="24" width="24" col="2" src="{{ Rating >= 6 ? 'res://star_green_1024' : (Rating >= 5 ? 'res://star_half_1024' : 'res://star_white_1024') }}" />
-                                    <Image id="star-4" height="24" width="24" col="3" src="{{ Rating >= 8 ? 'res://star_green_1024' : (Rating >= 7 ? 'res://star_half_1024' : 'res://star_white_1024') }}" />
-                                    <Image id="star-5" height="24" width="24" col="4" src="{{ Rating >= 9.9 ? 'res://star_green_1024' : (Rating >= 9 ? 'res://star_half_1024' : 'res://star_white_1024') }}" />
+                        <StackLayout class="title-layout"
+                                     col="1">
+                            <Label text="{{ Title + ' (' + Year + ')' }}"
+                                   class="main-title left-pad-2x"
+                                   textWrap="true"/>
+                            <Label text="{{ Director }}"
+                                   class="left-pad-2x"/>
+                            <Label text="{{ Format }}"
+                                   class="left-pad-2x"/>
+                            <GridLayout tap="{{ AddRating }}"
+                                        visibility="{{ Flow == MovieFlowCollection && !Wishlist ? 'visible' : 'collapse' }}"
+                                        class="left-pad">
+                                <GridLayout columns="auto,auto,auto,auto,auto"
+                                            visibility="{{ !Rating ? 'collapse' : 'visible' }}">
+                                    <Image id="star-1"
+                                           class="star-image"
+                                           col="0"
+                                           src="{{ Rating >= 2 ? 'res://star_green_1024' : (Rating == 1 ? 'res://star_half_1024' : 'res://star_white_1024') }}"/>
+                                    <Image id="star-2"
+                                           class="star-image"
+                                           col="1"
+                                           src="{{ Rating >= 4 ? 'res://star_green_1024' : (Rating == 3 ? 'res://star_half_1024' : 'res://star_white_1024') }}"/>
+                                    <Image id="star-3"
+                                           class="star-image"
+                                           col="2"
+                                           src="{{ Rating >= 6 ? 'res://star_green_1024' : (Rating == 5 ? 'res://star_half_1024' : 'res://star_white_1024') }}"/>
+                                    <Image id="star-4"
+                                           class="star-image"
+                                           col="3"
+                                           src="{{ Rating >= 8 ? 'res://star_green_1024' : (Rating == 7 ? 'res://star_half_1024' : 'res://star_white_1024') }}"/>
+                                    <Image id="star-5"
+                                           class="star-image"
+                                           col="4"
+                                           src="{{ Rating >= 10 ? 'res://star_green_1024' : (Rating == 9 ? 'res://star_half_1024' : 'res://star_white_1024') }}"/>
                                 </GridLayout>
-                                <Label color="#009940" text="Click to rate" textDecoration="underline" fontSize="18" visibility="{{ !Rating ? 'visible' : 'collapse' }}" />
+                                <Label text="Click to rate"
+                                       class="gnarly-text rate-link left-pad-2x"
+                                       visibility="{{ !Rating ? 'visible' : 'collapse' }}"/>
                             </GridLayout>
                         </StackLayout>
                     </GridLayout>
-                    <GridLayout row="1" columns="*, *">
+                    <GridLayout row="1"
+                                columns="*, *"
+                                padding="20,0">
                         <GridLayout col="0">
-                            <Button visibility="{{ !UserId || Wishlist ? 'visible' : 'hidden' }}" text="Add" width="125" height="40" class="btn" android:fontSize="10" ios:fontSize="18" horizontalAlignment="center" tap="{{ AddToMyCollection }}" />
-                            <Button visibility="{{ !UserId || Wishlist ? 'hidden' : 'visible' }}" text="Remove" width="125" height="40" class="btn" android:fontSize="10" ios:fontSize="18" horizontalAlignment="center" tap="{{ RemoveFromMyCollection }}" />
+                            <Button visibility="{{ !UserId || Wishlist ? 'visible' : 'hidden' }}"
+                                    text="Add"
+                                    class="btn"
+                                    ios:fontSize="18"
+                                    tap="{{ AddToMyCollection }}"/>
+                            <Button visibility="{{ !UserId || Wishlist ? 'hidden' : 'visible' }}"
+                                    text="Remove"
+                                    class="btn"
+                                    ios:fontSize="18"
+                                    tap="{{ RemoveFromMyCollection }}"/>
                         </GridLayout>
                         <GridLayout col="1">
-                            <Button text="Wishlist" width="125" height="40" class="btn" android:fontSize="10" ios:fontSize="18" horizontalAlignment="center" tap="{{ AddToWishlist }}" visibility="{{ !UserId ? 'visible' : 'hidden'}}" />
-                            <Button text="Un-wishlist" width="125" height="40" class="btn" android:fontSize="10" ios:fontSize="18" horizontalAlignment="center" tap="{{ RemoveFromMyCollection }}" visibility="{{ UserId && Wishlist ? 'visible' : 'hidden'}}" />
-                            <Button text="Edit Formats" width="125" height="40" class="btn" android:fontSize="10" ios:fontSize="18" horizontalAlignment="center" tap="{{ AddFormats }}" visibility="{{ !UserId || Wishlist ? 'hidden' : 'visible' }}" />
+                            <Button text="Wishlist"
+                                    class="btn"
+                                    ios:fontSize="18"
+                                    tap="{{ AddToWishlist }}"
+                                    visibility="{{ !UserId ? 'visible' : 'hidden'}}"/>
+                            <Button text="Un-wishlist"
+                                    class="btn"
+                                    ios:fontSize="18"
+                                    tap="{{ RemoveFromMyCollection }}"
+                                    visibility="{{ UserId && Wishlist ? 'visible' : 'hidden'}}"/>
+                            <Button text="Edit Formats"
+                                    class="btn"
+                                    ios:fontSize="18"
+                                    tap="{{ AddFormats }}"
+                                    visibility="{{ !UserId || Wishlist ? 'hidden' : 'visible' }}"/>
                         </GridLayout>
                     </GridLayout>
-                    <GridLayout row="2" colSpan="2" class="plot-layout">
-                        <Label  text="{{ Plot }}" textWrap="true" />
+                    <GridLayout row="2"
+                                colSpan="2"
+                                class="plot-layout">
+                        <Label  text="{{ Plot }}"
+                                textWrap="true"/>
                     </GridLayout>
                 </GridLayout>
             </ScrollView>
-            <ActivityIndicator busy="{{ IsLoading || IsPaused }}" color="#009940" row="1" horizontalAlignment="center" verticalAlignment="center" />
+            <ActivityIndicator busy="{{ IsLoading || IsPaused }}"
+                               row="1"
+                               class="horizontal-center vertical-center gnarly-text"/>
         </GridLayout>
     </StackLayout>
 </Page>

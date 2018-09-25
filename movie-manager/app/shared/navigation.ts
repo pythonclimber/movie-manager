@@ -12,6 +12,10 @@ export function startingPage() {
 }
 
 export function navigateToMovie(movie: MovieViewModel) {
+    if (mainViewModel && mainViewModel.FilteredMovies) {
+        movie.MovieCollection = mainViewModel.FilteredMovies;
+    }
+
     frameModule.topmost().navigate({
         moduleName: 'pages/movie-page/movie-page',
         context: movie,

@@ -23,7 +23,7 @@
                             </GridLayout>
                             <StackLayout col="1">
                                 <Label text="{{ Title }}" class="info-bigger" />
-                                <Label text="{{ Year }}" class="info-orange" />
+                                <Label text="{{ Year }}" class="info-gnarly" />
                             </StackLayout>
                         </GridLayout>
                     </ListView.itemTemplate>

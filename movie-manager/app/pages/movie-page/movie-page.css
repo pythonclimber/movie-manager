@@ -14,10 +14,60 @@
 }
 
 .title-layout {
-    vertical-align: center;
+    vertical-align: top;
 }
 
 .plot-layout {
     /* background-color: #009940; */
     vertical-align: top;
+}
+
+.movie-image {
+    stretch: aspectFill;
+    width: 120;
+    height: 180;
+    horizontal-align: left;
+    vertical-align: top;
+}
+
+.movie-image-tab {
+    stretch: aspectFill;
+    width: 360;
+    height: 540;
+    horizontal-align: left;
+    vertical-align: top;
+}
+
+.star-image {
+    height: 24;
+    width: 24;
+}
+
+.star-image-tab {
+    width: 48;
+    height: 48;
+}
+
+.rate-link {
+    text-decoration: underline;
+    font-size: 18;
+}
+
+.rate-link-tab {
+    text-decoration: underline;
+    font-size: 36;
+}
+
+.btn {
+    width: 125;
+    height: 40;
+    horizontal-align: center;
+    font-size: 28;
+}
+
+.btn-tab {
+    width: 250;
+    height: 80;
+    horizontal-align: center;
+    font-size: 28;
 }

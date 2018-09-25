@@ -14,6 +14,8 @@ export class MovieViewModel extends Observable {
     private isPaused: boolean;
     private flow: string;
 
+    public MovieCollection: MovieViewModel[];
+
     get Movie(): Movie {
         return this.movie;
     }

@@ -14,6 +14,7 @@ export function navigatingTo(args: NavigatedData) {
     if (!page.bindingContext) {
         page.bindingContext = new MainViewModel();
     }
+    page.bindingContext.Page = page;
     page.bindingContext.Init();
 }
 

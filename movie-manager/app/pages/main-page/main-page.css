@@ -1,14 +1,9 @@
 .favorite-wrap {
-    vertical-align: top;
     padding: 5;
 }
 
 .bold {
     font-weight: bold;
-}
-
-.info-wrap {
-    vertical-align: center;
 }
 
 .activity-indicator {
@@ -28,6 +23,8 @@
     height: auto;
     padding: 0 5;
     border-radius: 20;
+    margin: 5 5 5 0;
+    orientation: horizontal;
 }
 
 .selected-filter-menu {
@@ -35,15 +32,66 @@
     height: auto;
     padding: 0 10 0 5;
     border-radius: 20;
+    vertical-align: center;
+    horizontal-align: left;
 }
 
 .unselected-filter {
     height: auto;
     padding: 0 5;
     border-radius: 20;
+    vertical-align: center;
+    horizontal-align: left;
 }
 
 .icon {
     font-family: 'icomoon';
     font-size: 16;
+}
+
+.star-image {
+    height: 20;
+    width: 20;
+}
+
+.star-image-tab {
+    height: 40;
+    width: 40;
+}
+
+.movie-image {
+    width: 50;
+    height: 75;
+}
+
+.movie-image-tablet {
+    width: 100;
+    height: 150;
+}
+
+.filter-height {
+    height: 30;
+}
+
+.filter-height-tablet {
+    height: 60;
+}
+
+.filter-label {
+    vertical-align: center;
+    padding: 5;
+}
+
+.filter-mode {
+    vertical-align: center;
+    horizontal-align: center;
+    padding: 0 5;
+}
+
+.movie-row {
+    padding: 5 0;
+}
+
+.movie-row-tab {
+    padding: 10 0;
 }
