@@ -43,23 +43,23 @@
                                     <Image id="star-1"
                                            class="star-image-tab"
                                            col="0"
-                                           src="{{ Rating >= 2 ? 'res://star_green_56' : (Rating == 1 ? 'res://star_half_56' : 'res://star_white_56') }}"/>
+                                           src="{{ Rating >= 2 ? 'res://star_green_1024' : (Rating >= 1 ? 'res://star_half_1024' : 'res://star_white_1024') }}"/>
                                     <Image id="star-2"
                                            class="star-image-tab"
                                            col="1"
-                                           src="{{ Rating >= 4 ? 'res://star_green_56' : (Rating == 3 ? 'res://star_half_56' : 'res://star_white_56') }}"/>
+                                           src="{{ Rating >= 4 ? 'res://star_green_1024' : (Rating >= 3 ? 'res://star_half_1024' : 'res://star_white_1024') }}"/>
                                     <Image id="star-3"
                                            class="star-image-tab"
                                            col="2"
-                                           src="{{ Rating >= 6 ? 'res://star_green_56' : (Rating == 5 ? 'res://star_half_56' : 'res://star_white_56') }}"/>
+                                           src="{{ Rating >= 6 ? 'res://star_green_1024' : (Rating >= 5 ? 'res://star_half_1024' : 'res://star_white_1024') }}"/>
                                     <Image id="star-4"
                                            class="star-image-tab"
                                            col="3"
-                                           src="{{ Rating >= 8 ? 'res://star_green_56' : (Rating == 7 ? 'res://star_half_56' : 'res://star_white_56') }}"/>
+                                           src="{{ Rating >= 8 ? 'res://star_green_1024' : (Rating >= 7 ? 'res://star_half_1024' : 'res://star_white_1024') }}"/>
                                     <Image id="star-5"
                                            class="star-image-tab"
                                            col="4"
-                                           src="{{ Rating >= 10 ? 'res://star_green_56' : (Rating == 9 ? 'res://star_half_56' : 'res://star_white_56') }}"/>
+                                           src="{{ Rating >= 9.9 ? 'res://star_green_1024' : (Rating >= 9 ? 'res://star_half_1024' : 'res://star_white_1024') }}"/>
                                 </GridLayout>
                                 <Label text="Click to rate"
                                        class="gnarly-text rate-link-tab left-pad-2x-tab"
@@ -74,28 +74,28 @@
                             <Button visibility="{{ !UserId || Wishlist ? 'visible' : 'hidden' }}"
                                     text="Add"
                                     class="btn btn-tab"
-                                    ios:fontSize="18"
+                                    ios:fontSize="36"
                                     tap="{{ AddToMyCollection }}" />
                             <Button visibility="{{ !UserId || Wishlist ? 'hidden' : 'visible' }}"
                                     text="Remove"
                                     class="btn btn-tab"
-                                    ios:fontSize="18"
+                                    ios:fontSize="36"
                                     tap="{{ RemoveFromMyCollection }}" />
                         </GridLayout>
                         <GridLayout col="1">
                             <Button text="Wishlist"
                                     class="btn btn-tab"
-                                    ios:fontSize="18"
+                                    ios:fontSize="36"
                                     tap="{{ AddToWishlist }}"
                                     visibility="{{ !UserId ? 'visible' : 'hidden'}}" />
                             <Button text="Un-wishlist" 
                                     class="btn btn-tab"
-                                    ios:fontSize="18"
+                                    ios:fontSize="36"
                                     tap="{{ RemoveFromMyCollection }}"
                                     visibility="{{ UserId && Wishlist ? 'visible' : 'hidden'}}" />
                             <Button text="Edit Formats"
                                     class="btn btn-tab"
-                                    ios:fontSize="18"
+                                    ios:fontSize="36"
                                     tap="{{ AddFormats }}"
                                     visibility="{{ !UserId || Wishlist ? 'hidden' : 'visible' }}" />
                         </GridLayout>
