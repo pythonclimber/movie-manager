@@ -1,23 +1,51 @@
 <Page xmlns="http://schemas.nativescript.org/tns.xsd" 
-        navigatingTo="navigatingTo" 
-        class="page">
-        <GridLayout rows="auto, *, auto" columns="*" backgroundColor="#999999">
-            <GridLayout class="action-bar" columns="*">
-                <Label text="Select Format..." class="back-text" horizontalAlignment="center" />
-            </GridLayout>
-            <GridLayout rows="*" row="1">
-                <ListView items="{{ Formats }}" ios:backgroundColor="#999999">
-                    <ListView.itemTemplate>
-                        <GridLayout padding="10, 0">
-                            <Label text="{{ Name }}" fontSize="24" />
-                            <Switch checked="{{ Selected }}" color="#009940" horizontalAlignment="right" />
-                        </GridLayout>
-                    </ListView.itemTemplate>
-                </ListView>
-            </GridLayout>
-            <GridLayout rows="*" columns="*,*" row="2">
-                <Button col="1" text="OK" width="125" height="40" class="btn" android:fontSize="10" ios:fontSize="18" horizontalAlignment="center" tap="{{ ChooseFormats }}" />
-                <Button col="0" text="Cancel" width="125" height="40" class="btn" android:fontSize="10" ios:fontSize="18" horizontalAlignment="center" tap="{{ Cancel }}" />
-            </GridLayout>
+      navigatingTo="navigatingTo" 
+      class="page">
+    <GridLayout rows="auto, *, auto" 
+                columns="*" 
+                backgroundColor="#999999">
+        <GridLayout class="action-bar" 
+                    columns="*">
+            <Label  text="Select Format..." 
+                    class="back-text" 
+                    horizontalAlignment="center" />
         </GridLayout>
+        <GridLayout rows="*" 
+                    row="1">
+            <ListView items="{{ Formats }}" 
+                      ios:backgroundColor="#999999">
+                <ListView.itemTemplate>
+                    <GridLayout padding="10, 0">
+                        <Label  text="{{ Name }}" 
+                                fontSize="24" />
+                        <Switch checked="{{ Selected }}" 
+                                color="#009940" 
+                                horizontalAlignment="right" />
+                    </GridLayout>
+                </ListView.itemTemplate>
+            </ListView>
+        </GridLayout>
+        <GridLayout rows="*" 
+                    columns="*,*" 
+                    row="2">
+            <Button col="1" 
+                    text="OK" 
+                    width="125" 
+                    height="40" 
+                    class="btn" 
+                    android:fontSize="10" 
+                    ios:fontSize="18" 
+                    horizontalAlignment="center" 
+                    tap="{{ ChooseFormats }}" />
+            <Button col="0" 
+                    text="Cancel" 
+                    width="125" 
+                    height="40" 
+                    class="btn" 
+                    android:fontSize="10" 
+                    ios:fontSize="18" 
+                    horizontalAlignment="center" 
+                    tap="{{ Cancel }}" />
+        </GridLayout>
+    </GridLayout>
 </Page>
