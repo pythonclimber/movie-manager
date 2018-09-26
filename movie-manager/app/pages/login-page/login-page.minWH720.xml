@@ -1,21 +1,54 @@
-<Page xmlns="http://schemas.nativescript.org/tns.xsd" navigatingTo="navigatingTo" navigatedTo="navigatedTo" class="page">
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" 
+      navigatingTo="navigatingTo" 
+      navigatedTo="navigatedTo" 
+      class="page">
     <Page.actionBar>
-        <ActionBar icon="" class="action-bar" height="88">
-            <Label text="Oh Gnarly Movies" class="back-text" fontSize="32" />
+        <ActionBar  icon="" 
+                    class="action-bar" 
+                    height="88">
+            <Label  text="Oh Gnarly Movies" 
+                    class="back-text" 
+                    fontSize="32" />
         </ActionBar>
     </Page.actionBar>
     <GridLayout rows="*, auto">
-        <GridLayout class="login-wrap" rows="auto,auto,auto">
-            <!-- <Label text="Username:" /> -->
-            <TextField margin="25,100" id="username" row="0" text="{{ Username }}" fontSize="32" autocorrect="false" hint="Username" />
-            <!-- <Label text="Password:" /> -->
-            <TextField margin="25,100" id="password" row="1" text="{{ Password }}" fontSize="32" secure="true" autocorrect="false" hint="Password" />
-            <Label visibility="{{ LoginError ? 'visible' : 'collapse' }}" fontSize="24" text="Invalid username or password" class="login-error" />
-            <Button margin="50,0" row="2" tap="{{ ProcessLogin }}" isEnabled="{{ !IsLoading }}" text="Login" class="btn-tablet"/>
-            <ActivityIndicator busy="{{ IsLoading }}" color="#009940" rowSpan="3"  width="60" height="60" verticalAlignment="center" horizontalAlignment="center" />
+        <GridLayout class="login-wrap" 
+                    rows="auto,auto,auto">
+            <TextField  margin="25,100" 
+                        id="username" 
+                        row="0" 
+                        text="{{ Username }}" 
+                        fontSize="32" 
+                        autocorrect="false" 
+                        hint="Username"/>
+            <TextField  margin="25,100" 
+                        id="password" 
+                        row="1" 
+                        text="{{ Password }}" 
+                        fontSize="32" 
+                        secure="true" 
+                        autocorrect="false" 
+                        hint="Password"/>
+            <Label  visibility="{{ LoginError ? 'visible' : 'collapse' }}" 
+                    fontSize="24" 
+                    text="Invalid username or password" 
+                    class="login-error"/>
+            <Button margin="50,0" 
+                    row="2" 
+                    tap="{{ ProcessLogin }}" 
+                    isEnabled="{{ !IsLoading }}" 
+                    text="Login" 
+                    class="btn-tablet"/>
+            <ActivityIndicator  busy="{{ IsLoading }}" 
+                                color="#009940" 
+                                rowSpan="3"  
+                                width="60" 
+                                height="60" 
+                                verticalAlignment="center" 
+                                horizontalAlignment="center"/>
         </GridLayout>
-        <GridLayout row="1" visibility="{{ IsLoading ? 'hidden' : 'visible' }}">
-            <!-- <Button tap="{{ ShowRegistration }}" text="New User" class="btn" /> -->
+        <GridLayout row="1" 
+                    visibility="{{ IsLoading ? 'hidden' : 'visible' }}">
             <Label color="#009940"
                    fontSize="48" 
                    horizontalAlignment="center" 
@@ -23,7 +56,7 @@
                    text="New User? Click Here"
                    padding="5, 15"
                    tap="{{ ShowRegistration }}"
-                   textDecoration="underline" />
+                   textDecoration="underline"/>
         </GridLayout>
     </GridLayout>
 </Page>
