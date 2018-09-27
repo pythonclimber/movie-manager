@@ -1,0 +1,16 @@
+.btn {
+    font-size: 18;
+    background-color: #009940;
+    color: white;
+    width: 200;
+    height: 50;
+    border-radius: 10;
+}
+
+.btn-tab {
+    font-size: 36;
+    background-color: #009940;
+    color: white;
+    width: 400;
+    height: 100;
+}

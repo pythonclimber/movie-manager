@@ -210,7 +210,7 @@ export class MainViewModel extends Observable {
                 this.movies = movies
                     .filter(m => !m.wishlist && this.movies.every(mvm => mvm.ImdbId !== m.imdbid))
                     .map(m => new MovieViewModel(m, MovieFlow.Collection))
-                    .concat(this.movies)
+                    .concat(this.movies.map(this.ReloadExistingMovie))
                     .sort(this.SortByTitle.bind(this));
                 this.FilterMovies();
                 //this.LoadMovieGrid([].concat(this.movies));
@@ -373,5 +373,10 @@ export class MainViewModel extends Observable {
 
         //this.notify({object: this, eventName: Observable.propertyChangeEvent, propertyName: 'GridMovies', value: this.gridMovies});
         this.notifyPropertyChange('GridMovies', this.gridMovies);
+    }
+
+    private ReloadExistingMovie(movie: MovieViewModel): MovieViewModel {
+        movie.GetLocalDetails();
+        return movie;
     }
 }

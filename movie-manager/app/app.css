@@ -1,20 +1,23 @@
 ﻿@import '~nativescript-theme-core/css/core.light.css';
 
 .btn {
-    font-size: 18;
+    width: 125;
+    height: 40;
+    horizontal-align: center;
+    font-size: 14;
     background-color: #009940;
-    color: white;
-    width: 200;
-    height: 50;
     border-radius: 10;
+    color: white;
 }
 
-.btn-tablet {
-    font-size: 36;
+.btn-tab {
+    width: 250;
+    height: 80;
+    horizontal-align: center;
+    font-size: 28;
     background-color: #009940;
+    border-radius: 10;
     color: white;
-    width: 400;
-    height: 100;
 }
 
 .has-error {

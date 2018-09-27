@@ -8,7 +8,7 @@
 android {  
   defaultConfig {  
     generatedDensities = []
-    applicationId = "com.ohgnarly.moviemanager"  
+    applicationId = "com.ohgnarly.moviemanager"
   }  
   aaptOptions {  
     additionalParameters "--no-version-vectors"  

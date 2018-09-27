@@ -38,7 +38,7 @@
                     tap="{{ ProcessLogin }}" 
                     isEnabled="{{ !IsLoading }}" 
                     text="Login" 
-                    class="btn-tablet"/>
+                    class="btn-tab"/>
             <ActivityIndicator  busy="{{ IsLoading }}" 
                                 color="#009940" 
                                 rowSpan="3"  

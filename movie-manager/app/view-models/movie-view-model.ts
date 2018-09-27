@@ -234,6 +234,9 @@ export class MovieViewModel extends Observable {
                 this.UserId = response.movie.userId;
                 this.Wishlist = response.movie.wishlist;
                 this.Format = response.movie.format;
+                this.Rating = response.movie.rating;
+                this.Title = response.movie.title;
+                this.Director = response.movie.director;
             }
         });
     }

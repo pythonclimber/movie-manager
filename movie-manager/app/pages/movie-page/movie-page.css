@@ -57,17 +57,3 @@
     text-decoration: underline;
     font-size: 36;
 }
-
-.btn {
-    width: 125;
-    height: 40;
-    horizontal-align: center;
-    font-size: 28;
-}
-
-.btn-tab {
-    width: 250;
-    height: 80;
-    horizontal-align: center;
-    font-size: 28;
-}

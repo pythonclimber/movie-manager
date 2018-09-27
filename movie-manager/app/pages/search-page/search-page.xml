@@ -4,13 +4,9 @@
             <StackLayout tap="goToMovies" orientation="horizontal" class="action-wrap" horizontalAlignment="left" verticalAlignment="center">
                 <Label text="Movies" class="back-text" />
             </StackLayout>
-            <!-- <Label col="1" text="{{ TotalResults }}" verticalAlignment="center" /> -->
         </GridLayout>
         <GridLayout columns="*" rows="auto, *" class="search-text-layout">
             <StackLayout>
-                <!-- <TextField text="{{ searchText }}" hint="Search movie title..." class="search-text" />
-                <Label text="A value is required to perform a search" color="red" visibility="{{ searchError ? 'visible' : 'collapse' }}" />
-                <Button text="Search" tap="{{ searchForMovie }}" class="btn" /> -->
                 <SearchBar backgroundColor="#999999" id="movie-search" hint="Search movie title..." text="{{ SearchText }}" textFieldBackgroundColor="white" color="#000000" clear="{{ ClearSearch }}" submit="{{ DoSearch }}" textFieldHintColor="#999999" />
             </StackLayout>
             <GridLayout row="1" columns="*" rows="auto, *">
@@ -33,3 +29,33 @@
         </GridLayout>
     </StackLayout>
 </Page>
+<!-- <Page xmlns="http://schemas.nativescript.org/tns.xsd" xmlns:sd="nativescript-ui-sidedrawer" loaded="pageLoaded">
+
+    <ActionBar title="RadSideDrawer Demo" class="action-bar" />
+
+    <sd:RadSideDrawer id="sideDrawer">
+
+        <sd:RadSideDrawer.drawerContent>
+            <StackLayout class="sidedrawer-left">
+                <StackLayout class="sidedrawer-header">
+                    <Label text="Hello RadSideDrawer!" class="sidedrawer-header-brand" />
+                </StackLayout>
+                <StackLayout class="sidedrawer-content">
+                    <Label text="Home" class="sidedrawer-list-item-text" />
+                    <Label text="Basics" class="sidedrawer-list-item-text" />
+                    <Label text="Options" class="sidedrawer-list-item-text" />
+                    <Label text="Help" class="sidedrawer-list-item-text" />
+                    <Label text="Advanced" class="sidedrawer-list-item-text" />
+                </StackLayout>
+            </StackLayout>
+        </sd:RadSideDrawer.drawerContent>
+
+        <sd:RadSideDrawer.mainContent>
+            <StackLayout>
+                <Button text="Toggle Drawer" class="btn btn-primary" tap="toggleDrawer" />
+            </StackLayout>
+        </sd:RadSideDrawer.mainContent>
+
+    </sd:RadSideDrawer>
+
+</Page> -->
