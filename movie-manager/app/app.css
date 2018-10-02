@@ -150,3 +150,17 @@
 .tablet-text {
     font-size: 32;
 }
+
+.drawer-menu-header {
+    font-size: 24;
+    margin: 30 10 10 10;    
+}
+
+.drawer-menu-item {
+    font-size: 18;
+    padding: 10 0;
+}
+
+.drawer-menu-item-group {
+    margin: 0 30;
+}

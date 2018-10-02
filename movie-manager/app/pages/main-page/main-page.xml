@@ -3,48 +3,17 @@
       class="page"
       xmlns:sd="nativescript-ui-sidedrawer"
       xmlns:PullRefresh="nativescript-pulltorefresh"
-      loaded="pageLoaded">
+      loaded="pageLoaded"
+      xmlns:ab="components/action-bar"
+      xmlns:sdc="components/side-drawer"
+      xmlns:mr="components/movie-row">
+    <ab:action-bar page="{{ Page }}" />
     <sd:RadSideDrawer id="side-drawer">
         <sd:RadSideDrawer.drawerContent>
-            <StackLayout backgroundColor="#2b2c2d">
-                <Label  text="Collections"
-                        fontSize="24"
-                        margin="30,10,10,10"/>
-                <StackLayout margin="0,30">
-                    <Label text="Movies" padding="10,0" />
-                    <Label text="TV Shows" padding="10,0" />
-                </StackLayout>
-                <Label  text="Search" 
-                        fontSize="24"
-                        margin="30,10,10,10"/>
-                <StackLayout margin="0,30">
-                    <Label text="Movies" padding="10,0" />
-                    <Label text="TV Shows" padding="10,0" />
-                </StackLayout>
-            </StackLayout>
+            <sdc:side-drawer page="{{ Page }}" />
         </sd:RadSideDrawer.drawerContent>
         <sd:RadSideDrawer.mainContent>
-            <!-- <ActionBar>
-                <StackLayout orientation="horizontal"
-                             horizontalAlignment="left">
-                    <Image  src="res://hamburger" 
-                            height="20" 
-                            width="20" />
-                </StackLayout>
-            </ActionBar> -->
             <StackLayout>
-                <GridLayout class="action-bar" 
-                            columns="*, *, *">
-                    <StackLayout col="0" 
-                                 class="action-wrap">
-                        <!-- <Label text="Search" 
-                               class="back-text" /> -->
-                        <Image  src="res://hamburger" 
-                            height="30" 
-                            width="30"
-                            tap="toggleDrawer"/>
-                    </StackLayout>
-                </GridLayout>
                 <GridLayout rows="auto, auto, auto">
                     <GridLayout class="filter-height" 
                             columns="*,auto">
@@ -147,13 +116,12 @@
                                       class="movie-list"
                                       separatorColor="#999999">
                                 <ListView.itemTemplate>
-                                    <GridLayout rows="auto" 
+                                    <!-- <GridLayout rows="auto" 
                                                 columns="auto, *" 
                                                 class="movie-row">
                                         <GridLayout columns="auto" 
                                                     rows="auto, auto" 
-                                                    class="left-pad right-pad-2x" 
-                                                    tap="toggleFavorite">
+                                                    class="left-pad right-pad-2x">
                                             <Image src="{{ ImageSource }}" 
                                                    class="movie-image"/>
                                         </GridLayout>
@@ -195,7 +163,8 @@
                                                 </GridLayout>
                                             </GridLayout>
                                         </GridLayout>
-                                    </GridLayout>
+                                    </GridLayout> -->
+                                    <mr:movie-row />
                                 </ListView.itemTemplate>
                             </ListView>
                         </PullRefresh:PullToRefresh>

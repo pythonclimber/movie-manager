@@ -19,15 +19,14 @@ export function navigatingTo(args: NavigatedData) {
     let page = <Page>args.object;
     let searchViewModel = <SearchViewModel>args.context;
     searchViewModel.page = page;
-    page.actionBarHidden = true;
-    if (!page.bindingContext) {
-        page.bindingContext = searchViewModel || new SearchViewModel();
-    }
+    page.bindingContext = searchViewModel || new SearchViewModel();
 }
 
-export function navigatedTo(args: NavigatedData) {
+export function pageLoaded(args: EventData) {
     let page = <Page>args.object;
     let searchField = <SearchBar>viewModule.getViewById(page, 'movie-search');
+
+    sideDrawer = <RadSideDrawer>page.getViewById('sideDrawer');
 
     if (searchField.ios) {
         searchField.focus();
@@ -43,19 +42,6 @@ export function navigatedTo(args: NavigatedData) {
             }
         }, 300);
     }
-}
-
-export function pageLoaded(args: EventData) {
-    let page = <Page>args.object;
-    sideDrawer = <RadSideDrawer>page.getViewById('sideDrawer');
-}
-
-export function goToMovies(args: GestureEventData) {
-    let page = <Page>args.object;
-    if (page.android) {
-        utilsModule.ad.dismissSoftInput();
-    }
-    navigationModule.navigateToMainPage();
 }
 
 export function selectItem(args: ItemEventData) {

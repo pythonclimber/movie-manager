@@ -12,7 +12,7 @@ let sideDrawer: RadSideDrawer;
 export function navigatingTo(args: NavigatedData) {
     let page = <Page>args.object;
     let mainViewModel = <MainViewModel>args.context;
-    page.actionBarHidden = true;
+    //page.actionBarHidden = true;
     page.bindingContext = mainViewModel;
     if (!page.bindingContext) {
         page.bindingContext = new MainViewModel();
@@ -38,9 +38,12 @@ export function selectMovie(args: ItemEventData) {
 
 export function searchTap(args: GestureEventData) {
     let mainViewModel = <MainViewModel>args.view.bindingContext;
-    
+    if (sideDrawer) {sideDrawer.toggleDrawerState();}
+
     if (mainViewModel.ViewMode == ViewMode[ViewMode.Movies]) {
-        navigationModule.navigateToSearchPage(ViewMode.Movies);
+        setTimeout(() => {
+            navigationModule.navigateToSearchPage(ViewMode.Movies);
+        }, 200);
     } else {
         navigationModule.navigateToSearchPage(ViewMode.Shows);
     }

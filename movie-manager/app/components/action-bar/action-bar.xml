@@ -1,0 +1,11 @@
+<ActionBar title="OGM" 
+           class="action-bar" 
+           loaded="actionBarLoaded">
+    <StackLayout orientation="horizontal"
+                 horizontalAlignment="left"
+                 tap="toggleDrawer">
+        <Image  src="res://hamburger" 
+                height="20" 
+                width="20"/>
+    </StackLayout>
+</ActionBar>

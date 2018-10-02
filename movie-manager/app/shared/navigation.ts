@@ -58,7 +58,7 @@ export function navigateToSearchPage(searchMode: ViewMode) {
         moduleName: 'pages/search-page/search-page',
         context: searchViewModel,
         transition: {
-            name: 'slideLeft'
+            name: 'slideRight'
         }
     });
 }
