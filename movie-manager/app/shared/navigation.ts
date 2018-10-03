@@ -38,7 +38,7 @@ export function navigateToMainPage() {
         moduleName: 'pages/main-page/main-page',
         context: mainViewModel,
         transition: {
-            name: 'slideRight'
+            name: 'slideLeft'
         }
     });
 }
@@ -58,7 +58,7 @@ export function navigateToSearchPage(searchMode: ViewMode) {
         moduleName: 'pages/search-page/search-page',
         context: searchViewModel,
         transition: {
-            name: 'slideRight'
+            name: 'slideLeft'
         }
     });
 }

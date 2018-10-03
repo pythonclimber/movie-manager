@@ -4,11 +4,12 @@
       loaded="pageLoaded"
       xmlns:ab="components/action-bar"
       xmlns:nsd="nativescript-ui-sidedrawer"
-      xmlns:sd="components/side-drawer">
+      xmlns:sd="components/side-drawer"
+      xmlns:mr="components/movie-row">
     <ab:action-bar page="{{ Page }}" />
     <nsd:RadSideDrawer id="side-drawer">
         <nsd:RadSideDrawer.drawerContent>
-            <sd:side-drawer page="{{ Page }}" />
+            <sd:side-drawer page="{{ Page }}" id="search-drawer" />
         </nsd:RadSideDrawer.drawerContent>
         <nsd:RadSideDrawer.mainContent>
             <StackLayout>
@@ -39,7 +40,7 @@
                                   itemTap="selectItem" 
                                   visibility="{{ SearchResults.length > 0 ? 'visible' : 'collapse' }}">
                             <ListView.itemTemplate>
-                                <GridLayout columns="auto, *" 
+                                <!-- <GridLayout columns="auto, *" 
                                             rows="auto">
                                     <GridLayout col="0" 
                                                 columns="auto">
@@ -54,12 +55,13 @@
                                         <Label text="{{ Year }}" 
                                                class="info-gnarly" />
                                     </StackLayout>
-                                </GridLayout>
+                                </GridLayout> -->
+                                <mr:movie-row />
                             </ListView.itemTemplate>
                         </ListView>
                         <ActivityIndicator color="#009940" 
                                            busy="{{ IsLoading }}" 
-                                           row="1" 
+                                           rowSpan="2" 
                                            horizontalAlignment="center" 
                                            verticalAlignment="center" />
                     </GridLayout>
@@ -68,33 +70,3 @@
         </nsd:RadSideDrawer.mainContent>
     </nsd:RadSideDrawer>
 </Page>
-<!-- <Page xmlns="http://schemas.nativescript.org/tns.xsd" xmlns:sd="nativescript-ui-sidedrawer" loaded="pageLoaded">
-
-    <ActionBar title="RadSideDrawer Demo" class="action-bar" />
-
-    <sd:RadSideDrawer id="sideDrawer">
-
-        <sd:RadSideDrawer.drawerContent>
-            <StackLayout class="sidedrawer-left">
-                <StackLayout class="sidedrawer-header">
-                    <Label text="Hello RadSideDrawer!" class="sidedrawer-header-brand" />
-                </StackLayout>
-                <StackLayout class="sidedrawer-content">
-                    <Label text="Home" class="sidedrawer-list-item-text" />
-                    <Label text="Basics" class="sidedrawer-list-item-text" />
-                    <Label text="Options" class="sidedrawer-list-item-text" />
-                    <Label text="Help" class="sidedrawer-list-item-text" />
-                    <Label text="Advanced" class="sidedrawer-list-item-text" />
-                </StackLayout>
-            </StackLayout>
-        </sd:RadSideDrawer.drawerContent>
-
-        <sd:RadSideDrawer.mainContent>
-            <StackLayout>
-                <Button text="Toggle Drawer" class="btn btn-primary" tap="toggleDrawer" />
-            </StackLayout>
-        </sd:RadSideDrawer.mainContent>
-
-    </sd:RadSideDrawer>
-
-</Page> -->

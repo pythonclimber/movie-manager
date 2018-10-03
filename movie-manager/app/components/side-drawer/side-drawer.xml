@@ -1,4 +1,5 @@
-<StackLayout backgroundColor="#2b2c2d">
+<StackLayout backgroundColor="#2b2c2d"
+             loaded="onSideDrawerLoaded">
     <Label  text="Collections"
             class="drawer-menu-header"/>
     <StackLayout class="drawer-menu-item-group">

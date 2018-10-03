@@ -1,21 +1,29 @@
 import { GestureEventData } from 'tns-core-modules/ui/gestures/gestures';
 import { MainViewModel } from '~/view-models/main-view-model';
-import { RadSideDrawer } from 'nativescript-ui-sidedrawer';
 import { ViewMode } from '~/shared/enums';
 import * as navigationModule from '../../shared/navigation';
 import { EventData, Page } from 'ui/page';
 import * as utilsModule from 'utils/utils';
+import { RadSideDrawer } from 'nativescript-ui-sidedrawer';
 
-let sideDrawer: RadSideDrawer
+let id: string;
+let sideDrawer: RadSideDrawer;
 
 export function onSideDrawerLoaded(args: EventData) {
-    let page = <Page>(<any>args.object).page;
+    let root = <any>args.object;
+    let page = root.page;
+
+    id = root.id;
     sideDrawer = page.getViewById('side-drawer');
 }
 
 export function searchTap(args: GestureEventData) {
-    let mainViewModel = <MainViewModel>args.view.bindingContext;
+    if (id.startsWith('search')) {
+        sideDrawer.toggleDrawerState();
+        return;
+    }
 
+    let mainViewModel = <MainViewModel>args.view.bindingContext;
     if (mainViewModel.ViewMode == ViewMode[ViewMode.Movies]) {
         setTimeout(() => {
             navigationModule.navigateToSearchPage(ViewMode.Movies);
@@ -26,8 +34,12 @@ export function searchTap(args: GestureEventData) {
 }
 
 export function goToMovies(args: GestureEventData) {
-    let page = <Page>args.object;
+    if (id.startsWith('main')) {
+        sideDrawer.toggleDrawerState();
+        return;
+    }
 
+    let page = <Page>args.object;
     if (page.android) {
         utilsModule.ad.dismissSoftInput();
     }

@@ -8,6 +8,8 @@ export class SearchResultViewModel extends Observable {
     private searchResult: SearchResult;
     private imageSource: ImageSource;
 
+    public IsSearchResult: boolean = true;
+
     get Title(): string {
         return this.searchResult.title;
     }

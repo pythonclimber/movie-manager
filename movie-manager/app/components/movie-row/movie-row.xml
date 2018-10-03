@@ -18,9 +18,9 @@
         <GridLayout row="1" 
                     columns="*,auto" 
                     class="right-pad">
-            <Label text="{{ Type == 'Movie' ? Format : Year }}" 
+            <Label text="{{ IsSearchResult ? Year : Format }}" 
                    class="info-gnarly" />
-            <GridLayout visibility="{{ !Rating ? 'collapse' : 'visible'  }}" 
+            <GridLayout visibility="{{ !Rating || IsSearchResult ? 'collapse' : 'visible'  }}" 
                         col="1" 
                         columns="auto,auto,auto,auto,auto">
                 <Image id="star-1" 

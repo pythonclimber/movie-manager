@@ -1,0 +1,19 @@
+<StackLayout backgroundColor="#2b2c2d"
+             loaded="onSideDrawerLoaded">
+    <Label  text="Collections"
+            class="drawer-menu-header-tab"/>
+    <StackLayout class="drawer-menu-item-group-tab">
+        <Label  text="Movies"
+                class="drawer-menu-item-tab"
+                tap="goToMovies"/>
+        <!-- <Label text="TV Shows" padding="10,0" /> -->
+    </StackLayout>
+    <Label  text="Search" 
+            class="drawer-menu-header-tab"/>
+    <StackLayout class="drawer-menu-item-group-tab">
+        <Label  text="Movies"
+                class="drawer-menu-item-tab"
+                tap="searchTap"/>
+        <!-- <Label text="TV Shows" padding="10,0" /> -->
+    </StackLayout>
+</StackLayout>

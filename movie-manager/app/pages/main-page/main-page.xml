@@ -10,7 +10,7 @@
     <ab:action-bar page="{{ Page }}" />
     <sd:RadSideDrawer id="side-drawer">
         <sd:RadSideDrawer.drawerContent>
-            <sdc:side-drawer page="{{ Page }}" />
+            <sdc:side-drawer page="{{ Page }}" id="main-drawer" />
         </sd:RadSideDrawer.drawerContent>
         <sd:RadSideDrawer.mainContent>
             <StackLayout>

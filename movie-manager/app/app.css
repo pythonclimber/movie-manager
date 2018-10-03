@@ -87,7 +87,6 @@
 .action-bar {
     height: 44;
     vertical-align: top;
-    /* background-color: #2b2c2d; */
 }
 
 .action-bar-tablet {
@@ -163,4 +162,28 @@
 
 .drawer-menu-item-group {
     margin: 0 30;
+}
+
+.drawer-menu-header-tab {
+    font-size: 48;
+    margin: 60 20 20 20;    
+}
+
+.drawer-menu-item-tab {
+    font-size: 36;
+    padding: 20 0;
+}
+
+.drawer-menu-item-group-tab {
+    margin: 0 60;
+}
+
+.movie-image {
+    width: 50;
+    height: 75;
+}
+
+.movie-image-tablet {
+    width: 100;
+    height: 150;
 }
