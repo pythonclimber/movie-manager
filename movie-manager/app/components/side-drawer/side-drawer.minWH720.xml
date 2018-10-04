@@ -6,6 +6,9 @@
         <Label  text="Movies"
                 class="drawer-menu-item-tab"
                 tap="goToMovies"/>
+        <Label text="Wishlist"
+               class="drawer-menu-item-tab"
+               tap="goToWishlist"/>
         <!-- <Label text="TV Shows" padding="10,0" /> -->
     </StackLayout>
     <Label  text="Search" 

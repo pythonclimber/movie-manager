@@ -14,12 +14,32 @@ import { RadSideDrawer } from 'nativescript-ui-sidedrawer';
 import { EventData } from 'data/observable';
 
 let sideDrawer: RadSideDrawer;
+let searchViewModel: SearchViewModel;
 
-export function navigatingTo(args: NavigatedData) {
+export function onSearchLoaded(args: NavigatedData) {
     let page = <Page>args.object;
-    let searchViewModel = <SearchViewModel>args.context;
+    let searchField = <SearchBar>viewModule.getViewById(page, 'movie-search');
+
+    searchViewModel = searchViewModel || new SearchViewModel();
+
+    searchViewModel.searchMode = ViewMode.Movies;
     searchViewModel.page = page;
-    page.bindingContext = searchViewModel || new SearchViewModel();
+    page.bindingContext = searchViewModel;
+
+    if (searchField.ios) {
+        searchField.focus();
+    }
+
+    if (searchField.android) {
+        setTimeout(() => {
+            try {
+                searchField.android.requestFocus();
+                utilsModule.ad.showSoftInput(searchField.android);
+            } catch (error) {
+                console.log('error: ', error)
+            }
+        }, 300);
+    }
 }
 
 export function pageLoaded(args: EventData) {

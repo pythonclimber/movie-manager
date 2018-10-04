@@ -55,7 +55,8 @@
         </GridLayout>
         <GridLayout rows="*" 
                     columns="*,*" 
-                    row="2">
+                    row="2"
+                    padding="10,0">
             <Button col="1" 
                     text="OK" 
                     width="125" 

@@ -3,10 +3,8 @@ export enum ViewMode {
     Shows
 }
 
-export class ViewOptions {
+export class FilterOptions {
     static All: string = 'All Movies';
-    static Favorites: string = 'Favorites';
-    static Wishlist: string = 'Wishlist';
     static FiveStar: string = '5-Star';
     static FourStar: string = '4-Star';
     static ThreeStar: string = '3-Star';
@@ -15,12 +13,22 @@ export class ViewOptions {
     static Unrated: string = 'No Rating';
 }
 
+export class ViewOptions {
+    static All: string = 'All Movies';
+    static Favorites: string = 'Favorites';
+    static Wishlist: string = 'Wishlist';
+}
+
 export class MovieFlow {
     static Search: string = 'Search';
     static Collection: string = 'Collection';
 }
-
 export class SortModes {
     static Alphabetical: string = 'A -> Zed'
     static Rating: string = 'Rating'
+}
+
+export class DisplayPages {
+    static MovieListPage: string = 'movie-list-page';
+    static SearchPage: string = 'search-page';
 }

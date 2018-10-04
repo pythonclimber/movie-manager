@@ -1,13 +1,19 @@
 <Page xmlns="http://schemas.nativescript.org/tns.xsd" 
       class="page" 
-      navigatingTo="navigatingTo">    
+      navigatingTo="navigatingTo">
+    <android>
+        <Page.actionBar>
+            <ActionBar title="">
+                <NavigationButton text="Go Back" color="#2b2c2d" android.systemIcon="ic_ab_back_holo_light_am" tap="backTap"/>
+            </ActionBar>
+        </Page.actionBar>
+    </android>
     <StackLayout>
         <GridLayout class="action-bar"
                     columns="*, auto">
             <StackLayout tap="backTap"
                          class="action-wrap">
-                <Label text="Back"
-                       class="back-text"/>
+                <Image src="res://ogm_back_arrow" height="20" width="20"/>
             </StackLayout>
             <StackLayout tap="{{ GoToMyMovies }}"
                          col="1"
@@ -64,7 +70,7 @@
                                            src="{{ Rating >= 9.9 ? 'res://star_green_1024' : (Rating >= 9 ? 'res://star_half_1024' : 'res://star_white_1024') }}"/>
                                 </GridLayout>
                                 <Label text="Click to rate"
-                                       class="gnarly-text rate-link left-pad-2x"
+                                       class="gnarly-text rate-link left-pad"
                                        visibility="{{ !Rating ? 'visible' : 'collapse' }}"/>
                             </GridLayout>
                         </StackLayout>

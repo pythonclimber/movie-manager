@@ -1,0 +1,115 @@
+<StackLayout xmlns:mr="components/movie-row"
+             xmlns:PullRefresh="nativescript-pulltorefresh"
+             loaded="movieListLoaded"
+             id="movie-list">
+    <GridLayout rows="auto, auto, auto"
+                visibility="{{ ViewMode == ViewOptions.Wishlist ? 'collapse' : 'visible' }}">
+        <GridLayout class="filter-height-tablet" 
+                columns="*,auto">
+            <GridLayout columns="auto,auto" 
+                        visibility="{{ !DisplaySortModes ? 'visible' : 'collapse'}}">
+                <Label text="Filter:" 
+                       class="filter-label tablet-text" />
+                <StackLayout col="1" 
+                             class="selected-filter">
+                    <Label text="{{ FilterMode }}" 
+                           class="filter-mode tablet-text" 
+                           tap="{{ ChangeFilter }}" />
+                </StackLayout>
+            </GridLayout>
+            <GridLayout col="1" 
+                        columns="auto,auto" 
+                        visibility="{{ FilterMode == FilterOptions.All && !DisplayFilters ? 'visible' : 'collapse' }}">
+                <Label text="Sort:"
+                       class="all-pad vertical-center tablet-text"/>
+                <StackLayout col="1" 
+                             class="selected-filter">
+                    <Label text="{{ SortMode }}" 
+                           class="filter-mode tablet-text" 
+                           tap="{{ ChangeSort }}"/>
+                </StackLayout>
+            </GridLayout>
+        </GridLayout>
+        <GridLayout rows="auto,auto,auto" 
+                row="1" 
+                class="light-gray-background" 
+                visibility="{{ DisplayFilters ? 'visible' : 'collapse' }}">
+            <GridLayout row="0" 
+                        columns="25,*,*,*" 
+                        class="filter-height-tablet">
+                <Label col="1" 
+                       class="{{ FilterMode == FilterOptions.All ? 'selected-filter-menu tablet-text' : 'unselected-filter tablet-text' }}" 
+                       text="{{ FilterOptions.All }}" 
+                       tap="{{ ChangeFilter }}" />
+                <Label col="2" 
+                       class="{{ FilterMode == FilterOptions.FiveStar ? 'selected-filter-menu tablet-text' : 'unselected-filter tablet-text' }}" 
+                       text="{{ FilterOptions.FiveStar }}" 
+                       tap="{{ ChangeFilter }}" />
+                <Label col="3" 
+                       class="{{ FilterMode == FilterOptions.FourStar ? 'selected-filter-menu tablet-text' : 'unselected-filter tablet-text' }}" 
+                       text="{{ FilterOptions.FourStar }}" 
+                       tap="{{ ChangeFilter }}" />
+            </GridLayout>
+            <GridLayout row="1" 
+                        columns="25,*,*,*" 
+                        class="filter-height-tablet">
+                <Label col="1" 
+                       class="{{ FilterMode == FilterOptions.ThreeStar ? 'selected-filter-menu tablet-text' : 'unselected-filter tablet-text' }}" 
+                       text="{{ FilterOptions.ThreeStar }}" 
+                       tap="{{ ChangeFilter }}" />
+                <Label col="2" 
+                       class="{{ FilterMode == FilterOptions.TwoStar ? 'selected-filter-menu tablet-text' : 'unselected-filter tablet-text' }}" 
+                       text="{{ FilterOptions.TwoStar }}" 
+                       tap="{{ ChangeFilter }}" />
+                <Label col="3" 
+                       class="{{ FilterMode == FilterOptions.OneStar ? 'selected-filter-menu tablet-text' : 'unselected-filter tablet-text' }}" 
+                       text="{{ FilterOptions.OneStar }}" 
+                       tap="{{ ChangeFilter }}" />
+            </GridLayout>
+            <GridLayout row="2" 
+                        columns="25,*,*,*" 
+                        class="filter-height-tablet">
+                <Label col="1" 
+                       class="{{ FilterMode == FilterOptions.Unrated ? 'selected-filter-menu tablet-text' : 'unselected-filter tablet-text' }}" 
+                       text="{{ FilterOptions.Unrated }}" 
+                       tap="{{ ChangeFilter }}" />
+            </GridLayout>
+        </GridLayout>
+        <GridLayout row="1" 
+                class="filter-height-tablet light-gray-background" 
+                visibility="{{ DisplaySortModes ? 'visible' : 'collapse' }}" 
+                columns="*, 175, 175">
+            <Label col="1" 
+                   class="{{ SortMode == SortModes.Alphabetical ? 'selected-filter-menu tablet-text' : 'unselected-filter tablet-text' }}" 
+                   text="{{ SortModes.Alphabetical }}" 
+                   horizontalAlignment="center" 
+                   tap="{{ ChangeSort }}" />
+            <Label col="2" 
+                   class="{{ SortMode == SortModes.Rating ? 'selected-filter-menu tablet-text' : 'unselected-filter tablet-text' }}" 
+                   text="{{ SortModes.Rating }}"
+                   horizontalAlignment="center" 
+                   tap="{{ ChangeSort }}" />
+        </GridLayout>
+    </GridLayout>
+    <GridLayout>
+        <GridLayout row="0" 
+                    visibility="{{ FilteredMovies.length > 0 ? 'visible' : 'collapse' }}">
+            <PullRefresh:PullToRefresh refresh="refreshCollection" 
+                                       class="gnarly-text">
+                <ListView items="{{ FilteredMovies }}" 
+                          itemTap="selectMovie" 
+                          class="movie-list">
+                    <ListView.itemTemplate>
+                        <mr:movie-row />
+                    </ListView.itemTemplate>
+                </ListView>
+            </PullRefresh:PullToRefresh>
+        </GridLayout>
+        <Label text="Please search to start adding movies..." 
+               visibility="{{ FilteredMovies.length == 0 ? 'visible' : 'collapse' }}"
+               class="tablet-text" />
+        <ActivityIndicator busy="{{ IsLoading }}" 
+                           row="1" 
+                           class="vertical-center horizontal-center" />
+    </GridLayout>
+</StackLayout>

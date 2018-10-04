@@ -1,6 +1,6 @@
 <GridLayout rows="auto" 
             columns="auto, *" 
-            class="movie-row">
+            class="movie-row-tab">
     <GridLayout columns="auto" 
                 rows="auto, auto" 
                 class="left-pad-tab right-pad-2x-tab"

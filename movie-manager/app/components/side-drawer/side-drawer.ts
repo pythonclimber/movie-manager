@@ -1,50 +1,51 @@
 import { GestureEventData } from 'tns-core-modules/ui/gestures/gestures';
-import { MainViewModel } from '~/view-models/main-view-model';
-import { ViewMode } from '~/shared/enums';
-import * as navigationModule from '../../shared/navigation';
+import { DisplayPages, ViewOptions } from '~/shared/enums';
 import { EventData, Page } from 'ui/page';
 import * as utilsModule from 'utils/utils';
 import { RadSideDrawer } from 'nativescript-ui-sidedrawer';
+import { MainViewModel } from '~/view-models/main-view-model';
+import { MovieListViewModel } from '~/view-models/movie-list-view-model';
 
-let id: string;
 let sideDrawer: RadSideDrawer;
+let page: Page;
 
 export function onSideDrawerLoaded(args: EventData) {
     let root = <any>args.object;
-    let page = root.page;
-
-    id = root.id;
+    page = <Page>root.page;
     sideDrawer = page.getViewById('side-drawer');
 }
 
 export function searchTap(args: GestureEventData) {
-    if (id.startsWith('search')) {
-        sideDrawer.toggleDrawerState();
-        return;
-    }
+    let mainViewModel = <MainViewModel>page.bindingContext;
+    mainViewModel.SetDisplayPage(DisplayPages.SearchPage);
 
-    let mainViewModel = <MainViewModel>args.view.bindingContext;
-    if (mainViewModel.ViewMode == ViewMode[ViewMode.Movies]) {
-        setTimeout(() => {
-            navigationModule.navigateToSearchPage(ViewMode.Movies);
-        }, 300);
-    } else {
-        navigationModule.navigateToSearchPage(ViewMode.Shows);
-    }
+    sideDrawer.toggleDrawerState();
 }
 
 export function goToMovies(args: GestureEventData) {
-    if (id.startsWith('main')) {
-        sideDrawer.toggleDrawerState();
-        return;
-    }
-
-    let page = <Page>args.object;
     if (page.android) {
         utilsModule.ad.dismissSoftInput();
     }
 
-    setTimeout(() => {
-        navigationModule.navigateToMainPage();
-    }, 300);
+    let mainViewModel = <MainViewModel>page.bindingContext;
+    mainViewModel.SetDisplayPage(DisplayPages.MovieListPage);
+
+    let movieListViewModel = <MovieListViewModel>page.getViewById('movie-list').bindingContext;
+    movieListViewModel.SetViewMode(ViewOptions.All);
+
+    sideDrawer.toggleDrawerState();
+}
+
+export function goToWishlist(args: GestureEventData) {
+    if (page.android) {
+        utilsModule.ad.dismissSoftInput();
+    }
+
+    let mainViewModel = <MainViewModel>page.bindingContext;
+    mainViewModel.SetDisplayPage(DisplayPages.MovieListPage);
+
+    let movieListViewModel = <MovieListViewModel>page.getViewById('movie-list').bindingContext;
+    movieListViewModel.SetViewMode(ViewOptions.Wishlist);
+
+    sideDrawer.toggleDrawerState();
 }

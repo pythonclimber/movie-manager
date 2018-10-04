@@ -12,8 +12,8 @@ export function navigatingTo(args: NavigatedData) {
     let page = <Page>args.object;
     let movieViewModel = <MovieViewModel>args.context;
     movieViewModel.IsLoading = true;
-    page.bindingContext = movieViewModel;
     page.actionBarHidden = true;
+    page.bindingContext = movieViewModel;
     page.on(GestureTypes[GestureTypes.swipe], swipePage);
     movieViewModel.GetLocalDetails().then(() => {
         movieViewModel.GetOnlineDetails().then(() => {

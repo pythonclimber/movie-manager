@@ -2,20 +2,17 @@ import * as frameModule from 'ui/frame';
 import { MovieViewModel } from '../view-models/movie-view-model';
 import { ShowViewModel } from '../view-models/show-view-model';
 import { SearchViewModel } from '../view-models/search-view-model';
-import { ViewMode } from './enums';
+import { ViewMode, ViewOptions } from './enums';
 import { MainViewModel } from '../view-models/main-view-model';
 
 let mainViewModel: MainViewModel;
 
 export function startingPage() {
-    return 'pages/login-page/login-page'
+    return 'pages/login-page/login-page';
+    //return 'pages/main-page/main-page';
 }
 
 export function navigateToMovie(movie: MovieViewModel) {
-    if (mainViewModel && mainViewModel.FilteredMovies) {
-        movie.MovieCollection = mainViewModel.FilteredMovies;
-    }
-
     frameModule.topmost().navigate({
         moduleName: 'pages/movie-page/movie-page',
         context: movie,
@@ -33,10 +30,18 @@ export function navigateToShow(show: ShowViewModel) {
 }
 
 export function navigateToMainPage() {
-    mainViewModel = mainViewModel || new MainViewModel();
     frameModule.topmost().navigate({
         moduleName: 'pages/main-page/main-page',
-        context: mainViewModel,
+        transition: {
+            name: 'slideLeft'
+        }
+    });
+}
+
+export function navigateToWishlist() {
+    frameModule.topmost().navigate({
+        moduleName: 'pages/main-page/main-page',
+        context: 'wishlist',
         transition: {
             name: 'slideLeft'
         }
@@ -52,11 +57,8 @@ export function backOnePage() {
 }
 
 export function navigateToSearchPage(searchMode: ViewMode) {
-    let searchViewModel = new SearchViewModel();
-    searchViewModel.searchMode = searchMode;
     frameModule.topmost().navigate({
         moduleName: 'pages/search-page/search-page',
-        context: searchViewModel,
         transition: {
             name: 'slideLeft'
         }

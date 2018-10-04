@@ -115,7 +115,8 @@
 }
 
 .movie-list {
-    background-color: #2b2c2d
+    background-color: #2b2c2d;
+    separator-color: #999999;
 }
 
 .horizontal-stack {
@@ -186,4 +187,12 @@
 .movie-image-tablet {
     width: 100;
     height: 150;
+}
+
+.movie-row {
+    padding: 5 0;
+}
+
+.movie-row-tab {
+    padding: 10 0;
 }

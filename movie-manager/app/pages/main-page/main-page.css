@@ -18,32 +18,6 @@
     height: 30;
 }
 
-.selected-filter {
-    background-color: #999999;
-    height: auto;
-    padding: 0 5;
-    border-radius: 20;
-    margin: 5 5 5 0;
-    orientation: horizontal;
-}
-
-.selected-filter-menu {
-    background-color: #009940;
-    height: auto;
-    padding: 0 10 0 5;
-    border-radius: 20;
-    vertical-align: center;
-    horizontal-align: left;
-}
-
-.unselected-filter {
-    height: auto;
-    padding: 0 5;
-    border-radius: 20;
-    vertical-align: center;
-    horizontal-align: left;
-}
-
 .icon {
     font-family: 'icomoon';
     font-size: 16;
@@ -57,31 +31,4 @@
 .star-image-tab {
     height: 40;
     width: 40;
-}
-
-.filter-height {
-    height: 30;
-}
-
-.filter-height-tablet {
-    height: 60;
-}
-
-.filter-label {
-    vertical-align: center;
-    padding: 5;
-}
-
-.filter-mode {
-    vertical-align: center;
-    horizontal-align: center;
-    padding: 0 5;
-}
-
-.movie-row {
-    padding: 5 0;
-}
-
-.movie-row-tab {
-    padding: 10 0;
 }

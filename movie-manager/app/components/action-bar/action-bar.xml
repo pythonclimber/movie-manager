@@ -5,7 +5,7 @@
                  horizontalAlignment="left"
                  tap="toggleDrawer">
         <Image  src="res://ogm_hamburger" 
-                height="20" 
-                width="20"/>
+                height="25" 
+                width="25"/>
     </StackLayout>
 </ActionBar>
