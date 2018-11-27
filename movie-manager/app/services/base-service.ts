@@ -13,7 +13,6 @@ export class BaseService {
         //this.apiBaseUrl = 'http://10.0.2.2:3000';
         this.sender = 'ohGnarlyMovies';
         this.apiKey = 'QlULR6lMQ2gZqZdVplXcn6wyIrNTkGcJPHWsU+gFSFQ=';
-        //this.imdbBaseUrl = 'https://www.omdbapi.com/?apiKey=1e37ecbf';
     }
 
     protected ProcessHttpCall<T>(requestParams: http.HttpRequestOptions): Promise<T> {

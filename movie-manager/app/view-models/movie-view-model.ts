@@ -13,6 +13,7 @@ export class MovieViewModel extends Observable {
     private movieService: MovieService;
     private isPaused: boolean;
     private flow: string;
+    private isMine: boolean;
 
     get Movie(): Movie {
         return this.movie;
@@ -197,6 +198,17 @@ export class MovieViewModel extends Observable {
         }
     }
 
+    get IsMine(): boolean {
+        return this.isMine;
+    }
+
+    set IsMine(value: boolean) {
+        if (value !== this.isMine) {
+            this.isMine = value;
+            this.notifyPropertyChange('IsMine', value);
+        }
+    }
+
     get Flow(): string {
         return this.flow;
     }
@@ -214,6 +226,8 @@ export class MovieViewModel extends Observable {
         this.movie = movie;
         this.movieService = new MovieService();
         this.flow = flow;
+
+        this.isMine = flow === this.MovieFlowCollection && !this.Wishlist;
 
         if (!this.movie.rating) {
             this.movie.rating = 0;
@@ -265,18 +279,6 @@ export class MovieViewModel extends Observable {
 
     public AddToMyCollection(args: EventData) {
         navigationModule.showFormatPicker(this);
-        // if (this.Wishlist) {
-        //     navigationModule.showFormatPicker(this);
-        //     this.movieService.toggleWishlist(this.UserId, this.ImdbId, false).then(response => {
-        //         this.Wishlist = false;
-        //         navigationModule.navigateToMainPage();
-        //     });
-        // } else {
-        //     this.movieService.addMovie(this).then(response => {
-        //         this.UserId = response.userId;
-        //         this.Wishlist = false;
-        //     });
-        // }
     }
 
     public RemoveFromMyCollection(args: EventData) {
@@ -285,7 +287,9 @@ export class MovieViewModel extends Observable {
             this.UserId = '';
             this.Wishlist = false;
             this.IsPaused = false;
-            //navigationModule.navigateToMainPage();
+            this.Format = '';
+            this.Rating = 0;
+            this.IsMine = false;
         });
     }
 

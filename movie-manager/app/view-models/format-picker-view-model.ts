@@ -73,6 +73,7 @@ export class FormatPickerViewModel extends Observable {
             this.movieService.addMovie(this.movie).then(response => {
                 this.movie.UserId = response.userId;
                 this.movie.Wishlist = false;
+                this.movie.IsMine = true;
                 navigationModule.backOnePage();
             });
         }

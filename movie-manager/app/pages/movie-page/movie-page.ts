@@ -2,7 +2,6 @@ import { GestureEventData, SwipeGestureEventData, GestureTypes } from 'ui/gestur
 import * as navigationModule from '../../shared/navigation';
 import { Page, NavigatedData } from 'ui/page';
 import { MovieViewModel } from '../../view-models/movie-view-model';
-import { GridLayout } from 'ui/layouts/grid-layout';
 
 export function backTap(args: GestureEventData) {
     navigationModule.backOnePage();

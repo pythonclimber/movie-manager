@@ -1,13 +1,6 @@
 <Page xmlns="http://schemas.nativescript.org/tns.xsd" 
       class="page" 
       navigatingTo="navigatingTo">
-    <android>
-        <Page.actionBar>
-            <ActionBar title="">
-                <NavigationButton text="Go Back" color="#2b2c2d" android.systemIcon="ic_ab_back_holo_light_am" tap="backTap"/>
-            </ActionBar>
-        </Page.actionBar>
-    </android>
     <StackLayout>
         <GridLayout class="action-bar"
                     columns="*, auto">
@@ -44,7 +37,7 @@
                             <Label text="{{ Format }}"
                                    class="left-pad-2x"/>
                             <GridLayout tap="{{ AddRating }}"
-                                        visibility="{{ Flow == MovieFlowCollection && !Wishlist ? 'visible' : 'collapse' }}"
+                                        visibility="{{ IsMine ? 'visible' : 'collapse' }}"
                                         class="left-pad">
                                 <GridLayout columns="auto,auto,auto,auto,auto"
                                             visibility="{{ !Rating ? 'collapse' : 'visible' }}">
