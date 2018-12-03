@@ -11,26 +11,30 @@
     </Page.actionBar>
     <GridLayout rows="*, auto">
         <GridLayout class="login-wrap" 
-                    rows="auto,auto,auto">
+                    rows="80,80,80">
             <!-- <Label text="Username:" /> -->
             <TextField  margin="10,0" 
                         id="username" 
-                        ios:backgroundColor="white" 
-                        ios:color="black" row="0" 
+                        backgroundColor="white" 
+                        color="black" row="0" 
                         text="{{ Username }}" 
                         autocorrect="false" 
-                        hint="Username"/>
+                        hint="Username"
+                        borderRadius="10"
+                        fontSize="24"/>
             <!-- <Label text="Password:" /> -->
             <TextField  margin="10,0" 
                         id="password" 
-                        ios:backgroundColor="white" 
-                        ios:color="black" 
+                        backgroundColor="white" 
+                        color="black" 
                         row="1" 
                         text="{{ Password }}" 
                         secure="true" 
                         autocorrect="false" 
-                        hint="Password"/>
-            <!-- <Label visibility="{{ LoginError ? 'visible' : 'collapse' }}" text="Invalid username or password" class="login-error" /> -->
+                        hint="Password"
+                        borderRadius="10"
+                        fontSize="24"/>
+            <Label visibility="{{ LoginError ? 'visible' : 'collapse' }}" text="Invalid username or password" class="login-error" />
             <Button row="2" 
                     tap="{{ ProcessLogin }}" 
                     isEnabled="{{ !IsLoading }}" 

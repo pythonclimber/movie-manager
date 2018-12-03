@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Net.Http;
+﻿using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using MovieManagerXamarin2.Models;
@@ -18,15 +16,9 @@ namespace MovieManagerXamarin2.Services
         SavedCredentials GetSavedCredentials();
     }
 
-    public class LoginService : ILoginService
+    public class LoginService : BaseService, ILoginService
     {
         private const string CredentialsKey = "my_credentials";
-        private readonly HttpClient _httpClient;
-
-        public LoginService()
-        {
-            _httpClient = new HttpClient();
-        }
 
         public async Task<LoginResponse> Login(string userName, string password)
         {
@@ -39,7 +31,7 @@ namespace MovieManagerXamarin2.Services
             var content = new StringContent(
                 JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json");
 
-            var response = await _httpClient.PostAsync($"https://ohgnarly3.herokuapp.com/login", content);
+            var response = await HttpClient.PostAsync("/login", content);
 
             return JsonConvert.DeserializeObject<LoginResponse>(
                 await response.Content.ReadAsStringAsync());

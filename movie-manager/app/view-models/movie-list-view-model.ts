@@ -143,18 +143,19 @@ export class MovieListViewModel extends Observable {
         return this.movieService
             .getMovies<Array<Movie>>()
             .then(movies => {
+                this.wishlist = this.wishlist.filter(w => movies.some(m => m.imdbid == w.ImdbId && m.wishlist));
                 this.wishlist = movies
                     .filter(m => m.wishlist && this.wishlist.every(mvm => mvm.ImdbId !== m.imdbid))
                     .map(m => new MovieViewModel(m, MovieFlow.Collection))
                     .concat(this.wishlist)
                     .sort(this.SortByTitle.bind(this));
+                this.movies = this.movies.filter(mm => movies.some(m => m.imdbid == mm.ImdbId && !m.wishlist));
                 this.movies = movies
                     .filter(m => !m.wishlist && this.movies.every(mvm => mvm.ImdbId !== m.imdbid))
                     .map(m => new MovieViewModel(m, MovieFlow.Collection))
                     .concat(this.movies.map(this.ReloadExistingMovie))
                     .sort(this.SortByTitle.bind(this));
                 this.FilterMovies();
-                //this.LoadMovieGrid([].concat(this.movies));
             }).catch(error => {
                 console.log(error);
             });

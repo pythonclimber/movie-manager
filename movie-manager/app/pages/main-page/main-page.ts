@@ -11,6 +11,7 @@ export function navigatingTo(args: NavigatedData) {
     let page = <Page>args.object;
     mainViewModel = mainViewModel || new MainViewModel();
     page.bindingContext = mainViewModel;
+    page.actionBarHidden = true;
     page.bindingContext.Page = page;
 }
 

@@ -9,6 +9,7 @@
       xmlns:mlp="pages/movie-list-page"
       xmlns:PullRefresh="nativescript-pulltorefresh"
       xmlns:mr="components/movie-row">
+    <StackLayout>
     <ab:action-bar page="{{ Page }}" />
     <sd:RadSideDrawer id="side-drawer">
         <sd:RadSideDrawer.drawerContent>
@@ -29,4 +30,5 @@
             </GridLayout>
         </sd:RadSideDrawer.mainContent>
     </sd:RadSideDrawer>
+    </StackLayout>
 </Page>

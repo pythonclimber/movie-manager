@@ -105,7 +105,8 @@
                                 colSpan="2"
                                 class="plot-layout">
                         <Label  text="{{ Plot }}"
-                                textWrap="true"/>
+                                textWrap="true"
+                                fontSize="18"/>
                     </GridLayout>
                 </GridLayout>
             </ScrollView>

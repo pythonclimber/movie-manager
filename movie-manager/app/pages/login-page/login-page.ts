@@ -15,7 +15,7 @@ export function navigatedTo(args: EventData) {
     let usernameField = <TextField>page.getViewById('username');
     let passwordField = <TextField>page.getViewById('password');
     if (usernameField.android) {
-        let color = new colorModule.Color('#FFFFFF');
+        let color = new colorModule.Color('#777777');
         usernameField.android.setHintTextColor(color.android);
         passwordField.android.setHintTextColor(color.android);
     } else if (usernameField.ios) {

@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using MovieManagerXamarin2.Models;
-using MovieManagerXamarin2.ViewModels;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
@@ -29,17 +27,14 @@ namespace MovieManagerXamarin2.Services
         Task AddFromWishlist(Movie movie);
     }
 
-    public class MovieService : IMovieService
+    public class MovieService : BaseService, IMovieService
     {
-        private HttpClient _httpClient;
-        private string _apiBaseUrl;
-        private LoginService _loginService;
-        private JsonSerializerSettings _jsonSettings;
+        private readonly LoginService _loginService;
+        private readonly JsonSerializerSettings _jsonSettings;
 
         public MovieService()
         {
-            _httpClient = new HttpClient();
-            _apiBaseUrl = "https://ohgnarly3.herokuapp.com";
+            
             _loginService = new LoginService();
             _jsonSettings = new JsonSerializerSettings
             {
@@ -49,8 +44,8 @@ namespace MovieManagerXamarin2.Services
 
         public async Task<List<Movie>> GetMovies(string userId)
         {
-            var url = $"{_apiBaseUrl}/movies/{userId}";
-            var asString = await _httpClient.GetStringAsync(url);
+            var url = $"{ApiBaseUrl}/movies/{userId}";
+            var asString = await HttpClient.GetStringAsync(url);
 
             return JsonConvert.DeserializeObject<List<Movie>>(asString);
         }
@@ -69,13 +64,13 @@ namespace MovieManagerXamarin2.Services
 
             var content = new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json");
 
-            await _httpClient.PutAsync($"{_apiBaseUrl}/movie", content);
+            await HttpClient.PutAsync($"{ApiBaseUrl}/movie", content);
         }
 
         public async Task<T> OnlineMovieSearch<T>(string title, int page = 1)
         {
-            var url = $"{_apiBaseUrl}/movie-search/${title}/${page}";
-            var asString = await _httpClient.GetStringAsync(url);
+            var url = $"{ApiBaseUrl}/movie-search/${title}/${page}";
+            var asString = await HttpClient.GetStringAsync(url);
 
             return JsonConvert.DeserializeObject<T>(asString);
         }
@@ -96,7 +91,7 @@ namespace MovieManagerXamarin2.Services
 
             var asString = new StringContent(JsonConvert.SerializeObject(data, _jsonSettings), 
                 Encoding.UTF8, "application/json");
-            var response = await _httpClient.PostAsync($"{_apiBaseUrl}/movie", asString);
+            var response = await HttpClient.PostAsync($"{ApiBaseUrl}/movie", asString);
 
             return JsonConvert.DeserializeObject<Movie>(
                 await response.Content.ReadAsStringAsync());
@@ -104,22 +99,22 @@ namespace MovieManagerXamarin2.Services
 
         public async Task DeleteMovie(Movie movie)
         {
-            var url = $"{_apiBaseUrl}/movie/{movie.UserId}/{movie.ImdbId}";
+            var url = $"{ApiBaseUrl}/movie/{movie.UserId}/{movie.ImdbId}";
 
-            await _httpClient.DeleteAsync(url);
+            await HttpClient.DeleteAsync(url);
         }
 
         public async Task<MovieDetailResponse> GetMovieDetails(string imdbId)
         {
             var httpResponse =
-                await _httpClient.GetStringAsync($"{_apiBaseUrl}/movie-details/{imdbId}");
+                await HttpClient.GetStringAsync($"{ApiBaseUrl}/movie-details/{imdbId}");
 
             return JsonConvert.DeserializeObject<MovieDetailResponse>(httpResponse);
         }
 
         public async Task<List<string>> GetMovieFormats()
         {
-            var httpResponse = await _httpClient.GetStringAsync($"{_apiBaseUrl}/movie-formats");
+            var httpResponse = await HttpClient.GetStringAsync($"{ApiBaseUrl}/movie-formats");
 
             return JsonConvert.DeserializeObject<List<string>>(httpResponse);
         }
@@ -140,7 +135,7 @@ namespace MovieManagerXamarin2.Services
             var asString = new StringContent(
                 JsonConvert.SerializeObject(data), Encoding.UTF8, "applicaiton/json");
 
-            await _httpClient.PutAsync($"{_apiBaseUrl}/movie", asString);
+            await HttpClient.PutAsync($"{ApiBaseUrl}/movie", asString);
         }
     }
 }
