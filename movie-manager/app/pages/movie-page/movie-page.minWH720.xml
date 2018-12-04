@@ -1,13 +1,6 @@
 <Page xmlns="http://schemas.nativescript.org/tns.xsd" 
       class="page" 
       navigatingTo="navigatingTo"> 
-    <!-- <android>
-        <Page.actionBar>
-            <ActionBar title="">
-                <NavigationButton text="Go Back" color="#2b2c2d" android.systemIcon="ic_ab_back_holo_light_am" tap="backTap"/>
-            </ActionBar>
-        </Page.actionBar>
-    </android>   -->
     <StackLayout>
         <GridLayout class="action-bar action-bar-tablet"
                     columns="*, auto">
@@ -15,13 +8,13 @@
                          class="action-wrap">
                 <Image src="res://ogm_back_arrow" height="60" width="60"/>
             </StackLayout>
-            <StackLayout tap="{{ GoToMyMovies }}"
+            <!-- <StackLayout tap="{{ GoToMyMovies }}"
                          col="1"
                          class="action-wrap"
                          visibility="{{ Flow == MovieFlowSearch ? 'visible' : 'hidden' }}">
                 <Label text="My Movies"
                        class="back-text tablet-text"/>
-            </StackLayout>
+            </StackLayout> -->
         </GridLayout>
         <GridLayout id="movie-details"
                     padding="0,20">

@@ -20,8 +20,7 @@
                         text="{{ Username }}" 
                         autocorrect="false" 
                         hint="Username"
-                        borderRadius="10"
-                        fontSize="24"/>
+                        borderRadius="5"/>
             <!-- <Label text="Password:" /> -->
             <TextField  margin="10,0" 
                         id="password" 
@@ -32,8 +31,7 @@
                         secure="true" 
                         autocorrect="false" 
                         hint="Password"
-                        borderRadius="10"
-                        fontSize="24"/>
+                        borderRadius="5"/>
             <Label visibility="{{ LoginError ? 'visible' : 'collapse' }}" text="Invalid username or password" class="login-error" />
             <Button row="2" 
                     tap="{{ ProcessLogin }}" 

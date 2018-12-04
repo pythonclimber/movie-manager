@@ -1,57 +1,43 @@
-<Page xmlns="http://schemas.nativescript.org/tns.xsd" 
-      class="page" 
-      loaded="pageLoaded" 
-      navigatingTo="navigatingTo"
-      xmlns:ab="components/action-bar"
-      xmlns:nsd="nativescript-ui-sidedrawer"
-      xmlns:sd="components/side-drawer"
-      xmlns:mr="components/movie-row">
-    <ab:action-bar page="{{ Page }}"/>
-    <nsd:RadSideDrawer id="side-drawer">
-        <nsd:RadSideDrawer.drawerContent>
-            <sd:side-drawer page="{{ Page }}" id="search-drawer" />
-        </nsd:RadSideDrawer.drawerContent>
-        <nsd:RadSideDrawer.mainContent>
-            <StackLayout>
-                <GridLayout columns="*" 
-                            rows="auto, *" 
-                            class="search-text-layout">
-                    <StackLayout>
-                        <SearchBar  backgroundColor="#999999" 
-                                    id="movie-search" 
-                                    hint="Search movie title..." 
-                                    text="{{ SearchText }}" 
-                                    textFieldBackgroundColor="white" 
-                                    color="#000000" 
-                                    clear="{{ ClearSearch }}" 
-                                    submit="{{ DoSearch }}" 
-                                    textFieldHintColor="#999999" />
-                    </StackLayout>
-                    <GridLayout row="1" 
-                                columns="*" 
-                                rows="auto, *">
-                        <Label  text="No Results..." 
-                                visibility="{{ SearchResults.length == 0 ? 'visible' : 'collapse' }}" 
-                                horizontalAlignment="center" 
-                                fontSize="48"/>
-                        <ListView row="1" 
-                                  class="movie-list" 
-                                  items="{{ SearchResults }}" 
-                                  loadMoreItems="{{ GetNextPage }}" 
-                                  itemTap="selectItem" 
-                                  visibility="{{ SearchResults.length > 0 ? 'visible' : 'collapse' }}">
-                            <ListView.itemTemplate>
-                                <mr:movie-row />
-                            </ListView.itemTemplate>
-                        </ListView>
-                        <ActivityIndicator  color="#009940" 
-                                            busy="{{ IsLoading }}" 
-                                            row="1" 
-                                            horizontalAlignment="center" 
-                                            verticalAlignment="center" />
-                    </GridLayout>
-                </GridLayout>
-            </StackLayout>
-        </nsd:RadSideDrawer.mainContent>
-    </nsd:RadSideDrawer>
-</Page>
+<StackLayout xmlns:mr="components/movie-row"
+             loaded="onSearchLoaded"
+             id="search">
+    <GridLayout columns="*" 
+                rows="auto, *" 
+                class="search-text-layout">
+        <GridLayout>
+            <SearchBar  backgroundColor="#999999" 
+                        id="movie-search" 
+                        hint="Search movie title..." 
+                        text="{{ SearchText }}" 
+                        textFieldBackgroundColor="white" 
+                        color="#000000" 
+                        clear="{{ ClearSearch }}" 
+                        submit="{{ DoSearch }}" 
+                        textFieldHintColor="#999999"
+                        class="movie-search-tab"/>
+        </GridLayout>
+        <GridLayout row="1" 
+                    columns="*" 
+                    rows="auto, *">
+            <Label  text="No Results..." 
+                    visibility="{{ SearchResults.length == 0 ? 'visible' : 'collapse' }}" 
+                    horizontalAlignment="center"
+                    fontSize="48"/>
+            <ListView row="1" 
+                      class="movie-list" 
+                      items="{{ SearchResults }}" 
+                      loadMoreItems="{{ GetNextPage }}" 
+                      itemTap="selectItem" 
+                      visibility="{{ SearchResults.length > 0 ? 'visible' : 'collapse' }}">
+                <ListView.itemTemplate>
+                    <mr:movie-row />
+                </ListView.itemTemplate>
+            </ListView>
+            <ActivityIndicator color="#009940" 
+                               busy="{{ IsLoading }}" 
+                               rowSpan="2" 
+                               horizontalAlignment="center" 
+                               verticalAlignment="center" />
+        </GridLayout>
+    </GridLayout>
+</StackLayout>

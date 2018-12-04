@@ -1,12 +1,13 @@
-<ActionBar title="OGM" 
+<GridLayout title="OGM" 
            class="action-bar" 
            loaded="actionBarLoaded"
            height="88">
     <StackLayout orientation="horizontal"
                  horizontalAlignment="left"
-                 tap="toggleDrawer">
+                 tap="toggleDrawer"
+                 class="action-wrap">
         <Image  src="res://ogm_hamburger" 
                 height="60" 
                 width="60"/>
     </StackLayout>
-</ActionBar>
+</GridLayout>
