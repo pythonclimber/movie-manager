@@ -11,18 +11,17 @@
     </Page.actionBar>
     <GridLayout rows="*, auto">
         <GridLayout class="login-wrap" 
-                    rows="80,80,80">
-            <!-- <Label text="Username:" /> -->
-            <TextField  margin="10,0" 
+                    rows="90,90,90">
+            <TextField  margin="20,0" 
                         id="username" 
                         backgroundColor="white" 
-                        color="black" row="0" 
+                        color="black" 
+                        row="0" 
                         text="{{ Username }}" 
                         autocorrect="false" 
                         hint="Username"
                         borderRadius="5"/>
-            <!-- <Label text="Password:" /> -->
-            <TextField  margin="10,0" 
+            <TextField  margin="20,0" 
                         id="password" 
                         backgroundColor="white" 
                         color="black" 
