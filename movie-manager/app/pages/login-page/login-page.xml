@@ -49,7 +49,7 @@
                     visibility="{{ IsLoading ? 'hidden' : 'visible' }}">
             <!-- <Button tap="{{ ShowRegistration }}" text="New User" class="btn" /> -->
             <Label color="#009940"
-                   font-size="60" 
+                   fontSize="24" 
                    horizontalAlignment="center" 
                    verticalAlignment="center"
                    text="New User? Click Here"
