@@ -8,19 +8,12 @@
                          class="action-wrap">
                 <Image src="res://ogm_back_arrow" height="20" width="20"/>
             </StackLayout>
-            <!-- <StackLayout tap="{{ GoToMyMovies }}"
-                         col="1"
-                         class="action-wrap"
-                         visibility="{{ Flow == MovieFlowSearch ? 'visible' : 'hidden' }}">
-                <Label text="My Movies"
-                       class="back-text"/>
-            </StackLayout> -->
         </GridLayout>
-        <GridLayout id="movie-details"
-                    padding="0,10">
+        <GridLayout id="movie-details">
             <ScrollView>
                 <GridLayout rows="auto, auto, *"
-                            visibility="{{ IsLoading ? 'hidden' : 'visible' }}">
+                            visibility="{{ IsLoading ? 'hidden' : 'visible' }}"
+                            padding="0,15">
                     <GridLayout row="0"
                                 columns="auto, *">
                         <GridLayout class="image-layout">
@@ -70,7 +63,7 @@
                     </GridLayout>
                     <GridLayout row="1"
                                 columns="*, *"
-                                padding="20,0">
+                                padding="30,0">
                         <GridLayout col="0">
                             <Button visibility="{{ !UserId || Wishlist ? 'visible' : 'hidden' }}"
                                     text="Add"
