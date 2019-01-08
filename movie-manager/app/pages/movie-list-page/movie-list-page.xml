@@ -98,7 +98,8 @@
                                        class="gnarly-text">
                 <ListView items="{{ FilteredMovies }}" 
                           itemTap="selectMovie" 
-                          class="movie-list">
+                          class="movie-list"
+                          backgroundColor="#2b2c2d">
                     <ListView.itemTemplate>
                         <mr:movie-row />
                     </ListView.itemTemplate>

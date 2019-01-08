@@ -13,7 +13,7 @@ export function navigatingTo(args: NavigatedData) {
     movieViewModel.IsLoading = true;
     page.actionBarHidden = true;
     page.bindingContext = movieViewModel;
-    //page.on(GestureTypes[GestureTypes.swipe], swipePage);
+    page.on(GestureTypes[GestureTypes.swipe], swipePage);
     movieViewModel.GetLocalDetails().then(() => {
         movieViewModel.GetOnlineDetails().then(() => {
             movieViewModel.IsLoading = false;
