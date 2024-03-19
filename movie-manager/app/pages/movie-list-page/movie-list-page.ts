@@ -1,7 +1,6 @@
-import { ItemEventData } from "tns-core-modules/ui/list-view/list-view";
+import { ItemEventData, NavigatedData, View } from "@nativescript/core";
 import { MovieViewModel } from "~/view-models/movie-view-model";
 import * as navigationModule from "~/shared/navigation";
-import { NavigatedData, View } from "tns-core-modules/ui/page/page";
 import { MovieListViewModel } from "~/view-models/movie-list-view-model";
 import { ViewOptions } from "~/shared/enums";
 
@@ -14,7 +13,6 @@ export function movieListLoaded(args: NavigatedData) {
     }
 
     root.bindingContext = movieListViewModel;
-    root.bindingContext.Init();
 }
 
 export function refreshCollection(args) {

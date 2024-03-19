@@ -1,11 +1,10 @@
-import { Observable } from 'data/observable';
-import { Page } from 'ui/page'
+import { Observable } from "@nativescript/core";
+import { Page } from "@nativescript/core";
 import { DisplayPages } from '~/shared/enums';
 
 export class MainViewModel extends Observable {
     private displayPage: string;
-
-    public Page: Page;
+    private page: Page;
 
     get DisplayPage(): string { 
         return this.displayPage;
@@ -16,6 +15,14 @@ export class MainViewModel extends Observable {
             this.displayPage = value;
             this.notifyPropertyChange('DisplayPage', value);
         }
+    }
+
+    get Page(): Page {
+        return this.page;
+    }
+
+    set Page(value: Page) {
+        this.page = value;
     }
 
     get DisplayPages(): DisplayPages {

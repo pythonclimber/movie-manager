@@ -1,5 +1,5 @@
-<Page xmlns="http://schemas.nativescript.org/tns.xsd" 
-      class="page" 
+<Page xmlns="http://schemas.nativescript.org/tns.xsd"
+      class="page"
       navigatingTo="navigatingTo">
     <StackLayout id="page-layout">
         <GridLayout class="action-bar"
@@ -86,7 +86,7 @@
                                     class="btn"
                                     ios:fontSize="18"
                                     tap="{{ RemoveFromMyCollection }}"
-                                    visibility="{{ UserId && Wishlist ? 'visible' : 'hidden'}}"/>
+                                    visibility="{{ UserId &amp;&amp; Wishlist ? 'visible' : 'hidden'}}"/>
                             <Button text="Edit Formats"
                                     class="btn"
                                     ios:fontSize="18"

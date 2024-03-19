@@ -2,12 +2,12 @@
             columns="auto, *" 
             class="movie-row"
             loaded="movieRowLoaded">
-    <GridLayout columns="auto" 
-                rows="auto, auto" 
-                class="left-pad right-pad-2x">
-        <Image src="{{ ImageSource }}" 
-               class="movie-image"/>
-    </GridLayout>
+<!--    <GridLayout columns="auto" -->
+<!--                rows="auto, auto" -->
+<!--                class="left-pad right-pad-2x">-->
+<!--        <Image src="{{ ImageSource }}" -->
+<!--               class="movie-image"/>-->
+<!--    </GridLayout>-->
     <GridLayout rows="*,auto" 
                 col="1">
         <GridLayout row="0" 
@@ -25,7 +25,7 @@
                         columns="auto,auto,auto,auto,auto">
                 <Image id="star-1" 
                        class="star-image" 
-                       col="0" 
+                       col="0"
                        src="{{ Rating >= 2 ? 'res://star_green_1024' : (Rating >= 1 ? 'res://star_half_1024' : 'res://star_white_1024') }}" />
                 <Image id="star-2" 
                        class="star-image" 
@@ -36,7 +36,7 @@
                        col="2" 
                        src="{{ Rating >= 6 ? 'res://star_green_1024' : (Rating >= 5 ? 'res://star_half_1024' : 'res://star_white_1024') }}" />
                 <Image id="star-4" 
-                       class="star-image" 
+                       class="star-image"
                        col="3" 
                        src="{{ Rating >= 8 ? 'res://star_green_1024' : (Rating >= 7 ? 'res://star_half_1024' : 'res://star_white_1024') }}" />
                 <Image id="star-5" 

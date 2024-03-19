@@ -1,6 +1,6 @@
-import { Observable } from "data/observable";
+import { Observable } from "@nativescript/core";
 import { SearchResult } from "../shared/interfaces";
-import { ImageSource } from "image-source";
+import { ImageSource } from "@nativescript/core";
 import * as imageService from '../services/image-service';
 
 

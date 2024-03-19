@@ -1,7 +1,6 @@
-import { Page, NavigatedData, EventData } from 'ui/page';
-import { MainViewModel } from '../../view-models/main-view-model';
-import { GestureEventData } from 'ui/gestures';
-import { MovieViewModel } from '../../view-models/movie-view-model';
+import { Page, NavigatedData, EventData, GestureEventData } from "@nativescript/core";
+import { MainViewModel } from '~/view-models/main-view-model';
+import { MovieViewModel } from '~/view-models/movie-view-model';
 import { RadSideDrawer } from 'nativescript-ui-sidedrawer';
 
 let sideDrawer: RadSideDrawer;
@@ -12,7 +11,7 @@ export function navigatingTo(args: NavigatedData) {
     mainViewModel = mainViewModel || new MainViewModel();
     page.bindingContext = mainViewModel;
     page.actionBarHidden = true;
-    page.bindingContext.Page = page;
+    page.bindingContext.GetPage = page;
 }
 
 export function pageLoaded(args: EventData) {

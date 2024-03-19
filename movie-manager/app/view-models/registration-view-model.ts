@@ -1,7 +1,7 @@
-import { Observable } from 'data/observable';
+import { Observable } from "@nativescript/core";
 import * as navigationModule from '../shared/navigation';
 import { LoginService } from '../services/login-service';
-import * as dialogModule from 'ui/dialogs';
+import * as dialogModule from "@nativescript/core";
 import { User } from '../shared/interfaces';
 
 export class RegistrationViewModel extends Observable {

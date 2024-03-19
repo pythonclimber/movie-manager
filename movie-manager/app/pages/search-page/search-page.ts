@@ -1,24 +1,29 @@
-import { Page, NavigatedData } from 'ui/page';
-import { SearchViewModel } from '../../view-models/search-view-model';
-import { ItemEventData } from 'ui/list-view';
-import { GestureEventData } from 'ui/gestures';
+import {
+    Page,
+    NavigatedData,
+    ItemEventData,
+    GestureEventData,
+    SearchBar,
+    EventData,
+    getViewById,
+    Utils
+} from "@nativescript/core";
+import { SearchViewModel } from '~/view-models/search-view-model';
 import * as navigationModule from '../../shared/navigation';
-import { SearchResultViewModel } from '../../view-models/search-result-view-model';
-import { MovieViewModel } from '../../view-models/movie-view-model';
-import { ViewMode, MovieFlow } from '../../shared/enums';
-import { ShowViewModel } from '../../view-models/show-view-model';
-import * as utilsModule from 'utils/utils';
-import * as viewModule from 'ui/core/view'
-import { SearchBar } from 'ui/search-bar';
+import { SearchResultViewModel } from '~/view-models/search-result-view-model';
+import { MovieViewModel } from '~/view-models/movie-view-model';
+import { ViewMode, MovieFlow } from '~/shared/enums';
+import { ShowViewModel } from '~/view-models/show-view-model';
+// import * as utilsModule from 'utils/utils';
+// import * as viewModule from 'ui/core/view'
 import { RadSideDrawer } from 'nativescript-ui-sidedrawer';
-import { EventData } from 'data/observable';
 
 let sideDrawer: RadSideDrawer;
 let searchViewModel: SearchViewModel;
 
 export function onSearchLoaded(args: NavigatedData) {
     let page = <Page>args.object;
-    let searchField = <SearchBar>viewModule.getViewById(page, 'movie-search');
+    let searchField = <SearchBar>getViewById(page, 'movie-search');
 
     searchViewModel = searchViewModel || new SearchViewModel();
 
@@ -34,7 +39,7 @@ export function onSearchLoaded(args: NavigatedData) {
         setTimeout(() => {
             try {
                 searchField.android.requestFocus();
-                utilsModule.ad.showSoftInput(searchField.android);
+                Utils.ad.showSoftInput(searchField.android);
             } catch (error) {
                 console.log('error: ', error)
             }
@@ -44,7 +49,7 @@ export function onSearchLoaded(args: NavigatedData) {
 
 export function pageLoaded(args: EventData) {
     let page = <Page>args.object;
-    let searchField = <SearchBar>viewModule.getViewById(page, 'movie-search');
+    let searchField = <SearchBar>getViewById(page, 'movie-search');
 
     sideDrawer = <RadSideDrawer>page.getViewById('sideDrawer');
 
@@ -56,7 +61,7 @@ export function pageLoaded(args: EventData) {
         setTimeout(() => {
             try {
                 searchField.android.requestFocus();
-                utilsModule.ad.showSoftInput(searchField.android);
+                Utils.ad.showSoftInput(searchField.android);
             } catch (error) {
                 console.log('error: ', error)
             }

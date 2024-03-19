@@ -1,10 +1,10 @@
-import { Observable, EventData } from "data/observable";
-import { Movie, MovieDetailResponse } from "../shared/interfaces";
-import { MovieService } from '../services/movie-service';
-import { ImageSource } from "image-source";
+import {Observable, EventData} from "@nativescript/core";
+import {Movie, MovieDetailResponse} from "~/shared/interfaces";
+import {MovieService} from '~/services/movie-service';
+import {ImageSource} from "@nativescript/core";
 import * as imageService from '../services/image-service';
 import * as navigationModule from '../shared/navigation'
-import { MovieFlow } from "../shared/enums";
+import {MovieFlow} from "~/shared/enums";
 
 export class MovieViewModel extends Observable {
     private movie: Movie;
@@ -83,10 +83,10 @@ export class MovieViewModel extends Observable {
     }
 
     set Favorite(value: boolean) {
-         if (this.movie.favorite !== value) {
-             this.movie.favorite = value;
-             this.notifyPropertyChange('Favorite', value);
-         }
+        if (this.movie.favorite !== value) {
+            this.movie.favorite = value;
+            this.notifyPropertyChange('Favorite', value);
+        }
     }
 
     get ImageSource(): ImageSource {
@@ -242,33 +242,32 @@ export class MovieViewModel extends Observable {
 
     public GetLocalDetails(): Promise<any> {
         return this.movieService.getMovie(this.movie.imdbid).then(response => {
-            if (response.success) {
-                this.UserId = response.movie.userId;
-                this.Wishlist = response.movie.wishlist;
-                this.Format = response.movie.format;
-                this.Rating = response.movie.rating;
-                this.Title = response.movie.title;
-                this.Director = response.movie.director;
-            }
+            this.UserId = response.userId;
+            this.Wishlist = response.wishlist;
+            this.Format = response.format;
+            this.Rating = response.rating;
+            this.Title = response.title;
+            this.Director = response.director;
+        }).catch(err => {
+            console.error(err);
         });
     }
 
     public GetOnlineDetails(): Promise<any> {
-        return this.movieService.getMovieDetails<MovieDetailResponse>(this.movie.imdbid).then(response => {
-                let movie = response.movie;
-                this._id = '';
-                this.Description = '';
-                this.Title = movie.title;
-                this.Plot = movie.plot;
-                this.UserId = this.UserId;
-                this.Year = movie.year;
-                this.Director = movie.director;
-                this.ImdbId = movie.imdbid;
-                this.Wishlist = this.Wishlist;
+        return this.movieService.getMovieDetails<Movie>(this.movie.imdbid).then(response => {
+            this._id = '';
+            this.Description = '';
+            this.Title = response.title;
+            this.Plot = response.plot;
+            this.UserId = this.UserId;
+            this.Year = response.year;
+            this.Director = response.director;
+            this.ImdbId = response.imdbid;
+            this.Wishlist = this.Wishlist;
 
-                //this.LoadMovieImage(movie);
+            this.LoadMovieImage(response);
         }).catch(error => {
-            console.log(error);
+            console.error(error);
         });
     }
 
@@ -315,7 +314,7 @@ export class MovieViewModel extends Observable {
     }
 
     private LoadMovieImage(movie: Movie): void {
-        if (!this.ImageSource && movie.poster && movie.poster.startsWith('https')) {
+        if (movie.poster && movie.poster.startsWith('https')) {
             imageService.getImageFromHttp(movie.poster).then(imageSource => {
                 this.ImageSource = imageSource;
             });

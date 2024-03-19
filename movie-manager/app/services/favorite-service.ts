@@ -1,4 +1,4 @@
-import { FavoriteMovie, Movie } from '../shared/interfaces';
+import { FavoriteMovie, Movie } from '~/shared/interfaces';
 import { BaseService } from './base-service';
 
 const FAVORITES_KEY: string = 'FAVORITES';

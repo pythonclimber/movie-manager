@@ -1,7 +1,7 @@
-import { Observable } from "data/observable";
-import { ViewOptions, SortModes, ViewMode, MovieFlow, FilterOptions } from "~/shared/enums";
-import { GestureEventData } from "tns-core-modules/ui/gestures/gestures";
-import { Label } from "tns-core-modules/ui/label/label";
+import { Observable } from "@nativescript/core";
+import { ViewOptions, SortModes, MovieFlow, FilterOptions } from "~/shared/enums";
+import { GestureEventData } from "@nativescript/core";
+import { Label } from "@nativescript/core";
 import { MovieViewModel } from "~/view-models/movie-view-model";
 import { MovieService } from "~/services/movie-service";
 import { Movie } from "~/shared/interfaces";
@@ -141,7 +141,7 @@ export class MovieListViewModel extends Observable {
 
     public LoadMovies(): Promise<void> {
         return this.movieService
-            .getMovies<Array<Movie>>()
+            .getMovies<Movie[]>()
             .then(movies => {
                 this.wishlist = this.wishlist.filter(w => movies.some(m => m.imdbid == w.ImdbId && m.wishlist));
                 this.wishlist = movies
@@ -157,7 +157,7 @@ export class MovieListViewModel extends Observable {
                     .sort(this.SortByTitle.bind(this));
                 this.FilterMovies();
             }).catch(error => {
-                console.log(error);
+                console.error(error);
             });
     }
 

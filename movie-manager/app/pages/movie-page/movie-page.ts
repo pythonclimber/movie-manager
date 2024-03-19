@@ -1,7 +1,6 @@
-import { GestureEventData, SwipeGestureEventData, GestureTypes } from 'ui/gestures';
+import { GestureEventData, SwipeGestureEventData, GestureTypes, Page, NavigatedData } from "@nativescript/core";
 import * as navigationModule from '../../shared/navigation';
-import { Page, NavigatedData } from 'ui/page';
-import { MovieViewModel } from '../../view-models/movie-view-model';
+import { MovieViewModel } from '~/view-models/movie-view-model';
 
 export function backTap(args: GestureEventData) {
     navigationModule.backOnePage();
@@ -13,6 +12,7 @@ export function navigatingTo(args: NavigatedData) {
     movieViewModel.IsLoading = true;
     page.actionBarHidden = true;
     page.bindingContext = movieViewModel;
+    console.log(movieViewModel.ImageSource);
     page.on(GestureTypes[GestureTypes.swipe], swipePage);
     movieViewModel.GetLocalDetails().then(() => {
         movieViewModel.GetOnlineDetails().then(() => {

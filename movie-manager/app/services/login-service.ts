@@ -1,4 +1,4 @@
-import { SavedCredentials, UsernameResponse, BaseResponse, User } from '../shared/interfaces';
+import { SavedCredentials, UsernameResponse, BaseResponse, User } from '~/shared/interfaces';
 import { BaseService } from './base-service';
 
 const CREDENTIALS_KEY: string = 'CREDENTIALS';

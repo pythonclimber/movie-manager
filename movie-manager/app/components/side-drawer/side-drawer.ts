@@ -1,7 +1,5 @@
-import { GestureEventData } from 'tns-core-modules/ui/gestures/gestures';
+import { GestureEventData, EventData, Page, Utils } from "@nativescript/core";
 import { DisplayPages, ViewOptions } from '~/shared/enums';
-import { EventData, Page } from 'ui/page';
-import * as utilsModule from 'utils/utils';
 import { RadSideDrawer } from 'nativescript-ui-sidedrawer';
 import { MainViewModel } from '~/view-models/main-view-model';
 import { MovieListViewModel } from '~/view-models/movie-list-view-model';
@@ -12,7 +10,7 @@ let page: Page;
 export function onSideDrawerLoaded(args: EventData) {
     let root = <any>args.object;
     page = <Page>root.page;
-    sideDrawer = page.getViewById('side-drawer');
+    sideDrawer = <RadSideDrawer>page.getViewById('side-drawer');
 }
 
 export function searchTap(args: GestureEventData) {
@@ -24,7 +22,7 @@ export function searchTap(args: GestureEventData) {
 
 export function goToMovies(args: GestureEventData) {
     if (page.android) {
-        utilsModule.ad.dismissSoftInput();
+        Utils.ad.dismissSoftInput();
     }
 
     let mainViewModel = <MainViewModel>page.bindingContext;
@@ -38,7 +36,7 @@ export function goToMovies(args: GestureEventData) {
 
 export function goToWishlist(args: GestureEventData) {
     if (page.android) {
-        utilsModule.ad.dismissSoftInput();
+        Utils.ad.dismissSoftInput();
     }
 
     let mainViewModel = <MainViewModel>page.bindingContext;

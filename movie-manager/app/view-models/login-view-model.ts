@@ -1,6 +1,6 @@
-import { Observable } from "data/observable";
-import { EventData } from 'ui/text-base';
-import { LoginService } from '../services/login-service';
+import { Observable } from "@nativescript/core";
+import { EventData } from "@nativescript/core";
+import { LoginService } from '~/services/login-service';
 import * as navigationModule from '../shared/navigation';
 
 export class LoginViewModel extends Observable {

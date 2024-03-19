@@ -1,6 +1,6 @@
-import { Observable } from 'data/observable'
 import { Show } from '../shared/interfaces';
 import { ShowService } from '../services/show-service';
+import { Observable } from "@nativescript/core";
 
 export class ShowViewModel extends Observable {
     private show: Show;

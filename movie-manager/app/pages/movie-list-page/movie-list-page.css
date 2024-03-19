@@ -43,3 +43,13 @@
     orientation: horizontal;
 }
 
+.star-image {
+    height: 20;
+    width: 20;
+}
+
+.star-image-tab {
+    height: 40;
+    width: 40;
+}
+

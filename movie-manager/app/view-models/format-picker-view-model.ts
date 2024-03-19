@@ -1,9 +1,9 @@
-import { Observable } from "data/observable";
+import { Observable } from "@nativescript/core";
 import * as navigationModule from '../shared/navigation';
 import { MovieViewModel } from "./movie-view-model";
-import { MovieService } from "../services/movie-service";
+import { MovieService } from "~/services/movie-service";
 import { FormatViewModel } from "./format-view-model";
-import * as dialogModule from 'ui/dialogs';
+import * as dialogModule from "@nativescript/core";
 
 
 export class FormatPickerViewModel extends Observable {

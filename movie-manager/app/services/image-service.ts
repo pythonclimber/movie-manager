@@ -1,8 +1,7 @@
-import * as httpModule from 'http';
-import { ImageSource } from 'tns-core-modules/image-source/image-source';
+import {Http, ImageSource} from "@nativescript/core";
 
 export function getImageFromHttp(url: string): Promise<ImageSource> {
-    return httpModule.getImage(url);
+    return Http.getImage(url);
 }
 
 export function getImageFromOmdb(url: string): Promise<ImageSource> {

@@ -1,5 +1,5 @@
 <StackLayout xmlns:mr="components/movie-row"
-             xmlns:PullRefresh="nativescript-pulltorefresh"
+             xmlns:PullRefresh="@nativescript-community/ui-pulltorefresh"
              loaded="movieListLoaded"
              id="movie-list">
     <GridLayout rows="auto, auto, auto"
@@ -19,7 +19,7 @@
             </GridLayout>
             <GridLayout col="1" 
                         columns="auto,auto" 
-                        visibility="{{ FilterMode == FilterOptions.All && !DisplayFilters ? 'visible' : 'collapse' }}">
+                        visibility="{{ FilterMode == FilterOptions.All &amp;&amp; !DisplayFilters ? 'visible' : 'collapse' }}">
                 <Label text="Sort:"
                        class="all-pad vertical-center"/>
                 <StackLayout col="1" 

@@ -1,5 +1,5 @@
-<Page xmlns="http://schemas.nativescript.org/tns.xsd" 
-      navigatingTo="navigatingTo" 
+<Page xmlns="http://schemas.nativescript.org/tns.xsd"
+      navigatingTo="navigatingTo"
       class="page"
       xmlns:sd="nativescript-ui-sidedrawer"
       loaded="pageLoaded"
@@ -7,13 +7,13 @@
       xmlns:sdc="components/side-drawer"
       xmlns:sp="pages/search-page"
       xmlns:mlp="pages/movie-list-page"
-      xmlns:PullRefresh="nativescript-pulltorefresh"
+      xmlns:PullRefresh="@nativescript-community/ui-pulltorefresh"
       xmlns:mr="components/movie-row">
     <StackLayout>
-    <ab:action-bar page="{{ Page }}" />
+    <ab:action-bar/>
     <sd:RadSideDrawer id="side-drawer">
         <sd:RadSideDrawer.drawerContent>
-            <sdc:side-drawer page="{{ Page }}" id="main-drawer"/>
+            <sdc:side-drawer id="main-drawer"/>
         </sd:RadSideDrawer.drawerContent>
         <sd:RadSideDrawer.mainContent>
             <GridLayout>

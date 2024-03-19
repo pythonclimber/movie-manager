@@ -1,5 +1,5 @@
-import { MovieViewModel } from "../view-models/movie-view-model";
-import { Movie, MovieDetailResponse } from "../shared/interfaces";
+import { MovieViewModel } from "~/view-models/movie-view-model";
+import { Movie, MovieDetailResponse } from "~/shared/interfaces";
 import { LoginService } from './login-service';
 import { BaseService } from './base-service';
 
@@ -63,14 +63,14 @@ export class MovieService extends BaseService {
         }
     }
 
-    getMovie(imdbid: string): Promise<MovieDetailResponse> {
+    getMovie(imdbid: string): Promise<Movie> {
         let user = this.loginService.GetSavedCredentials();
         let requestParams = {
             url: `${this.apiBaseUrl}/movie/${user.userId}/${imdbid}`,
             method: 'GET'
         };
 
-        return this.ProcessHttpCall<MovieDetailResponse>(requestParams);
+        return this.ProcessHttpCall<Movie>(requestParams);
     }
 
     addMovie(movie: MovieViewModel): Promise<Movie> {

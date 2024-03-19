@@ -1,7 +1,5 @@
 ﻿import "./bundle-config";
-import application = require('application');
-import * as navigationModule from './shared/navigation';
+import {Application } from "@nativescript/core"
 
-let mainModule = navigationModule.startingPage();
-application.setCssFileName('app.css');
-application.start({ moduleName: mainModule, backstackVisible: false });
+Application.setCssFileName('app.css');
+Application.run({ moduleName: 'app-root', backstackVisible: false });

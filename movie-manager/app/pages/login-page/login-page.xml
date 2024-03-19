@@ -1,5 +1,5 @@
-<Page xmlns="http://schemas.nativescript.org/tns.xsd" 
-      navigatingTo="navigatingTo" 
+<Page xmlns="http://schemas.nativescript.org/tns.xsd"
+      navigatingTo="navigatingTo"
       navigatedTo="navigatedTo" 
       class="page">
     <Page.actionBar>
@@ -31,7 +31,7 @@
                         autocorrect="false" 
                         hint="Password"
                         borderRadius="5"/>
-            <Label visibility="{{ LoginError ? 'visible' : 'collapse' }}" text="Invalid username or password" class="login-error" />
+<!--            <Label visibility="{{ LoginError ? 'visible' : 'collapse' }}" text="Invalid username or password" class="login-error" />-->
             <Button row="2" 
                     tap="{{ ProcessLogin }}" 
                     isEnabled="{{ !IsLoading }}" 

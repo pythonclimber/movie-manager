@@ -1,5 +1,5 @@
-import { NavigatedData, Page } from 'ui/page';
-import { RatingViewModel } from '../../view-models/rating-view-model';
+import { NavigatedData, Page } from "@nativescript/core";
+import { RatingViewModel } from '~/view-models/rating-view-model';
 
 export function navigatingTo(args: NavigatedData) {
     let page = <Page>args.object;

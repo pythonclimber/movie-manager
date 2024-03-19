@@ -1,9 +1,9 @@
-import { Observable } from "ui/frame";
+import { Observable } from "@nativescript/core";
 import { MovieService } from '../services/movie-service';
 import { SearchResult, SearchResponse } from "../shared/interfaces";
 import { SearchResultViewModel } from "./search-result-view-model";
-import { Page } from 'ui/page';
-import { SearchBar } from 'ui/search-bar';
+import { Page } from '@nativescript/core';
+import { SearchBar } from '@nativescript/core';
 import { ViewMode } from "../shared/enums";
 import { ShowService } from "../services/show-service";
 

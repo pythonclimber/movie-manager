@@ -1,7 +1,7 @@
-import { Observable } from 'data/observable';
+import { Observable } from "@nativescript/core";
 import * as navigationModule from '../shared/navigation';
 import { MovieViewModel } from './movie-view-model';
-import { MovieService } from '../services/movie-service';
+import { MovieService } from '~/services/movie-service';
 
 export class RatingViewModel extends Observable {
     private movie: MovieViewModel;

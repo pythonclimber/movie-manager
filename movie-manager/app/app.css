@@ -1,4 +1,5 @@
-﻿@import '~nativescript-theme-core/css/core.light.css';
+﻿@import '@nativescript/theme/css/core.css';
+@import '@nativescript/theme/css/default.css';
 
 .btn {
     width: 125;
@@ -115,6 +116,11 @@
 }
 
 .movie-list {
+    background-color: #2b2c2d;
+    separator-color: #999999;
+}
+
+#movie-list {
     background-color: #2b2c2d;
     separator-color: #999999;
 }

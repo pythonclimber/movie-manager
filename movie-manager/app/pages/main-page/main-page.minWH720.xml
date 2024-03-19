@@ -7,7 +7,7 @@
       xmlns:sdc="components/side-drawer"
       xmlns:sp="pages/search-page"
       xmlns:mlp="pages/movie-list-page"
-      xmlns:PullRefresh="nativescript-pulltorefresh"
+      xmlns:PullRefresh="@nativescript-community/ui-pulltorefresh"
       xmlns:mr="components/movie-row">
     <StackLayout>
     <ab:action-bar page="{{ Page }}" />

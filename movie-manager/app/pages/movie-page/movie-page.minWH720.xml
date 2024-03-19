@@ -37,7 +37,7 @@
                             <Label text="{{ Format }}" 
                                    class="director-info left-pad-2x-tab"/>
                             <GridLayout tap="{{ AddRating }}"
-                                        visibility="{{ Flow == MovieFlowCollection && !Wishlist ? 'visible' : 'collapse' }}">
+                                        visibility="{{ Flow == MovieFlowCollection &amp;&amp; !Wishlist ? 'visible' : 'collapse' }}">
                                 <GridLayout columns="auto,auto,auto,auto,auto" visibility="{{ !Rating ? 'collapse' : 'visible' }}">
                                     <Image id="star-1"
                                            class="star-image-tab"
@@ -91,7 +91,7 @@
                                     class="btn btn-tab"
                                     ios:fontSize="36"
                                     tap="{{ RemoveFromMyCollection }}"
-                                    visibility="{{ UserId && Wishlist ? 'visible' : 'hidden'}}" />
+                                    visibility="{{ UserId &amp;&amp; Wishlist ? 'visible' : 'hidden'}}" />
                             <Button text="Edit Formats"
                                     class="btn btn-tab"
                                     ios:fontSize="36"

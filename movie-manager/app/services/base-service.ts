@@ -1,6 +1,4 @@
-import * as http from 'http';
-import * as appSettingsModule from 'application-settings';
-import { ImageSource } from 'image-source';
+import { ImageSource, Http, ApplicationSettings } from "@nativescript/core";
 
 export class BaseService {
     protected apiBaseUrl: string;
@@ -9,34 +7,33 @@ export class BaseService {
     //protected imdbBaseUrl: string;
 
     constructor() {
-        this.apiBaseUrl = 'https://ohgnarly3.herokuapp.com';
-        //this.apiBaseUrl = 'http://10.0.2.2:3000';
+        this.apiBaseUrl = 'https://ohgnarly3-997217094eac.herokuapp.com';
         this.sender = 'ohGnarlyMovies';
         this.apiKey = 'QlULR6lMQ2gZqZdVplXcn6wyIrNTkGcJPHWsU+gFSFQ=';
     }
 
-    protected ProcessHttpCall<T>(requestParams: http.HttpRequestOptions): Promise<T> {
+    protected ProcessHttpCall<T>(requestParams: Http.HttpRequestOptions): Promise<T> {
         if (!requestParams.headers){
             requestParams.headers = {};
         }
         requestParams.headers['api-key'] = this.apiKey;
         requestParams.headers['sender'] = this.sender;
-        return http.request(requestParams).then(response => {
+        return Http.request(requestParams).then(response => {
             return response.content.toJSON() as T;
         });
     }
 
     protected GetImage(url: string): Promise<ImageSource> {
-        return http.getImage(url);
+        return Http.getImage(url);
     }
 
     protected PersistAppSetting(key: string, value: any): void {
         let jsonString = JSON.stringify(value);
-        appSettingsModule.setString(key, jsonString);
+        ApplicationSettings.setString(key, jsonString);
     }
 
     protected GetAppSetting<T>(key: string): T {
-        let jsonString = appSettingsModule.getString(key);
+        let jsonString = ApplicationSettings.getString(key);
         let value = <T>JSON.parse(jsonString);
         return value;
     }
