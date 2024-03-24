@@ -12,6 +12,7 @@ export function movieListLoaded(args: NavigatedData) {
         movieListViewModel = new MovieListViewModel(ViewOptions.All);
     }
 
+    movieListViewModel.Init();
     root.bindingContext = movieListViewModel;
 }
 

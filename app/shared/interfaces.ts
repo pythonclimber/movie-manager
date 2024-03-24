@@ -83,7 +83,7 @@ export interface Media {
 }
 
 export interface MovieDetailResponse {
-    success: boolean;
+    found: boolean;
     movie: Movie;
 }
 

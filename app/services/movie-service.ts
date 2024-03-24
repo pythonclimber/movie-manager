@@ -63,22 +63,22 @@ export class MovieService extends BaseService {
         }
     }
 
-    getMovie(imdbid: string): Promise<Movie> {
+    getMovie(imdbid: string): Promise<MovieDetailResponse> {
         let user = this.loginService.GetSavedCredentials();
         let requestParams = {
             url: `${this.apiBaseUrl}/movie/${user.userId}/${imdbid}`,
             method: 'GET'
         };
 
-        return this.ProcessHttpCall<Movie>(requestParams);
+        return this.ProcessHttpCall<MovieDetailResponse>(requestParams);
     }
 
     addMovie(movie: MovieViewModel): Promise<Movie> {
         let user = this.loginService.GetSavedCredentials();
         let data: Movie = {
+            _id: undefined,
             title: movie.Title,
             description: '',
-            _id: '',
             userId: user.userId,
             director: movie.Director,
             imdbid: movie.ImdbId,

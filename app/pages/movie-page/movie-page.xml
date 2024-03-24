@@ -6,7 +6,7 @@
                     columns="*, auto">
             <StackLayout tap="backTap"
                          class="action-wrap">
-                <Image src="res://ogm_back_arrow" height="20" width="20"/>
+                <Image src="res://ogm_back_arrow_green" height="20" width="20"/>
             </StackLayout>
         </GridLayout>
         <GridLayout id="movie-details">

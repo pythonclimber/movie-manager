@@ -12,7 +12,6 @@ export function navigatingTo(args: NavigatedData) {
     movieViewModel.IsLoading = true;
     page.actionBarHidden = true;
     page.bindingContext = movieViewModel;
-    console.log(movieViewModel.ImageSource);
     page.on(GestureTypes[GestureTypes.swipe], swipePage);
     movieViewModel.GetLocalDetails().then(() => {
         movieViewModel.GetOnlineDetails().then(() => {
@@ -22,6 +21,7 @@ export function navigatingTo(args: NavigatedData) {
 }
 
 export function swipePage(args: SwipeGestureEventData) {
-    console.log('swiping');
-    console.log(args.direction);
+    if (args.direction === 1) {
+        navigationModule.backOnePage();
+    }
 }

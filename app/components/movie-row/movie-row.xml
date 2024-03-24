@@ -2,10 +2,11 @@
             columns="auto, *" 
             class="movie-row"
             loaded="movieRowLoaded">
-<!--    <GridLayout columns="auto" -->
-<!--                rows="auto, auto" -->
-<!--                class="left-pad right-pad-2x">-->
-<!--        <Image src="{{ ImageSource }}" -->
+<!--    <GridLayout columns="auto"-->
+<!--                rows="auto, auto"-->
+<!--                class="left-pad right-pad-2x"-->
+<!--                visibility="{{ ShowImage ? 'collapse' : 'visible'  }}">-->
+<!--        <Image src="{{ ImageSource }}"-->
 <!--               class="movie-image"/>-->
 <!--    </GridLayout>-->
     <GridLayout rows="*,auto" 

@@ -14,8 +14,6 @@ import { SearchResultViewModel } from '~/view-models/search-result-view-model';
 import { MovieViewModel } from '~/view-models/movie-view-model';
 import { ViewMode, MovieFlow } from '~/shared/enums';
 import { ShowViewModel } from '~/view-models/show-view-model';
-// import * as utilsModule from 'utils/utils';
-// import * as viewModule from 'ui/core/view'
 import { RadSideDrawer } from 'nativescript-ui-sidedrawer';
 
 let sideDrawer: RadSideDrawer;

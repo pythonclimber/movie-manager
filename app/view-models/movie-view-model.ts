@@ -1,7 +1,6 @@
-import {Observable, EventData} from "@nativescript/core";
-import {Movie, MovieDetailResponse} from "~/shared/interfaces";
+import {ImageSource, Observable} from "@nativescript/core";
+import {Movie} from "~/shared/interfaces";
 import {MovieService} from '~/services/movie-service';
-import {ImageSource} from "@nativescript/core";
 import * as imageService from '../services/image-service';
 import * as navigationModule from '../shared/navigation'
 import {MovieFlow} from "~/shared/enums";
@@ -10,10 +9,18 @@ export class MovieViewModel extends Observable {
     private movie: Movie;
     private imageSource: ImageSource;
     private isLoading: boolean;
-    private movieService: MovieService;
     private isPaused: boolean;
     private flow: string;
     private isMine: boolean;
+    private showImage: boolean;
+
+    get ShowImage(): boolean {
+        return this.showImage;
+    }
+
+    set ShowImage(value: boolean) {
+        this.showImage = value;
+    }
 
     get Movie(): Movie {
         return this.movie;
@@ -151,6 +158,7 @@ export class MovieViewModel extends Observable {
     set Wishlist(value: boolean) {
         if (value !== this.movie.wishlist) {
             this.movie.wishlist = value;
+            this.notifyPropertyChange('Wishlist', value);
         }
     }
 
@@ -221,19 +229,17 @@ export class MovieViewModel extends Observable {
         return MovieFlow.Collection;
     }
 
-    constructor(movie: Movie, flow: string) {
+    constructor(movie: Movie, flow: string, private movieService: MovieService = null) {
         super();
         this.movie = movie;
-        this.movieService = new MovieService();
         this.flow = flow;
+        this.isMine = flow === MovieFlow.Collection && !this.Wishlist;
 
-        this.isMine = flow === this.MovieFlowCollection && !this.Wishlist;
+        this.movieService = movieService || new MovieService();
 
         if (!this.movie.rating) {
             this.movie.rating = 0;
         }
-
-        //this.movie.title = this.movieService.FormatTitle(this.movie.title);
 
         this.Plot = this.Plot || '';
 
@@ -242,12 +248,14 @@ export class MovieViewModel extends Observable {
 
     public GetLocalDetails(): Promise<any> {
         return this.movieService.getMovie(this.movie.imdbid).then(response => {
-            this.UserId = response.userId;
-            this.Wishlist = response.wishlist;
-            this.Format = response.format;
-            this.Rating = response.rating;
-            this.Title = response.title;
-            this.Director = response.director;
+            if (response.found) {
+                this.UserId = response.movie.userId;
+                this.Wishlist = response.movie.wishlist;
+                this.Format = response.movie.format;
+                this.Rating = response.movie.rating;
+                this.Title = response.movie.title;
+                this.Director = response.movie.director;
+            }
         }).catch(err => {
             console.error(err);
         });
@@ -276,13 +284,13 @@ export class MovieViewModel extends Observable {
         this.movieService.toggleFavorite(this.UserId, this.ImdbId, this.Favorite);
     }
 
-    public AddToMyCollection(args: EventData) {
+    public AddToMyCollection() {
         navigationModule.showFormatPicker(this);
     }
 
-    public RemoveFromMyCollection(args: EventData) {
+    public RemoveFromMyCollection() {
         this.IsPaused = true;
-        this.movieService.deleteMovie(this).then(response => {
+        this.movieService.deleteMovie(this).then(() => {
             this.UserId = '';
             this.Wishlist = false;
             this.IsPaused = false;
@@ -292,12 +300,14 @@ export class MovieViewModel extends Observable {
         });
     }
 
-    public AddToWishlist(args: EventData) {
+    public AddToWishlist() {
         this.IsPaused = true;
         this.Wishlist = true;
         this.movieService.addMovie(this).then(movie => {
             this.UserId = movie.userId;
             this.IsPaused = false;
+        }).catch(err => {
+            console.error(err);
         });
     }
 

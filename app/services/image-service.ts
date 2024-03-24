@@ -1,7 +1,6 @@
 import {Http, ImageSource} from "@nativescript/core";
 
 export function getImageFromHttp(url: string): Promise<ImageSource> {
-    Http.get
     return Http.getImage(url);
 }
 
