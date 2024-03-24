@@ -1,4 +1,6 @@
 {
+	"main": "app/app.ts",
+	"name": "ohgnarly-movie-manager",
 	"description": "NativeScript Application",
 	"license": "SEE LICENSE IN <your-license-filename>",
 	"readme": "NativeScript Application",
@@ -20,6 +22,5 @@
 		"lazy": "1.0.11",
 		"nativescript-dev-typescript": "^0.7.4",
 		"typescript": "~4.8.4"
-	},
-	"main": "./app/app.ts"
+	}
 }
