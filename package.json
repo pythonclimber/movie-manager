@@ -10,6 +10,8 @@
 		"nativescript-ui-sidedrawer": "^15.2.3"
 	},
 	"devDependencies": {
+		"@nativescript/preview-cli": "1.0.5",
+		"@nativescript/stackblitz": "0.0.8",
 		"@nativescript/ios": "8.6.4",
 		"@nativescript/webpack": "~5.0.0",
 		"babel-traverse": "6.26.0",
